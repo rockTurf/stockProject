@@ -1,0 +1,43 @@
+<div class="widget">
+<div class="widget-head">
+	<div class="pull-left">用户列表</div>
+	<div class="widget-icons pull-right">
+		<a href="#" class="wminimize"><i class="icon-chevron-up"></i>
+		</a> <a href="#" class="wclose"><i class="icon-remove"></i>
+		</a>
+	</div>
+	<div class="clearfix"></div>
+</div>
+<div class="widget-content">
+	<table class="table table-striped table-bordered table-hover">
+		<thead>
+			<tr>
+				<th>角色名</th>
+				<th>备注</th>
+				<th>操作</th>
+			</tr>
+		</thead>
+		@for(item in page.list){
+		<tbody>
+			<tr>
+				<td>${item.name!}</td>
+				<td>${item.remark!}</td>
+				<td>
+				<button class="btn btn-xs btn-warning" data-mode="page" data-title="基本信息编辑"
+							data-url="${ctxPath}/userRole/detail"
+							data-data="{id:'${item.id}'}" data-height="45%" data-width="40%">
+				<i class="fa fa-pencil"></i>
+				</button>
+				<button class="btn btn-xs btn-primary" data-mode="page" data-title="权限编辑-${item.name}"
+						data-url="${ctxPath}/userRole/resource"
+						data-data="{id:'${item.id}'}" data-height="85%" data-width="80%">
+					<i class="fa fa-plus"></i>
+				</button>
+				</td>
+			</tr>
+			@}
+		</tbody>
+	</table>
+	<#paginate page="${page}" />
+</div>
+</div>

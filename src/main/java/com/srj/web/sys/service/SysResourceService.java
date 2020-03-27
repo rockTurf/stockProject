@@ -2,19 +2,10 @@
 
 package com.srj.web.sys.service;
 
-import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.srj.common.constant.Constant;
-import com.srj.common.utils.TreeUtils;
 import com.srj.web.sys.model.SysResource;
 import com.srj.web.sys.model.SysUser;
 
-
-import javax.annotation.Resource;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -25,16 +16,13 @@ import java.util.Map;
 
 public interface SysResourceService {
 
-
 	/**
 	 * 根据用户id得到用户持有的菜单资源
-	 * @return
 	 */
 	List<SysResource> findUserMenuByUserId(SysUser sysUser);
 	
 	/**
 	 * 根据用户id得到用户持有的按钮资源
-	 * @return
 	 */
 	List<SysResource> findUserButtonByUserId(SysUser sysUser);
 
@@ -50,15 +38,15 @@ public interface SysResourceService {
 	 * 获取全部资源list形式
 	 * @return
 	 */
-	public List<SysResource> getAllResourcesList();
+	List<SysResource> getAllResourcesList();
 	/**
 	 * 获取菜单树
 	 */
-	public List<SysResource> getMenuTree();
+	List<SysResource> getMenuTree();
 
 	/**
 	 * 新增菜单栏
 	 * */
-	public Integer saveRecord(SysResource record);
+	Integer saveRecord(SysResource record);
 
 }

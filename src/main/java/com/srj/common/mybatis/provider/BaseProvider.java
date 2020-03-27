@@ -13,15 +13,6 @@ public class BaseProvider {
 	private static final ObjectFactory DEFAULT_OBJECT_FACTORY = new DefaultObjectFactory();
     private static final ObjectWrapperFactory DEFAULT_OBJECT_WRAPPER_FACTORY = new DefaultObjectWrapperFactory();
 
-    /**
-     * 反射对象，增加对低版本Mybatis的支持
-     *
-     * @param object 反射对象
-     * @return
-     */
-    public static MetaObject forObject(Object object) {
-        return MetaObject.forObject(object, DEFAULT_OBJECT_FACTORY, DEFAULT_OBJECT_WRAPPER_FACTORY);
-    }
 
     protected Class<?> getEntityClass(Map<String, Object> params) {
         if (params.containsKey("record")) {

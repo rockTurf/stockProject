@@ -13,9 +13,7 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.ServletContextAware;
 
-import com.srj.common.beetl.utils.BeetlUtils;
 import com.srj.common.constant.Constant;
-import com.srj.web.sys.model.SysResource;
 
 @Component
 public class ApplicationContextInitListener implements

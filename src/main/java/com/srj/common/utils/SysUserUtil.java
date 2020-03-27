@@ -19,7 +19,6 @@ import com.srj.web.sys.model.SysResource;
 import com.srj.web.sys.model.SysUser;
 import com.srj.web.sys.service.SysResourceService;
 import com.srj.common.spring.utils.SpringContextHolder;
-import com.srj.common.utils.CacheUtils;
 
 
 /**
@@ -31,7 +30,7 @@ public class SysUserUtil {
 	
 	private static final Logger logger = LoggerFactory.getLogger(SysUserUtil.class);
 
-	static SysResourceService sysResourceService = SpringContextHolder.getBean("sysResourceService");
+	static SysResourceService sysResourceService = SpringContextHolder.getBean("sysResourceServiceImpl");
 	
 	
 	 
@@ -55,7 +54,6 @@ public class SysUserUtil {
 	 * session中的用户
 	 */
 	public static SysUser getSessionLoginUser(){
-
 		SysUser u= (SysUser) getSession().getAttribute(Constant.SESSION_LOGIN_USER);
 		return u;
 	}
@@ -83,20 +81,20 @@ public class SysUserUtil {
 	/**
 	 * 清除缓存中的用户
 	 */
-	public static void clearCacheUser(Long userId){
+	/*public static void clearCacheUser(Long userId){
 		CacheUtils.evict(Constant.CACHE_SYS_USER,userId.toString());
-	}
+	}*/
 	/**
 	 * 从缓存中取登录的用户
 	 */
 	public static SysUser getCacheLoginUser(){
-		try {
+		/*try {
 			if (getSessionLoginUser() != null) {
 				return CacheUtils.get(Constant.SESSION_LOGIN_USER,
 						getSessionLoginUser().getId().toString());
 			}
 		} catch (Exception e) {
-		}
+		}*/
 		return null;
 	}
 
@@ -106,7 +104,7 @@ public class SysUserUtil {
 	public static List<SysResource> getUserMenus() {
 		SysUser sysUser = SysUserUtil.getSessionLoginUser();
 		List<SysResource> userMenus = sysResourceService.findUserMenuByUserId(sysUser);
-		userMenus = TreeUtils.toTreeNodeList(userMenus,SysResource.class);
+		userMenus = TreeUtils.toTreeNodeList(userMenus);
 		return userMenus;
 	}
 

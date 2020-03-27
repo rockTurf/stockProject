@@ -1,11 +1,9 @@
 package com.srj.common.utils;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import com.srj.common.base.BaseEntity;
+import com.srj.web.sys.model.SysResource;
 
 @SuppressWarnings({"unchecked"})
 public class TreeUtils {
@@ -16,12 +14,9 @@ public class TreeUtils {
 	* @param list
 	* @return
 	 */
-	public static <T extends BaseEntity> List<T> toTreeNodeList(List<T> source,Class<T> bean){
+	/*public static <T extends BaseEntity> List<T> toTreeNodeList(List<T> source,Class<T> bean){
 		
 		final Map<Long, T> nodes = new HashMap<Long, T>();
-		
-		/*//深度copy一个，防止源list内部结构改变
-		List<T> list = Collections3.copyTo(source, bean);*/
 		
 		//所有节点记录下来
 		for(T node : source){
@@ -55,10 +50,10 @@ public class TreeUtils {
 		}
 
 		return (List<T>) root.get("children");
-	}
+	}*/
 	
 	//递归找level
-	private static <T extends BaseEntity> int resolveLevel(final T node, final Map<Long, T> nodes){
+	/*private static <T extends BaseEntity> int resolveLevel(final T node, final Map<Long, T> nodes){
 		//System.out.println(node.getIntValue("level"));
 		int level = 1;
 		if(node != null){
@@ -75,6 +70,43 @@ public class TreeUtils {
 		    }
 		}
 	    return level;
+	}*/
+
+	/**
+	 * 转换成List形式树结构 (如果是缓存的list，请务必深度copy一个)
+	 * @param allList
+	 * @return
+	 */
+    public static List<SysResource> toTreeNodeList(List<SysResource> allList) {
+    	/**
+		 * 深度copy
+		 * */
+    	List<SysResource> copyList = new ArrayList(Arrays.asList(new String[allList.size()]));
+		Collections.copy(copyList,allList);
+
+		//递归
+		List<SysResource> treeList = new ArrayList<>();
+		for (SysResource treeNode : copyList) {
+			if ("0".equals(treeNode.getParentId())) {
+				treeList.add(findChildren(treeNode, copyList));
+			}
+		}
+		return treeList;
+    }
+	/**
+	 * 递归查找子节点
+	 * @param treeNodes
+	 * @return
+	 */
+	public static SysResource findChildren(SysResource treeNode,List<SysResource> treeNodes) {
+		for (SysResource it : treeNodes) {
+			if(treeNode.getId().equals(it.getParentId())) {
+				if (treeNode.getChildren() == null) {
+					treeNode.setChildren(new ArrayList<>());
+				}
+				treeNode.getChildren().add(findChildren(it,treeNodes));
+			}
+		}
+		return treeNode;
 	}
-	
 }

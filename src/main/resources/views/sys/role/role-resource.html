@@ -1,0 +1,101 @@
+<div>
+	<ul id="myTab" class="nav nav-tabs">
+		<li class="active"><a href="#home" data-toggle="tab">菜单列表</a>
+		</li>
+	</ul>
+
+	<div class="matter">
+		<div id="myTabContent" class="tab-content">
+			<div class="tab-pane fade in active" id="home">
+				<div class="content_wrap">
+					<div class="zTreeDemoBackground left">
+						<ul id="treeDemo" class="ztree"></ul>
+					</div>
+					<form id="edit-res-form" role="form"
+						  action="${ctxPath!}/userRole/saveRes" method="post">
+						<input type="hidden" id="resIds" name="resIds" value="${resIds}">
+						<input type="hidden" id="id" name="id" value="${role.id!}">
+					</form>
+				</div>
+			</div>
+			<#save  formId="edit-res-form"
+			config="true">
+		</#save>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	<!--
+	var setting = {
+		view: {
+			selectedMulti: false
+		},
+		check: {
+			enable: true
+		},
+		data: {
+			simpleData: {
+				enable: true
+			}
+		},
+		callback: {
+			onCheck: onCheck
+		}
+	};
+
+	/* var zNodes =[
+		{ id:1, pId:0, name:"随意勾选 1", open:true},
+		{ id:11, pId:1, name:"随意勾选 1-1"},
+		{ id:12, pId:1, name:"随意勾选 1-2", open:true},
+		{ id:121, pId:12, name:"随意勾选 1-2-1"},
+		{ id:122, pId:12, name:"随意勾选 1-2-2"}
+	]; */
+	var zNodes = ${menuList!};
+
+	var code, log, className = "dark";	function beforeCheck(treeId, treeNode) {
+
+		className = (className === "dark" ? "":"dark");
+
+		return (treeNode.doCheck !== false);
+	}
+
+	function onCheck(e) {
+		var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+		var nodes = treeObj.getCheckedNodes(true);
+		var res_ids = "";
+		for(var i=0;i<nodes.length;i++){
+			var node = nodes[i];
+			res_ids += node.id + ",";
+		}
+		if(res_ids.length>0){
+			res_ids = res_ids.substr(0, res_ids.length - 1);
+		}
+		console.info('res_ids='+res_ids);
+		document.getElementById("resIds").value=res_ids;
+	}
+
+	function checkNode(e) {
+		console.info('');
+	}
+
+	function setAutoTrigger(e) {
+		var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+		zTree.setting.check.autoCheckTrigger = $("#autoCallbackTrigger").attr("checked");
+		$("#autoCheckTriggerValue").html(zTree.setting.check.autoCheckTrigger ? "true" : "false");
+	}
+
+	$.fn.zTree.init($("#treeDemo"), setting, zNodes);
+	$("#checkTrue").bind("click", {type:"checkTrue"}, checkNode);
+	$("#checkFalse").bind("click", {type:"checkFalse"}, checkNode);
+	$("#toggle").bind("click", {type:"toggle"}, checkNode);
+	$("#checkTruePS").bind("click", {type:"checkTruePS"}, checkNode);
+	$("#checkFalePS").bind("click", {type:"checkFalsePS"}, checkNode);
+	$("#togglePS").bind("click", {type:"togglePS"}, checkNode);
+	$("#checkAllTrue").bind("click", {type:"checkAllTrue"}, checkNode);
+	$("#checkAllFalse").bind("click", {type:"checkAllFalse"}, checkNode);
+
+	$("#autoCallbackTrigger").bind("change", {}, setAutoTrigger);
+	//--
+
+
+</SCRIPT>

@@ -11,9 +11,17 @@ import org.springframework.web.context.request.WebRequest;
  */
 public class BindingInitializer implements WebBindingInitializer {
 	/**
+	 * 初始化数据绑定 2020-03-23 改
+	 */
+	@Override
+	public void initBinder(WebDataBinder webDataBinder) {
+		webDataBinder.registerCustomEditor(Date.class, new DateTypeEditor());
+	}
+
+	/**
 	 * 初始化数据绑定
 	 */
-	public void initBinder(WebDataBinder binder, WebRequest request) {
+	/*public void initBinder(WebDataBinder binder, WebRequest request) {
 		binder.registerCustomEditor(Date.class, new DateTypeEditor());
-	}
+	}*/
 }

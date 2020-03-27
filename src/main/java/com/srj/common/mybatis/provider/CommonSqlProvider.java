@@ -46,39 +46,4 @@ public class CommonSqlProvider extends BaseProvider{
 		}}.toString();
 	}
 	
-	
-	@SuppressWarnings("unchecked")
-	public String findEntityListByDataScope(final Map<String, Object> params){
-		Map<String,Object> map = (Map<String, Object>)params.get("record");
-		map.put(Constant.FIELD_DEL_FLAG, Constant.DEL_FLAG_NORMAL);
-		String sql = "";
-		if(map.containsKey("userDataScope")){
-			sql = map.get("userDataScope").toString();
-		}
-		final String dataScope = sql;
-		return new SQL(){{
-			Object entity = getEntity(params);
-            Class<?> entityClass = getEntityClass(params);
-            EntityHelper.EntityTable entityTable = EntityHelper.getEntityTable(entityClass);
-            SELECT(EntityHelper.getAllColumns(entityClass));
-            FROM(entityTable.getName());
-            if (entity != null) {
-                final MetaObject metaObject = forObject(entity);
-                for (EntityHelper.EntityColumn column : entityTable.getEntityClassColumns()) {
-                    Object value = metaObject.getValue(column.getProperty());
-                    if (column.getJavaType().equals(String.class)) {
-                        if (isNotEmpty((String) value)) {
-                            WHERE(column.getColumn() + "=#{record." + column.getProperty() + "}");
-                        }
-                    } else if (value != null) {
-                        WHERE(column.getColumn() + "=#{record." + column.getProperty() + "}");
-                    }
-                }
-            }
-            if(StringUtils.isNotBlank(dataScope)){
-            	WHERE(dataScope);
-            }
-		}}.toString();
-	}
-	
 }

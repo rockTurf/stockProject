@@ -1,6 +1,5 @@
 package com.srj.common.utils;
 
-import static com.google.common.base.Preconditions.checkNotNull;
 import static java.lang.System.err;
 
 import java.io.BufferedInputStream;
@@ -40,7 +39,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.google.common.io.Files;
 import com.srj.common.base.UploadFile;
 import com.srj.common.spring.utils.SpringContextHolder;
 
@@ -682,13 +680,7 @@ public class FileUtil extends org.apache.commons.io.FileUtils {
 		return filePath.substring(index + dirPaths.length());
 	}
 	
-	public static String getAbsolutePath(String urlPath) {
-		if(StringUtils.isBlank(urlPath)) {
-			return "";
-		} else {
-			return SpringContextHolder.getRootRealPath() + urlPath.substring(urlPath.indexOf("/", 1), urlPath.length());
-		}
-	}
+
 	
 	/**
 	 * 将内容写入文件
@@ -991,21 +983,6 @@ public class FileUtil extends org.apache.commons.io.FileUtils {
 			//Logger.getLogger(FileUtils.class).warn("文件打包时异常:", e);
 		}
 	}
-	
-	public static void fileWrite(final String fileName, final String contents){
-	      checkNotNull(fileName, "Provided file name for writing must NOT be null.");
-	      checkNotNull(contents, "Unable to write null contents.");
-	      final File newFile = new File(fileName);
-	      try
-	      {
-	         Files.write(contents.getBytes("utf-8"), newFile);
-	      }
-	      catch (IOException fileIoEx)
-	      {
-	         err.println(  "ERROR trying to write to file '" + fileName + "' - "
-	                     + fileIoEx.toString());
-	      }
-	   }
 	
 	/**
 	 * 下载(流的方式)

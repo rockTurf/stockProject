@@ -1,0 +1,120 @@
+<div>
+	<ul id="myTab" class="nav nav-tabs">
+		<li class="active"><a href="#home" data-toggle="tab">新闻列表</a>
+		</li>
+		<li><a href="#add" data-toggle="tab">新增新闻</a></li>
+	</ul>
+
+	<div class="matter">
+		<div id="myTabContent" class="tab-content">
+			<div class="tab-pane fade in active" id="home">
+				<div class="widget-head">
+					<div class="widget">
+						<div class="widget-head">
+							<div class="pull-left">搜索框</div>
+							<div class="widget-icons pull-right">
+								<a href="#" class="wminimize"><i class="icon-chevron-up"></i>
+								</a> <a href="#" class="wclose"><i class="icon-remove"></i> </a>
+							</div>
+							<div class="clearfix"></div>
+						</div>
+						<div class="widget-content">
+							<div class="padd">
+								<div class="form quick-post">
+									<!-- Edit profile form (not working)-->
+									<form class="form-horizontal" action="${ctxPath}/news/list"
+										method="post" id="search-form" target="list-page">
+										<!-- search -->
+										<div class="form-group">
+											<div class="col-lg-9">
+											<label class="control-label">标 题：</label>
+											<input type="text" name="title" /> 
+											<button type="button" class="btn btn-success" 
+											onclick="getTotalList('search-form','search-btn')"	readonly>全部</button>
+											<button type="button" class="btn btn-success" id="search-btn"
+											readonly>查询</button>
+											</div>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="clearfix"></div>
+					<div id="list-page"></div>
+				</div>
+			</div>
+			<div class="tab-pane fade" id="add">
+				<div class="widget wgreen">
+					<div class="widget-head">
+						<div class="pull-left">新增新闻</div>
+						<div class="clearfix"></div>
+					</div>
+					<div class="widget-content">
+						<div class="padd">
+							<!-- Form starts.  -->
+							<form class="form-horizontal" role="form" id="save-form"
+								action="${ctxPath!}/news/save" method="post">
+								<div class="form-group">
+									<label class="col-lg-4 control-label">标 题</label>
+									<div class="col-lg-8">
+										<input type="text" name="title" id="name" datatype="*"
+											nullmsg="此项必填！"  placeholder="请输入新闻标题" class="form-control">
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-lg-4 control-label">内容</label>
+									  <div class="col-lg-8">
+                                   	  <textarea class="form-control" name="content" datatype="*"
+											nullmsg="此项必填！" rows="3" placeholder="请输入新闻内容"></textarea>
+                                  </div>
+								</div>
+								<div class="form-group">
+									<label class="col-lg-4 control-label">新闻时间</label>
+									<div class="form-group">
+						                <div class="input-group date form_date col-md-5" data-link-field="dtp_input2">
+						                    <input class="form-control" size="16" type="text" name="news_time" readonly>
+						                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+						                </div>
+						            </div>
+								</div>
+								<div class="form-group">
+									<label class="col-lg-4 control-label">作者</label>
+									<div class="col-lg-8">
+										<input type="text" name="author" class="form-control">
+									</div>
+								</div>
+								<div>
+									<span class="btn btn-info btn-block " 
+										style="background-color:#f8ac59" id="save-btn">保 存</span>
+								</div>
+								<#save isHide="yes" subBtnId="save-btn" formId="save-form"
+									 config="true">
+								</#save>
+							</form>
+						</div>
+					</div>
+					<div class="widget-foot">
+						<!-- Footer goes here -->
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+$("#search-form").getPageList({'submitBtnId':'search-btn'});
+
+$('.form_date').datetimepicker({
+        format: 'yyyy-mm-dd hh:ii',
+        language:  'cn',
+        weekStart: 1,
+        todayBtn:  1,
+		autoclose: 1,
+		todayHighlight: 1,
+		startView: 0,
+		minView: 2,
+		forceParse: 0
+});
+
+ </script>

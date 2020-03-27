@@ -20,26 +20,26 @@ public class BaseEntity extends JSONObject {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY) 
     private Long id; //id <主键id>
-	
+
 	@Transient
 	private String userDataScope; //用户的数据范围
 	
 	public BaseEntity() {
 		super();
 	}
-	
+
 	public Long getId() {
 		return this.getLong("id");
     }
-   
+
     public void setId(Long id) {
 		this.set("id", id);
     }
-	
+
     public String getUserDataScope() {
 		return this.getString("userDataScope");
     }
-   
+
     public void setUserDataScope(String userDataScope) {
 		this.set("userDataScope", userDataScope);
     }
@@ -53,7 +53,7 @@ public class BaseEntity extends JSONObject {
 		if (value instanceof BaseEntity) {
 			return (BaseEntity) value;
 		}
-		
+
 		JSONObject jobj = null;
 
 		if (value instanceof JSONObject) {
