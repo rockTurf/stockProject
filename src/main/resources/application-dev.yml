@@ -19,7 +19,9 @@ logging:
   level:
     com:
       example:
-        mapper : debug
+        mapper : info
+        demo:
+          dao: debug
     org:
       springframework:
         web:
@@ -28,3 +30,5 @@ logging:
               method:
                 annotation:
                   RequestMappingHandlerMapping: trace
+
+#ehcache

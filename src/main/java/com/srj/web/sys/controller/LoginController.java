@@ -53,27 +53,30 @@ public class LoginController {
 	}
 	
 	
-	/*@RequestMapping(value = "/loginCheck")
+	@RequestMapping(value = "/loginCheck")
 	public @ResponseBody Map<String, Object> checkLogin(@RequestParam Map<String,Object> params,Model model,HttpServletRequest request,HttpServletResponse response){
 		String remPwd = params.get("remPwd").toString();
 		Map<String, Object> msg = new HashMap<String, Object>();
-		SysUser user= sysUserService.CheckUser(params);
+		SysUser user= sysUserService.CheckUser(params.get("loginName").toString());
 		//数据库取到对应的用户信息不为空 判断
 		if(user!=null){
 			//校验密码 b=true为密码匹配
 			params.put("userId", user.getId());
-			boolean b = sysUserService.CheckPassword(params);
+			boolean b = sysUserService.CheckPassword(user,params.get("loginPwd").toString());
 			if(b){//校验通过
 				msg.put("success", "登录成功！");
 				//将用户信息 存储到session中;
 				SysUserUtil.setSessionLoginUser(user);
 				//判断是否是是否点击了记住密码   
 				if("yes".equals(remPwd)){
+				    //存cookie
 					 response.addCookie(new Cookie(Constant.SET_COOKIE_USERNAME,(String)params.get("loginName")));
 					 response.addCookie(new Cookie(Constant.SET_COOKIE_PASSWORD,(String)params.get("loginPwd")));
+                    response.addCookie(new Cookie(Constant.SET_COOKIE_REM_PWD,remPwd));
 				}else{
 					response.addCookie(new Cookie(Constant.SET_COOKIE_USERNAME,""));
 					response.addCookie(new Cookie(Constant.SET_COOKIE_PASSWORD,""));
+                    response.addCookie(new Cookie(Constant.SET_COOKIE_REM_PWD,""));
 				}
 			}else{//校验不通过
 				msg.put("error", "密码错误！");
@@ -82,7 +85,7 @@ public class LoginController {
 			msg.put("error", "找不到用户！");
 		}
 		return msg;
-	}*/
+	}
 
 	
 	@RequestMapping(value = "/login", method = RequestMethod.GET)

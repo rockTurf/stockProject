@@ -8,9 +8,10 @@ public class Constant {
 	
 	private static Properties props = null;
 
-	// 用cookie 记录登录用户的用户名 和 密码
-	public static final String SET_COOKIE_USERNAME = "CookieRemUserName";
-	public static final String SET_COOKIE_PASSWORD = "CookieRemUserPwd";
+	// 用cookie 记录登录用户的用户名 和 密码 以及 记住密码
+	public static final String SET_COOKIE_USERNAME = "CookieUserName";
+	public static final String SET_COOKIE_PASSWORD = "CookieUserPwd";
+	public static final String SET_COOKIE_REM_PWD = "CookieRemPwd";
 	
 	
 	// 删除标记（0：正常；1：删除；2：审核；）

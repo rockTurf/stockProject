@@ -10,7 +10,7 @@ public interface SysUserService {
 
 	SysUser CheckUser(String loginName);
 	//校验密码
-	boolean CheckPassword(String loginPwd,String loginName);
+	boolean CheckPassword(SysUser user,String loginPwd);
 	//显示用户列表
 	PageInfo<SysUser> findPageInfo(Map<String, Object> params);
 	//增加用户

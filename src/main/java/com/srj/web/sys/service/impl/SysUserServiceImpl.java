@@ -1,6 +1,7 @@
 package com.srj.web.sys.service.impl;
 
 import com.github.pagehelper.PageInfo;
+import com.srj.common.base.PasswordEncoder;
 import com.srj.web.sys.mapper.SysUserMapper;
 import com.srj.web.sys.model.SysUser;
 import com.srj.web.sys.service.SysUserService;
@@ -22,8 +23,13 @@ public class SysUserServiceImpl implements SysUserService {
     }
     //校验密码
     @Override
-    public boolean CheckPassword(String loginPwd, String loginName) {
-        return false;
+    public boolean CheckPassword(SysUser user,String loginPwd) {
+        boolean b = false;
+        String md5Pwd = PasswordEncoder.Encoding(loginPwd,user.getUsername());
+        if(user.getPassword().equals(md5Pwd)){
+            b = true;
+        }
+        return b;
     }
     //显示用户列表
     @Override

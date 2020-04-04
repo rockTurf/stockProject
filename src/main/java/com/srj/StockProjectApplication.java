@@ -7,6 +7,7 @@ import org.beetl.ext.spring.BeetlSpringViewResolver;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.core.io.DefaultResourceLoader;
@@ -16,7 +17,8 @@ import org.springframework.core.io.support.ResourcePatternUtils;
 import java.io.IOException;
 
 @SpringBootApplication
-@ComponentScan({"com.srj.web.sys","com.srj.common.interceptor"})
+@EnableCaching
+@ComponentScan({"com.srj.web.sys","com.srj.common.interceptor","com.srj.common.filter"})
 public class StockProjectApplication {
 
     public static void main(String[] args) {

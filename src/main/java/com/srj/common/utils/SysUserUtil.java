@@ -88,13 +88,14 @@ public class SysUserUtil {
 	 * 从缓存中取登录的用户
 	 */
 	public static SysUser getCacheLoginUser(){
-		/*try {
+		try {
 			if (getSessionLoginUser() != null) {
-				return CacheUtils.get(Constant.SESSION_LOGIN_USER,
-						getSessionLoginUser().getId().toString());
+				return getSessionLoginUser();
+				/*return CacheUtils.get(Constant.SESSION_LOGIN_USER,
+						getSessionLoginUser().getId().toString());*/
 			}
 		} catch (Exception e) {
-		}*/
+		}
 		return null;
 	}
 
