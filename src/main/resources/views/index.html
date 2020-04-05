@@ -42,56 +42,6 @@
         </div>
     </div>
 </div>
-<script type="text/javascript">
-$(function () {
-	$.ajax({
-        type: "POST",
-        url: '${ctxPath}/article/push',
-        data: {
-            userId:1
-        },
-        dataType:'json',
-        cache: true,
-        success: function(data){
-        	//文章列表取出后，先置空，再生成
-        	$('#article').html('');
-        	var html = '';
-        	html += '<ul class="latest-news">';
-        	$('#article').append('<ul class="latest-news">');
-        	//循环新闻列表
-        	for(var item in data){//遍历json数组时，这么写item为索引，0,1
-        		html += '<li><h6><a href="#">'+data[item].title+'</a>'+' - <span>'+data[item].createTime+'</span></h6>';
-        		html += '<p>'+data[item].introduction+'</p></li>';
-        	}
-        	//收尾
-        	html += '</ul>';
-        	//生成
-        	$('#article').append(html);
-        }
-    });
-	/* quartz = window.setInterval(getQuartz,2000);
-	function getQuartz(){
-	   $.ajax({
-		   type: "POST",
-	        url: '${ctxPath}/article/lastst',
-	        data: {
-	            userId:1
-	        },
-	        dataType:'json',
-	        cache: true,
-	        success: function(data){
-	        	if(data.code!=0){
-	        		GrowlNotification.notify({
-	        			  description: data.title,
-	        			  position:'bottom-right',
-	        			  closeTimeout:5000
-	        			  
-	        		})
-	        	}
-	       	}
-	   });
-	} */
-});</script>
 @}
 
 </div>

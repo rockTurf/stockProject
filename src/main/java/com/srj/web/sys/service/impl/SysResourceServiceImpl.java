@@ -27,14 +27,11 @@ public class SysResourceServiceImpl implements SysResourceService {
      * @return
      */
     public List<SysResource> findUserMenuByUserId(SysUser sysUser) {
-        Map<String,Object> params = new HashMap<String,Object>();
-        params.put("type", Constant.RESOURCE_TYPE_MENU);
         List<SysResource> reslist = new ArrayList<SysResource>();
         if (sysUser.isAdmin()) {
-            reslist = sysResourceMapper.getAllResource(params);
+            reslist = sysResourceMapper.getAllResource(Constant.RESOURCE_TYPE_MENU);
         }else{
-            params.put("userId", sysUser.getId());
-            reslist = sysResourceMapper.findUserResourceByUserId(params);
+            reslist = sysResourceMapper.findUserResourceByUserId(Constant.RESOURCE_TYPE_MENU,sysUser.getId());
         }
         return reslist;
     }
@@ -44,14 +41,12 @@ public class SysResourceServiceImpl implements SysResourceService {
      * @return
      */
     public List<SysResource> findUserButtonByUserId(SysUser sysUser) {
-        Map<String,Object> params = new HashMap<String,Object>();
-        params.put("type", Constant.RESOURCE_TYPE_BUTTON);
+        String type = Constant.RESOURCE_TYPE_BUTTON;
         List<SysResource> reslist = new ArrayList<SysResource>();
         if (sysUser.isAdmin()) {
-            reslist = sysResourceMapper.getAllResource(params);
+            reslist = sysResourceMapper.getAllResource(type);
         }
-        params.put("userId", sysUser.getId());
-        reslist = sysResourceMapper.findUserResourceByUserId(params);
+        reslist = sysResourceMapper.findUserResourceByUserId(type,sysUser.getId());
         return reslist;
     }
 
@@ -73,7 +68,7 @@ public class SysResourceServiceImpl implements SysResourceService {
      */
     public List<SysResource> getAllResourcesList() {
         Map<String,Object> params = new HashMap<String,Object>();
-        List<SysResource> reslist = sysResourceMapper.getAllResource(params);
+        List<SysResource> reslist = sysResourceMapper.getAllResource(Constant.RESOURCE_TYPE_BUTTON);
         return reslist;
     }
     /**
