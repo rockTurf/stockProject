@@ -95,6 +95,13 @@
             <artifactId>beetl</artifactId>
             <version>3.0.17.RELEASE</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/com.ibeetl/beetl-framework-starter -->
+        <dependency>
+            <groupId>com.ibeetl</groupId>
+            <artifactId>beetl-framework-starter</artifactId>
+            <version>1.2.28.RELEASE</version>
+        </dependency>
+
         <!-- https://mvnrepository.com/artifact/org.apache.directory.studio/org.apache.commons.io -->
         <dependency>
             <groupId>org.apache.directory.studio</groupId>
