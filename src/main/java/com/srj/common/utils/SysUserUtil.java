@@ -46,7 +46,11 @@ public class SysUserUtil {
 	 * 得到当前session
 	 */
 	public static HttpSession getSession() {
-		HttpSession session = getCurRequest().getSession();
+		HttpServletRequest request = getCurRequest();
+		if(request==null){
+			return null;
+		}
+		HttpSession session = request.getSession();
 		return session;
 	}
 	
@@ -54,15 +58,19 @@ public class SysUserUtil {
 	 * session中的用户
 	 */
 	public static SysUser getSessionLoginUser(){
+		HttpSession session = getSession();
+		if(session==null){
+			return null;
+		}
 		SysUser u= (SysUser) getSession().getAttribute(Constant.SESSION_LOGIN_USER);
 		return u;
 	}
 	
 	
 	public static HttpServletRequest getCurRequest(){
-		RequestAttributes requestAttributes = RequestContextHolder.currentRequestAttributes();
-		if(requestAttributes != null && requestAttributes instanceof ServletRequestAttributes){
-			ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes)requestAttributes;
+		HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest();
+		if(request != null && request instanceof ServletRequestAttributes){
+			ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes)request;
 			return servletRequestAttributes.getRequest();
 		}
 		return null;

@@ -21,6 +21,6 @@ public class TestController {
     @RequestMapping("/test")
     public String test(){
         SysUser user = sysUserService.CheckUser("admin");
-        return "test";
+        return "testPage";
     }
 }

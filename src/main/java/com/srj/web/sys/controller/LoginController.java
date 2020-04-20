@@ -66,7 +66,7 @@ public class LoginController {
 			if(b){//校验通过
 				msg.put("success", "登录成功！");
 				//将用户信息 存储到session中;
-				SysUserUtil.setSessionLoginUser(user);
+				request.getSession().setAttribute(Constant.SESSION_LOGIN_USER, user);
 				//判断是否是是否点击了记住密码   
 				if("yes".equals(remPwd)){
 				    //存cookie
@@ -107,7 +107,7 @@ public class LoginController {
 		}
 		model.addAttribute(Constant.SET_COOKIE_USERNAME,userName);
 		model.addAttribute(Constant.SET_COOKIE_PASSWORD,passWord);
-		return "login";
+		return "loginPage";
 	}
 	
 	/**
