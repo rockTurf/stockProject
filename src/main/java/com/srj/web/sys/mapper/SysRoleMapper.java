@@ -5,16 +5,27 @@ import java.util.Map;
 
 import com.github.abel533.mapper.Mapper;
 import com.srj.web.sys.model.SysRole;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 
 @org.apache.ibatis.annotations.Mapper
 public interface SysRoleMapper extends Mapper<SysRole> {
-	
-	public List<SysRole> findPageInfo(Map<String, Object> params);
 
-	public List<SysRole> getAllRole();
+	@Select({"<script>",
+			"SELECT id,name,remark FROM sys_role",
+			"where 1=1 ",
+			"<when test='params.name!=null and params.name!=\"\" '>" ,
+			"   AND ( name LIKE CONCAT('%',#{params.name},'%')) " ,
+			"</when>",
+			"ORDER BY id desc ",
+			"</script>"})
+	List<SysRole> findPageInfo(@Param("params")Map<String, Object> params);
 
-	public List<Long> getRoleResourceById(Long id);
+	@Select(value = "SELECT id,name FROM sys_role")
+	List<SysRole> getAllRole();
+
+	List<Long> getRoleResourceById(Long id);
 
 	int deleteRoleResByRoleId(Long id);
 

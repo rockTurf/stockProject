@@ -22,7 +22,7 @@ import java.util.Arrays;
 
 @SpringBootApplication
 @EnableCaching
-@ComponentScan({"com.srj.web.sys","com.srj.common.interceptor","com.srj.common.filter","com.srj.common.config"})
+@ComponentScan({"com.srj.web.sys","com.srj.common.interceptor","com.srj.common.config"})
 public class StockProjectApplication {
 
     public static void main(String[] args) {

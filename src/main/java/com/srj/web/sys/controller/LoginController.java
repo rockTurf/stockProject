@@ -1,6 +1,7 @@
 package com.srj.web.sys.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.Cookie;
@@ -8,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.srj.common.spring.utils.SpringContextHolder;
+import com.srj.common.utils.TreeUtils;
+import com.srj.web.sys.model.SysResource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
@@ -45,9 +48,12 @@ public class LoginController {
 	 */
 	@RequestMapping(value = "/index")
 	public String toIndex(Model model, HttpServletRequest request) {
-		SysUser u = SysUserUtil.getSessionLoginUser();
-		//拥有的资源列表
-		model.addAttribute("menuList", SysUserUtil.getUserMenus());
+		SysUser u = (SysUser)request.getSession().getAttribute(Constant.SESSION_LOGIN_USER);
+        //拥有的资源列表
+        List<SysResource> userMenus = sysResourceService.findUserMenuByUserId(u);
+        userMenus = TreeUtils.toTreeNodeList(userMenus);
+		//model返回
+		model.addAttribute("menuList", userMenus);
 		model.addAttribute("user", u);
 		return "index";
 	}
@@ -89,8 +95,8 @@ public class LoginController {
 
 	
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public String toLogin(@RequestParam Map<String, Object> params,HttpServletRequest request,HttpServletResponse response,Model model ) {
-		if (SysUserUtil.getSessionLoginUser() != null) {
+	public String toLogin(HttpServletRequest request,HttpServletResponse response,Model model ) {
+		if (request.getSession().getAttribute(Constant.SESSION_LOGIN_USER)!= null) {
 			return "redirect:/index";
 		}
 		String userName = "";

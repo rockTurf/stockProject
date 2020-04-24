@@ -13,15 +13,14 @@ spring:
 mybatis:
   mapper-locations: classpath:mapping/*Mapper.xml
   type-aliases-package: com.srj.web
+  configuration:
+    map-underscore-to-camel-case: true
 
-#showSql
+
+#打印SQL
 logging:
   level:
-    com:
-      example:
-        mapper : info
-        demo:
-          dao: debug
+    com.srj.web.sys.mapper: DEBUG
     org:
       springframework:
         web:

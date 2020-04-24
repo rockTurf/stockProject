@@ -1,5 +1,6 @@
 package com.srj.web.sys.service.impl;
 
+import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.srj.common.base.PasswordEncoder;
 import com.srj.web.sys.mapper.SysUserMapper;
@@ -8,6 +9,7 @@ import com.srj.web.sys.service.SysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -34,7 +36,9 @@ public class SysUserServiceImpl implements SysUserService {
     //显示用户列表
     @Override
     public PageInfo<SysUser> findPageInfo(Map<String, Object> params) {
-        return null;
+        PageHelper.startPage(params);
+        List<SysUser> list = sysUserMapper.findPageInfo(params);
+        return new PageInfo<SysUser>(list);
     }
     //增加用户
     @Override

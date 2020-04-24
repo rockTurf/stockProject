@@ -18,8 +18,17 @@ import java.util.Map;
  */
 @Mapper
 public interface SysResourceMapper extends com.github.abel533.mapper.Mapper {
-	
-	List<SysResource> findPageInfo(Map<String, Object> params);
+
+	@Select({ "<script>",
+			"select sr.id,sr.icon,sr.name, sr.url from sys_resource sr",
+			"left join sys_resource srp ON sr.parent_id=srp.id",
+			"where 1=1 ",
+			"<when test='params.name!=null and params.name!=\"\" '>" ,
+			"   AND ( sr.name LIKE CONCAT('%',#{params.name},'%') " ,
+			"</when>",
+			"ORDER BY sr.id desc ",
+			"</script>"})
+	List<SysResource> findPageInfo(@Param("params")Map<String, Object> params);
 	
 	@Select(value = "select id,name,icon,url,parent_id from sys_resource where type = #{type} and del_flag = '0'")
 	 List<SysResource> getAllResource(@Param("type")String type);

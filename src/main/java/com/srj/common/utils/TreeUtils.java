@@ -87,8 +87,9 @@ public class TreeUtils {
 		//递归
 		List<SysResource> treeList = new ArrayList<>();
 		for (SysResource treeNode : copyList) {
-			if ("0".equals(treeNode.getParentId())) {
+			if (0==treeNode.getParentId()) {
 				treeList.add(findChildren(treeNode, copyList));
+				treeNode.setHasChild(true);
 			}
 		}
 		return treeList;

@@ -1,5 +1,6 @@
 package com.srj.web.sys.model;
 
+import javax.persistence.Transient;
 import java.util.List;
 
 public class SysResource {
@@ -17,7 +18,13 @@ public class SysResource {
 
     private Short delFlag;
 
+    @Transient
+    private boolean open = false; //是否打开
+    @Transient
+    private boolean hasChild = false; //有子节点吗
+
     //树结构中子节点集合
+    @Transient
     private List<SysResource> children;
 
     public Long getId() {
@@ -78,6 +85,22 @@ public class SysResource {
 
     public List<SysResource> getChildren() {
         return children;
+    }
+
+    public boolean isOpen() {
+        return open;
+    }
+
+    public void setOpen(boolean open) {
+        this.open = open;
+    }
+
+    public boolean isHasChild() {
+        return hasChild;
+    }
+
+    public void setHasChild(boolean hasChild) {
+        this.hasChild = hasChild;
     }
 
     public void setChildren(List<SysResource> children) {
