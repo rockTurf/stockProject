@@ -38,7 +38,7 @@ public class SysUserController {
 	 */
 	@RequestMapping(value = "detail", method = RequestMethod.POST)
 	public String showDetail(Long id,@RequestParam Map<String, Object> params,Model model){
-		SysUser u = SysUserUtil.getSessionLoginUser();
+		//SysUser u = SysUserUtil.getSessionLoginUser();
 		SysUser user = sysUserService.getUserById(id);
 		//角色列表
 		List<SysRole> roleList = sysRoleService.getAllRole();
@@ -50,11 +50,10 @@ public class SysUserController {
 	/**
 	 * 修改
 	 *
-	 * @param model
 	 * @return
 	 */
 	@RequestMapping(value = "/edit")
-	public @ResponseBody Integer recordEdit(@ModelAttribute SysUser record,Model model,HttpServletRequest request,HttpServletResponse response){
+	public @ResponseBody Integer recordEdit(@ModelAttribute SysUser record){
 		int count = sysUserService.editUser(record);
 		return count;
 	}

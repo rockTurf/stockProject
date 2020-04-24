@@ -48,12 +48,17 @@ public class SysUserServiceImpl implements SysUserService {
     //根据id查找用户
     @Override
     public SysUser getUserById(Long id) {
-        return null;
+        return sysUserMapper.getUserById(id);
     }
     //修改用户
     @Override
     public int editUser(SysUser record) {
-        return 0;
+        int count = sysUserMapper.updateRecord(record);
+        //删除用户-角色
+        sysUserMapper.deleteUserRole(record.getId());
+        //增加角色
+        sysUserMapper.insertUserRole(record.getId(),record.getRoleId());
+        return count;
     }
 
 }

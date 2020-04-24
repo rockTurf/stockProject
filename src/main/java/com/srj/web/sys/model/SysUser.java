@@ -2,6 +2,8 @@ package com.srj.web.sys.model;
 
 import com.srj.common.constant.Constant;
 
+import javax.persistence.Transient;
+
 public class SysUser {
     private Long id;
 
@@ -16,6 +18,9 @@ public class SysUser {
     private String phone;//手机号
 
     private Short delFlag;
+
+    @Transient
+    private String roleId;//角色id
 
     public Long getId() {
         return id;
@@ -75,5 +80,13 @@ public class SysUser {
 
     public boolean isAdmin() {
         return Constant.SUPER_ADMIN==(this.getId())?true:false;
+    }
+
+    public String getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(String roleId) {
+        this.roleId = roleId;
     }
 }
