@@ -15,7 +15,10 @@ mybatis:
   type-aliases-package: com.srj.web
   configuration:
     map-underscore-to-camel-case: true
-
+mapper:
+  mappers:
+    - tk.mybatis.mapper.common.Mapper
+  notEmpty: true
 
 #打印SQL
 logging:

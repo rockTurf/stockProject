@@ -32,15 +32,12 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.srj.common.base.UploadFile;
-import com.srj.common.spring.utils.SpringContextHolder;
 
 /**
  * 文件操作工具类
@@ -763,8 +760,7 @@ public class FileUtil extends org.apache.commons.io.FileUtils {
 	/**
 	 * 下载(流的方式)
 	* @param response
-	* @param is 输入流
-	* @param realName 下载的文件名字
+	* @param fileUrl 输入流
 	 */
 	@SuppressWarnings("unused")
 	public static void downloadFile(String fileUrl, HttpServletResponse response,
@@ -837,16 +833,6 @@ public class FileUtil extends org.apache.commons.io.FileUtils {
 		return files;
 	}
 
-	/**
-	 * 单文件上传
-	* @param saveDirectory 保存根路径
-	* @param fileName 保存文件名
-	* @throws Exception
-	 */
-	public static UploadFile singleUploadFile(String saveDirectory,String fileName,HttpServletRequest request) throws Exception {
-		List<UploadFile> files = multipleUploadFile(saveDirectory,fileName,request);
-		return CollectionUtils.isEmpty(files) ? null : files.get(0);
-	}
 
 
 	/**

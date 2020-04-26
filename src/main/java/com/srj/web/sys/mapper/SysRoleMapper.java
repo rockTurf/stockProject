@@ -3,14 +3,14 @@ package com.srj.web.sys.mapper;
 import java.util.List;
 import java.util.Map;
 
-import com.github.abel533.mapper.Mapper;
+import com.srj.common.mybatis.mapper.BaseMapper;
 import com.srj.web.sys.model.SysRole;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 
 @org.apache.ibatis.annotations.Mapper
-public interface SysRoleMapper extends Mapper<SysRole> {
+public interface SysRoleMapper extends tk.mybatis.mapper.common.Mapper<SysRole> {
 
 	@Select({"<script>",
 			"SELECT id,name,remark FROM sys_role",
@@ -25,6 +25,7 @@ public interface SysRoleMapper extends Mapper<SysRole> {
 	@Select(value = "SELECT id,name FROM sys_role")
 	List<SysRole> getAllRole();
 
+	@Select({})
 	List<Long> getRoleResourceById(Long id);
 
 	int deleteRoleResByRoleId(Long id);

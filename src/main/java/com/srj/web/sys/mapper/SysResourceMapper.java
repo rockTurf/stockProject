@@ -17,7 +17,7 @@ import java.util.Map;
  * @author 
  */
 @Mapper
-public interface SysResourceMapper extends com.github.abel533.mapper.Mapper {
+public interface SysResourceMapper extends tk.mybatis.mapper.common.Mapper<SysResource> {
 
 	@Select({ "<script>",
 			"select sr.id,sr.icon,sr.name, sr.url from sys_resource sr",

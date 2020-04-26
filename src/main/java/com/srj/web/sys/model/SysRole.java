@@ -1,16 +1,19 @@
 package com.srj.web.sys.model;
 
+import javax.persistence.*;
 import java.util.Date;
-
+@Entity
 public class SysRole {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
 
     private String remark;//备注
 
-    private Date createTime;
+    @Transient
+    private String createTime;
 
     public Long getId() {
         return id;
@@ -36,11 +39,11 @@ public class SysRole {
         this.remark = remark == null ? null : remark.trim();
     }
 
-    public Date getCreateTime() {
+    public String getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Date createTime) {
+    public void setCreateTime(String createTime) {
         this.createTime = createTime;
     }
 }

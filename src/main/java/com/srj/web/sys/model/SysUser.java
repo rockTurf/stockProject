@@ -2,9 +2,12 @@ package com.srj.web.sys.model;
 
 import com.srj.common.constant.Constant;
 
-import javax.persistence.Transient;
+import javax.persistence.*;
 
+@Entity
 public class SysUser {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String username;

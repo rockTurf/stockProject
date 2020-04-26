@@ -97,7 +97,6 @@ public class SysRoleController {
 	 */
 	@RequestMapping(value = "detail", method = RequestMethod.POST)
 	public String showDetail(Long id,@RequestParam Map<String, Object> params,Model model){
-		SysUser u = SysUserUtil.getSessionLoginUser();
 		SysRole role = sysRoleService.getRoleById(id);
 		model.addAttribute("role", role);
 		return "sys/role/role-detail";

@@ -1,6 +1,6 @@
 package com.srj.web.sys.mapper;
 
-import com.github.abel533.mapper.Mapper;
+import com.srj.common.mybatis.mapper.BaseMapper;
 import com.srj.web.sys.model.SysUser;
 import org.apache.ibatis.annotations.*;
 
@@ -8,8 +8,8 @@ import java.util.List;
 import java.util.Map;
 
 
-@org.apache.ibatis.annotations.Mapper
-public interface SysUserMapper extends Mapper {
+@Mapper
+public interface SysUserMapper extends tk.mybatis.mapper.common.Mapper<SysUser> {
 
 	//登陆
 	@Select(value = "select id,name,username,password from sys_user where username = '${loginName}' and del_flag = '0'")
@@ -32,7 +32,7 @@ public interface SysUserMapper extends Mapper {
 	SysUser getUserById(@Param("id")Long id);
 
 	//修改基本信息
-	@Update({ "update sys_user set username = #{username},name = #{name},email = #{email}, where id = #{id}" })
+	@Update({ "update sys_user set username = #{username},name = #{name},email = #{email} where id = #{id}" })
 	int updateRecord(SysUser record);
 
 	//删除角色

@@ -1,9 +1,11 @@
 package com.srj.web.sys.model;
 
-import javax.persistence.Transient;
+import javax.persistence.*;
 import java.util.List;
-
+@Entity
 public class SysResource {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
