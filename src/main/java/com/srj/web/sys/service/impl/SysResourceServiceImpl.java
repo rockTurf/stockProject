@@ -29,7 +29,9 @@ public class SysResourceServiceImpl implements SysResourceService {
     public List<SysResource> findUserMenuByUserId(SysUser sysUser) {
         List<SysResource> reslist = new ArrayList<SysResource>();
         if (sysUser.isAdmin()) {
-            reslist = sysResourceMapper.getAllResource(Constant.RESOURCE_TYPE_MENU);
+            Map<String,Object> params = new HashMap<>();
+            params.put("type",Constant.RESOURCE_TYPE_MENU);
+            reslist = sysResourceMapper.getAllResource(params);
         }else{
             reslist = sysResourceMapper.findUserResourceByUserId(Constant.RESOURCE_TYPE_MENU,sysUser.getId());
         }
@@ -41,12 +43,14 @@ public class SysResourceServiceImpl implements SysResourceService {
      * @return
      */
     public List<SysResource> findUserButtonByUserId(SysUser sysUser) {
-        String type = Constant.RESOURCE_TYPE_BUTTON;
         List<SysResource> reslist = new ArrayList<SysResource>();
         if (sysUser.isAdmin()) {
-            reslist = sysResourceMapper.getAllResource(type);
+            Map<String,Object> params = new HashMap<>();
+            params.put("type",Constant.RESOURCE_TYPE_MENU);
+            reslist = sysResourceMapper.getAllResource(params);
+        }else{
+            reslist = sysResourceMapper.findUserResourceByUserId(Constant.RESOURCE_TYPE_BUTTON,sysUser.getId());
         }
-        reslist = sysResourceMapper.findUserResourceByUserId(type,sysUser.getId());
         return reslist;
     }
 
@@ -67,8 +71,8 @@ public class SysResourceServiceImpl implements SysResourceService {
      * @return
      */
     public List<SysResource> getAllResourcesList() {
-        Map<String,Object> params = new HashMap<String,Object>();
-        List<SysResource> reslist = sysResourceMapper.getAllResource(Constant.RESOURCE_TYPE_BUTTON);
+        Map<String,Object> params = new HashMap<>();
+        List<SysResource> reslist = sysResourceMapper.getAllResource(params);
         return reslist;
     }
     /**

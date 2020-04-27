@@ -30,8 +30,14 @@ public interface SysResourceMapper extends tk.mybatis.mapper.common.Mapper<SysRe
 			"</script>"})
 	List<SysResource> findPageInfo(@Param("params")Map<String, Object> params);
 	
-	@Select(value = "select id,name,icon,url,parent_id from sys_resource where type = #{type} and del_flag = '0'")
-	 List<SysResource> getAllResource(@Param("type")String type);
+	@Select({ "<script>",
+			"select id,name,icon,url,parent_id from sys_resource ",
+			"where del_flag = 0",
+			"<when test='params.type!=null and params.type!=\"\" '>" ,
+			"   AND type = #{params.type} " ,
+			"</when>",
+			"</script>"})
+	 List<SysResource> getAllResource(@Param("params")Map<String, Object> params);
 	//根据userId获得持有的权限
 	@Select(value = "select a.id,a.name,a.icon,a.url,a.parent_id from sys_resource a" +
 			"LEFT JOIN sys_role_resource b ON a.id = b.resource_id" +
