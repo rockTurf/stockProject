@@ -1,6 +1,7 @@
 package com.srj.web.datacenter.mapper;
 
 import com.srj.web.datacenter.model.Keyword;
+import org.apache.ibatis.annotations.Select;
 import tk.mybatis.mapper.common.Mapper;
 
 import java.util.List;
@@ -13,6 +14,7 @@ public interface KeywordMapper extends Mapper<Keyword> {
 
 	Keyword checkKeyword(Map<String, Object> params);
 
+	@Select(value = "SELECT id,name from keyword")
 	List<Keyword> getAllKeyword();
 
 	

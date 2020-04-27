@@ -57,8 +57,8 @@ public class SysUserUtil {
 	/**
 	 * session中的用户
 	 */
-	public static SysUser getSessionLoginUser(){
-		HttpSession session = getSession();
+	public static SysUser getSessionLoginUser(HttpServletRequest request){
+		HttpSession session = request.getSession();
 		if(session==null){
 			return null;
 		}
@@ -92,30 +92,7 @@ public class SysUserUtil {
 	/*public static void clearCacheUser(Long userId){
 		CacheUtils.evict(Constant.CACHE_SYS_USER,userId.toString());
 	}*/
-	/**
-	 * 从缓存中取登录的用户
-	 */
-	public static SysUser getCacheLoginUser(){
-		try {
-			if (getSessionLoginUser() != null) {
-				return getSessionLoginUser();
-				/*return CacheUtils.get(Constant.SESSION_LOGIN_USER,
-						getSessionLoginUser().getId().toString());*/
-			}
-		} catch (Exception e) {
-		}
-		return null;
-	}
 
-	/**
-	 * 登录用户菜单
-	 */
-	public static List<SysResource> getUserMenus() {
-		SysUser sysUser = SysUserUtil.getSessionLoginUser();
-		List<SysResource> userMenus = sysResourceService.findUserMenuByUserId(sysUser);
-		userMenus = TreeUtils.toTreeNodeList(userMenus);
-		return userMenus;
-	}
 
 	/**
 	 * 登录用户按钮

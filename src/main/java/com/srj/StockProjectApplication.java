@@ -11,7 +11,7 @@ import org.springframework.web.context.request.RequestContextListener;
 
 @SpringBootApplication
 @EnableCaching
-@ComponentScan({"com.srj.web.sys","com.srj.common.interceptor","com.srj.common.config"})
+@ComponentScan({"com.srj.web.sys","com.srj.web.datacenter","com.srj.web.tool","com.srj.common.interceptor","com.srj.common.config"})
 public class StockProjectApplication {
 
     public static void main(String[] args) {

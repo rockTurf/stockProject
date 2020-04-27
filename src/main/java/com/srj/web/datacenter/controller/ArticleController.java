@@ -35,7 +35,6 @@ public class ArticleController {
 	 */
 	@RequestMapping
 	public String toPage(Model model, Map<String, Object> params){
-		SysUser u = SysUserUtil.getSessionLoginUser();
 		//关键词列表
 		List<Keyword> klist = keywordService.getAllKeyword();
 		params.put("klist", klist);
@@ -63,7 +62,7 @@ public class ArticleController {
 	@RequestMapping(value = "save")
 	public @ResponseBody
     Integer save(@ModelAttribute Article record, @RequestParam Map<String, Object> params, Model model, HttpServletRequest request, HttpServletResponse response){
-		SysUser u = SysUserUtil.getSessionLoginUser();
+		SysUser u = SysUserUtil.getSessionLoginUser(request);
 		//新增文章
 		int count = articleService.saveArticle(record,u);
 		//存入附件
@@ -81,7 +80,7 @@ public class ArticleController {
 		int count = articleService.deleteArticle(id);
 		return count;
 	}
-	
+
 	/**
 	 * 推送文章
 	 */
@@ -90,7 +89,7 @@ public class ArticleController {
     List<Article> pushArticle(@RequestParam Long userId){
 		//根据用户id发出推送文章
 		List<Article> list = articleService.selectTop(userId);
-		
+
 		return list;
 	}
 	

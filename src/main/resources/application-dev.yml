@@ -32,5 +32,8 @@ logging:
               method:
                 annotation:
                   RequestMappingHandlerMapping: trace
-
-#ehcache
+#file文件路径
+filepath:
+  download: C:/tool/models/
+  upload: C:/tool/files/
+  temp: C:/tool/temp/
