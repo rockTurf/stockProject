@@ -62,7 +62,7 @@ public class SysUserUtil {
 		if(session==null){
 			return null;
 		}
-		SysUser u= (SysUser) getSession().getAttribute(Constant.SESSION_LOGIN_USER);
+		SysUser u= (SysUser) session.getAttribute(Constant.SESSION_LOGIN_USER);
 		return u;
 	}
 	

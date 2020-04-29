@@ -21,7 +21,7 @@ public interface KeywordService {
 	/*
 	 * 检查是否有重复关键字(true==有，false==没有)
 	 * */
-	boolean checkKeyword(Map<String, Object> params);
+	boolean checkKeyword(String name);
 
 	//获取全部keyword
 	List<Keyword> getAllKeyword();

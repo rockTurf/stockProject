@@ -33,8 +33,8 @@ public interface ArticleMapper extends Mapper<Article> {
 	//插入article_keyword中间表
 	@Insert({"<script>",
 			"insert IGNORE into article_keyword (a_id,k_id) values ",
-			"<foreach collection = 'list' item='article.kids' separator=',' > ",
-			" (#{article.id},#{list})",
+			"<foreach collection = 'article.kids' item='kid' separator=',' > ",
+			" (#{article.id},#{kid})",
 			"</foreach></script>"})
 	Integer insertArticleKeyword(@Param("article")Article article);
 

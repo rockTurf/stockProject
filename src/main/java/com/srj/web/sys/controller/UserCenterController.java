@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -27,6 +28,7 @@ import com.srj.web.sys.service.SysRoleService;
 import com.srj.web.sys.service.SysUserService;
 
 @Controller
+@Transactional
 @RequestMapping("userCenter")
 public class UserCenterController {
 
@@ -40,7 +42,6 @@ public class UserCenterController {
 	 */
 	@RequestMapping
 	public String toPage(Model model,Map<String, Object> params){
-		SysUser u = SysUserUtil.getSessionLoginUser();
 		//角色列表
 		List<SysRole> roleList = sysRoleService.getAllRole();
 		params.put("roleList", roleList);

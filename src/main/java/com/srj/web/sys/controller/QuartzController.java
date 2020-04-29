@@ -2,6 +2,10 @@ package com.srj.web.sys.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.srj.common.constant.Constant;
+import com.srj.web.datacenter.model.Keyword;
+import com.srj.web.datacenter.model.News;
+import com.srj.web.datacenter.service.KeywordService;
+import com.srj.web.datacenter.service.NewsService;
 import com.srj.web.util.DateUtils;
 import com.srj.web.util.SpiderUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +24,7 @@ import java.util.Map;
 @RequestMapping("quartz")
 public class QuartzController {
 
-    /*  @Autowired
+      @Autowired
       NewsService newsService;
       @Autowired
       KeywordService keywordService;
@@ -44,8 +48,7 @@ public class QuartzController {
                   News news = new News();
                   news.setTitle(obj.getString("title"));
                   news.setContent(obj.getString("content"));
-                  news.setNews_time(obj.getString("newsTime"));
-                  news.setCreate_time(DateUtils.getDateTime());
+                  news.setNewsTime(obj.getString("newsTime"));
                   news.setSource(Constant.NEWS_SOURCE_IFENG);
 
                   for(News item:dataList){
@@ -83,9 +86,8 @@ public class QuartzController {
                   News news = new News();
                   news.setTitle(obj.getString("title"));
                   news.setContent(obj.getString("content"));
-                  news.setNews_time(obj.getString("newsTime"));
+                  news.setNewsTime(obj.getString("newsTime"));
                   news.setAuthor(obj.getString("author"));
-                  news.setCreate_time(DateUtils.getDateTime());
                   news.setSource(Constant.NEWS_SOURCE_CSSTOCK);
 
                   for(News item:dataList){
@@ -122,7 +124,7 @@ public class QuartzController {
                   Map<String,Object> map = new HashMap<>();
                   map.put("start",i*size);
                   map.put("size",size);
-                  List<News> newsList = newsService.getPageNewsOneK(map);
+                  List<News> newsList = newsService.getPageNewsOneK(i*size,size);
                   int total = 0;//统计插入的数量
                   for(News news:newsList){
                         //取到之后，用新闻标题循环比对关键词，插库
@@ -133,7 +135,7 @@ public class QuartzController {
                               }
                         }
                   }
-                  Long currentTime = System.currentTimeMillis();
+                  //Long currentTime = System.currentTimeMillis();
                   //阶段性结束的时间,超过执行20分钟就结束
                   Long endTime = System.currentTimeMillis();
                   if((endTime-startTime)>2000*60*10){
@@ -141,6 +143,6 @@ public class QuartzController {
                 	  return;
                   }
             }
-            Long endTime = System.currentTimeMillis();
-      }*/
+            //Long endTime = System.currentTimeMillis();
+      }
 }

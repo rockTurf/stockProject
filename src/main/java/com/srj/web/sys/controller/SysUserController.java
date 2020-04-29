@@ -11,6 +11,7 @@ import com.srj.web.sys.service.SysResourceService;
 import com.srj.web.sys.service.SysRoleService;
 import com.srj.web.sys.service.SysUserService;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,6 +22,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
+@Transactional
 @RequestMapping("sysUser")
 public class SysUserController {
 

@@ -38,7 +38,7 @@ public class SysFileService {
 					record.setTableId(table_id);
 					record.setFlag(flag);
 					record.setCreateName(u.getName());
-					record.setCreateTime(DateUtils.formatDateTime(new Date()));
+					//record.setCreateTime(DateUtils.formatDateTime(new Date()));
 					listrecord.add(record);
 				}
 				count = sysFileMapper.saveFileList(listrecord);

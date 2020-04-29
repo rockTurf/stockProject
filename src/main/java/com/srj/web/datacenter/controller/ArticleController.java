@@ -10,6 +10,7 @@ import com.srj.web.datacenter.service.KeywordService;
 import com.srj.web.sys.model.SysUser;
 import com.srj.web.sys.service.SysFileService;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,6 +22,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
+@Transactional
 @RequestMapping("article")
 public class ArticleController {
 	

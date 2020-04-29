@@ -24,7 +24,7 @@ import java.util.Map;
 public class UploadController {
 	
 	@ResponseBody
-	@RequestMapping("/uploadFile")
+	@RequestMapping(value = "/uploadFile",produces = "application/json; charset=utf-8")
 	public String uploadFile (HttpServletRequest request){
 		MultipartHttpServletRequest multipartRequest  =  (MultipartHttpServletRequest) request;
         MultipartFile file  =  multipartRequest.getFile("files");

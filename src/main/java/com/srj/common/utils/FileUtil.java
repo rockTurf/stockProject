@@ -438,51 +438,7 @@ public class FileUtil extends org.apache.commons.io.FileUtils {
 	}
 	
 	
-	/**
-	 * 将文件打包到指定输入流
-	 * 
-	 * @param files
-	 *            被打包的文件
-	 * @param out
-	 *            被指定输出流
-	 * @throws IOException
-	 * @throws Exception
-	 */
-	public static void zipDownLoad(Map<File,String> downQuene,
-			HttpServletResponse response) throws IOException {
 
-		ServletOutputStream out = response.getOutputStream();
-		ZipOutputStream zipout = new ZipOutputStream(out);
-		ZipEntry entry = null;
-		zipout.setLevel(1);
-		//zipout.setEncoding("GBK");
-		if (downQuene != null && downQuene.size() > 0) {
-			for (Entry<File,String>  fileInfo : downQuene.entrySet()) {
-				File file = fileInfo.getKey();
-					try {
-						String filename = new String(fileInfo.getValue().getBytes(),
-								"GBK");
-						entry = new ZipEntry(filename);
-						entry.setSize(file.length());
-						zipout.putNextEntry(entry);
-					} catch (IOException e) {
-						//Logger.getLogger(FileUtil.class).warn("文件打包时异常:", e);
-					}
-					BufferedInputStream fr = new BufferedInputStream(
-							new FileInputStream(fileInfo.getKey()));
-					int len;
-					byte[] buffer = new byte[1024];
-					while ((len = fr.read(buffer)) != -1)
-						zipout.write(buffer,0,len);
-					fr.close();
-			}
-		}
-
-		zipout.finish();
-		zipout.flush();
-		// out.flush();
-	}
-	
 	/**
 	 * 压缩文件或目录
 	 * @param srcDirName 压缩的根目录
@@ -917,7 +873,7 @@ public class FileUtil extends org.apache.commons.io.FileUtils {
 		ZipOutputStream zipout = new ZipOutputStream(out);
 		
 		zipout.setLevel(1);
-		//zipout.setEncoding("GBK");
+		//zipout.setEncoding("UTF-8");
 		for(File f : file.listFiles()){
 			if(f.isFile()){
 				compressFile(f, f.getName(), zipout, "");
@@ -954,7 +910,7 @@ public class FileUtil extends org.apache.commons.io.FileUtils {
 			if(baseDir.equals("/")){
 				baseDir = "";
 			}
-			String filename = new String((baseDir + fileName).getBytes(),"GBK");
+			String filename = new String((baseDir + fileName).getBytes(),"UTF-8");
 			entry = new ZipEntry(filename);
 			
 			entry.setSize(file.length());
@@ -985,7 +941,7 @@ public class FileUtil extends org.apache.commons.io.FileUtils {
 			long fileLength = is.available();
 
 			response.setContentType("application/octet-stream");
-			realName = new String(realName.getBytes("GBK"), "ISO8859-1");
+			realName = new String(realName.getBytes("UTF-8"), "ISO8859-1");
 			response.setHeader("Content-disposition", "attachment; filename="
 					+ realName);
 			response.setHeader("Content-Length", String.valueOf(fileLength));

@@ -19,4 +19,6 @@ public class MyWebMvcConfigurerAdapter extends WebMvcConfigurationSupport {
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/loginPage").setViewName("loginPage");
     }
+
+
 }

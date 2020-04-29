@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Map;
 
-@Service("keywordService")
+@Service
 public class KeywordServiceImpl implements KeywordService {
 	
 	@Autowired
@@ -44,9 +44,9 @@ public class KeywordServiceImpl implements KeywordService {
 	 * 检查是否有重复关键字(true==有，false==没有)
 	 * */
 	@Override
-	public boolean checkKeyword(Map<String, Object> params) {
+	public boolean checkKeyword(String name) {
 		boolean b = true;
-		Keyword key = keyMapper.checkKeyword(params);
+		Keyword key = keyMapper.checkKeyword(name);
 		if(key!=null){
 			b = false;
 		}

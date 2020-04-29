@@ -1,16 +1,11 @@
 package com.srj.web.sys.controller;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
 import com.github.pagehelper.PageInfo;
-import com.srj.common.base.ZTreeNode;
-import com.srj.common.utils.SysUserUtil;
 import com.srj.web.sys.model.SysResource;
-import com.srj.web.sys.model.SysUser;
 import com.srj.web.sys.service.SysResourceService;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,6 +26,7 @@ import java.util.Map;
  */
 
 @Controller
+@Transactional
 @RequestMapping("menu")
 public class MenuController{
 
@@ -45,11 +41,9 @@ public class MenuController{
 	 */
 	@RequestMapping
 	public String toMenu(@RequestParam Map<String, Object> params,Model model) {
-		//model.addAttribute("treeList", JSON.toJSONString(sysResourceService.getMenuTree()));
-		SysUser u = SysUserUtil.getSessionLoginUser();
 		List<SysResource> menuList = sysResourceService.getAllResourcesList();
 		//menuList另作处理，再返回
-		JSONArray menuArray = ZTreeNode.menu2zMenuTree(menuList);
+		//JSONArray menuArray = ZTreeNode.menu2zMenuTree(menuList);
 		params.put("menuList", menuList);
 		model.addAttribute("params", params);
 		return "sys/menu/menu";
@@ -77,7 +71,6 @@ public class MenuController{
 	@RequestMapping(value = "save")
 	public @ResponseBody Integer save(@ModelAttribute SysResource record,@RequestParam Map<String, Object> params,
 			Model model,HttpServletRequest request,HttpServletResponse response){
-		SysUser u = SysUserUtil.getSessionLoginUser();
 		return sysResourceService.saveRecord(record);
 	}
 

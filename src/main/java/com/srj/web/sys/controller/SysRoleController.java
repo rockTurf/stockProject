@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.alibaba.fastjson.JSONArray;
 import com.srj.common.base.ZTreeNode;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,6 +32,7 @@ import com.srj.web.sys.service.SysUserService;
 import com.srj.web.util.StringUtil;
 
 @Controller
+@Transactional
 @RequestMapping("userRole")
 public class SysRoleController {
 
@@ -44,7 +46,6 @@ public class SysRoleController {
 	 */
 	@RequestMapping
 	public String toPage(Model model,Map<String, Object> params){
-		SysUser u = SysUserUtil.getSessionLoginUser();
 		return "sys/role/role-manager";
 	}
 	
@@ -111,7 +112,6 @@ public class SysRoleController {
 	 */
 	@RequestMapping(value = "resource", method = RequestMethod.POST)
 	public String editResource(Long id,@RequestParam Map<String, Object> params,Model model){
-		SysUser u = SysUserUtil.getSessionLoginUser();
 		SysRole role = sysRoleService.getRoleById(id);
 		//返回已拥有的权限信息
 		List<Long> roleResList = sysRoleService.getRoleResourceById(id);

@@ -14,6 +14,8 @@ public class Article {
 	private String title;//文章标题
 	private String introduction;//文章简介
 	private String createName;
+
+	@Transient
 	private String createTime;
 	
 	

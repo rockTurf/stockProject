@@ -3,10 +3,12 @@ package com.srj;
 import com.srj.common.spring.utils.SpringContextHolder;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.context.request.RequestContextListener;
+import org.springframework.web.filter.CharacterEncodingFilter;
 
 
 @SpringBootApplication
@@ -20,8 +22,6 @@ public class StockProjectApplication {
         /*ApplicationContext context = SpringApplication.run(StockProjectApplication.class, args);
         Arrays.stream(context.getBeanDefinitionNames()).forEach(System.out::println);*/
     }
-
-
 
 
     /**
@@ -40,14 +40,14 @@ public class StockProjectApplication {
         return new RequestContextListener();
     }
     /**
-     * Filter拦截器组*//*
+     * Filter乱码*/
     @Bean
-    public FilterRegistrationBean registFilter() {
-        FilterRegistrationBean registration = new FilterRegistrationBean();
-        registration.setFilter(new LoginFilter());
-        registration.addUrlPatterns("/*");
-        registration.setName("LoginFilter");
-        registration.setOrder(1);
-        return registration;
-    }*/
+    public FilterRegistrationBean filterRegistrationBean() {
+        FilterRegistrationBean registrationBean = new FilterRegistrationBean();
+        CharacterEncodingFilter characterEncodingFilter = new CharacterEncodingFilter();
+        characterEncodingFilter.setForceEncoding(true);
+        characterEncodingFilter.setEncoding("UTF-8");
+        registrationBean.setFilter(characterEncodingFilter);
+        return registrationBean;
+    }
 }

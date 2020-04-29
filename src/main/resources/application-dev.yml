@@ -9,7 +9,11 @@ spring:
     password: 123456
     url: jdbc:mysql://localhost:3306/base?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
     driver-class-name: com.mysql.cj.jdbc.Driver
-
+  http:
+    encoding:
+      force: true
+      charset: utf-8
+      enabled: true
 mybatis:
   mapper-locations: classpath:mapping/*Mapper.xml
   type-aliases-package: com.srj.web
@@ -32,6 +36,8 @@ logging:
               method:
                 annotation:
                   RequestMappingHandlerMapping: trace
+
+
 #file文件路径
 filepath:
   download: C:/tool/models/
