@@ -16,7 +16,7 @@ spring:
       enabled: true
 mybatis:
   mapper-locations: classpath:mapping/*Mapper.xml
-  type-aliases-package: com.srj.web
+  type-aliases-package: com.srj.web.stock
   configuration:
     map-underscore-to-camel-case: true
 mapper:

@@ -13,7 +13,7 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 
 @SpringBootApplication
 @EnableCaching
-@ComponentScan({"com.srj.web.sys","com.srj.web.datacenter","com.srj.web.tool","com.srj.common.interceptor","com.srj.common.config"})
+@ComponentScan({"com.srj.web","com.srj.common"})
 public class StockProjectApplication {
 
     public static void main(String[] args) {
