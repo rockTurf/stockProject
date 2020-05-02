@@ -12,6 +12,7 @@
     <artifactId>srj</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>stockProject</name>
+    <packaging>jar</packaging>
     <description>Demo project for Spring Boot</description>
 
     <properties>
@@ -110,13 +111,6 @@
             <artifactId>poi-ooxml</artifactId>
             <version>4.1.2</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/commons-beanutils/commons-beanutils -->
-        <dependency>
-            <groupId>commons-beanutils</groupId>
-            <artifactId>commons-beanutils</artifactId>
-            <version>1.9.4</version>
-        </dependency>
-
 
         <!-- commons-lang3 -->
         <dependency>
@@ -179,6 +173,9 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <mainClass>com.srj.StockProjectApplication</mainClass>
+                </configuration>
             </plugin>
 
             <plugin>
