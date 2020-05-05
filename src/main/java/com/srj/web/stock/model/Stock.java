@@ -1,10 +1,8 @@
 package com.srj.web.stock.model;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+
 @Entity
 public class Stock{
 
@@ -15,6 +13,10 @@ public class Stock{
 	private String name;//股票名称
 	private String industry;//细分行业
 	private String area;//地区
+	private Long boardId;//板块id
+
+	@Transient
+	private String boardName;//板块名称
 
 	public Long getId() {
 		return id;
@@ -54,5 +56,21 @@ public class Stock{
 
 	public void setArea(String area) {
 		this.area = area;
+	}
+
+	public Long getBoardId() {
+		return boardId;
+	}
+
+	public void setBoardId(Long boardId) {
+		this.boardId = boardId;
+	}
+
+	public String getBoardName() {
+		return boardName;
+	}
+
+	public void setBoardName(String boardName) {
+		this.boardName = boardName;
 	}
 }

@@ -7,6 +7,7 @@ import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.context.request.RequestContextListener;
 import org.springframework.web.filter.CharacterEncodingFilter;
 
@@ -14,6 +15,7 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 @SpringBootApplication
 @EnableCaching
 @ComponentScan({"com.srj.web","com.srj.common"})
+@EnableScheduling
 public class StockProjectApplication {
 
     public static void main(String[] args) {

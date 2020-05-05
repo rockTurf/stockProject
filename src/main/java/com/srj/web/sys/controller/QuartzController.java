@@ -9,7 +9,10 @@ import com.srj.web.datacenter.service.NewsService;
 import com.srj.web.util.DateUtils;
 import com.srj.web.util.SpiderUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -20,8 +23,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Controller
-@RequestMapping("quartz")
+@Component
+@Lazy(false)
+//@RequestMapping("quartz")
 public class QuartzController {
 
       @Autowired
@@ -64,18 +68,18 @@ public class QuartzController {
                   
             }
             newsService.insertList(newsList);
-            System.out.println("增加"+newsList.size());
+            System.out.println(DateUtils.getDateTime()+",凤凰网增加"+newsList.size());
       }
 
       //中国证券网新闻爬虫
-      @Scheduled(cron = "0 30 1/1 ? * *")
+      @Scheduled(cron = "0 36 1/1 ? * *")
       //@RequestMapping(value = "/news")
       @ResponseBody
       public void getCsStockNews(){
             List<JSONObject> list = SpiderUtils.getCsStock();
             List<News> newsList = new ArrayList<>();
             if(list.size()<=0){
-            	//System.out.println("------------------什么都没爬到");
+            	System.out.println("------------------什么都没爬到");
             }
             //取出40条凤凰网财经的记录
             List<News> dataList = newsService.selectBySource(Constant.NEWS_SOURCE_CSSTOCK);
@@ -103,12 +107,12 @@ public class QuartzController {
                   
             }
             newsService.insertList(newsList);
-           // System.out.println("增加"+newsList.size());
+            System.out.println(DateUtils.getDateTime()+",证券网增加"+newsList.size());
       }
 
       //新闻关键词和标题关联
       //@RequestMapping(value = "/newkey")
-      @Scheduled(cron = "0 35 1/1 ? * *")
+      @Scheduled(cron = "0 50 1/1 ? * *")
       @ResponseBody
       public void newsTitleGetKeyword(){
             List<Keyword> keywordList = keywordService.getAllKeyword();

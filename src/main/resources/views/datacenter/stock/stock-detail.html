@@ -1,0 +1,56 @@
+
+<div class="widget wgreen">
+	<div class="widget-content">
+		<div class="padd">
+			<!-- Form starts.  -->
+			<form class="form-horizontal" role="form"
+				action="${ctxPath!}/stock/edit" method="post" id="edit-form">
+				<input type="hidden" name="id" value="${stock.id!}">
+				<div class="form-group">
+					<label class="col-lg-4 control-label">名 称</label>
+					<div class="col-lg-8">
+						<input type="text" name="name" value="${stock.name!}" class="form-control">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-lg-4 control-label">编 码</label>
+					<div class="col-lg-8">
+						<input type="text" name="email" value="${stock.code!}" class="form-control">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-lg-4 control-label">细分行业</label>
+					<div class="col-lg-8">
+						<input type="text" name="phone" value="${stock.industry!}" class="form-control">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-lg-4 control-label">地 区</label>
+					<div class="col-lg-8">
+						<input type="text" name="phone" value="${stock.area!}" class="form-control">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-lg-4 control-label">板 块</label>
+					<div class="col-lg-8">
+						<select name="boardId" class="selectpicker show-tick form-control" id="boardEdit">
+							@for(item in boardList){
+							<option value="${item.id}">${item.name}</option>
+							@}
+						</select>
+					</div>
+				</div>
+				<#save  formId="edit-form"
+				config="true">
+				</#save>
+			</form>
+		</div>
+	</div>
+</div>
+<script>
+$('#boardEdit').selectpicker({
+   liveSearch: true,
+   width : 200
+});
+$('#boardEdit').selectpicker('val', '${stock.boardId!}');
+</script>

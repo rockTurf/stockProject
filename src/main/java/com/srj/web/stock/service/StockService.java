@@ -5,6 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.srj.common.utils.UUIDUtils;
 import com.srj.web.stock.mapper.StockMapper;
 import com.srj.web.stock.model.Stock;
+import com.srj.web.stock.model.StockBoard;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -33,7 +34,10 @@ public interface StockService {
 	Stock SelectRecordById(Long id);
 	//根据code和股票名称取得id，如果没有就新增并返回id
 	String getStockId(String code, String stockName) ;
-	
-	
-	
+	/*
+	 * 查找所有板块	 * */
+	List<StockBoard> getAllBoard();
+	/*
+	 * 股票信息	 * */
+    Stock getStockById(Long id);
 }

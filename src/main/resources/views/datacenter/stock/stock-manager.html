@@ -85,6 +85,16 @@
 											class="form-control">
 									</div>
 								</div>
+								<div class="form-group">
+									<label class="col-lg-4 control-label">板 块</label>
+									<div class="col-lg-8">
+										<select name="boardId" datatype="*" class="selectpicker show-tick form-control" id="boardList">
+											@for(item in boardList){
+											<option value="${item.id}">${item.name}</option>
+											@}
+										</select>
+									</div>
+								</div>
 								<div>
 									<span class="btn btn-info btn-block " 
 										style="background-color:#f8ac59" id="save-btn">保 存</span>
@@ -105,4 +115,8 @@
 </div>
 <script>
 $("#search-form").getPageList({'submitBtnId':'search-btn'});
+$('#boardList').selectpicker({
+	liveSearch: true,
+	width : 200
+});
  </script>

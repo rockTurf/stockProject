@@ -15,7 +15,7 @@
 				<th>编码</th>
 				<th>名称</th>
 				<th>细分行业</th>
-				<th>地区</th>
+				<th>所属板块</th>
 				<th>操作</th>
 			</tr>
 		</thead>
@@ -25,10 +25,10 @@
 				<td>${item.code!}</td>
 				<td>${item.name!}</td>
 				<td>${item.industry!}</td>
-				<td>${item.area!}</td>
+				<td>${item.boardName!}</td>
 				<td>
 				<button class="btn btn-xs btn-warning" data-mode="page" data-title="编辑"
-							data-url="${ctxPath}/stock/setting"
+							data-url="${ctxPath}/stock/detail"
 							data-data="{id:'${item.id}'}" data-height="85%" data-width="60%">
 				<i class="fa fa-pencil"></i>
 				</button>
