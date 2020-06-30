@@ -40,4 +40,7 @@ public interface StockService {
 	/*
 	 * 股票信息	 * */
     Stock getStockById(Long id);
+	/*
+	 * 修改	 * */
+	Integer editRecord(Stock record);
 }

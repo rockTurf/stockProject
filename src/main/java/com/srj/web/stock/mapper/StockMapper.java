@@ -11,8 +11,9 @@ import java.util.Map;
 @Mapper
 public interface StockMapper extends tk.mybatis.mapper.common.Mapper<Stock>{
 	@Select({"<script>",
-			"SELECT a.id,a.CODE,a.NAME,a.industry,a.area,b.name as board_name FROM stock a",
-			"LEFT JOIN stock_board b ON a.board_id = b.id",
+			"SELECT a.id,a.CODE,a.NAME,a.industry,a.area,GROUP_CONCAT(c.name) as board_name FROM stock a",
+			"LEFT JOIN stock_board_relate b on b.stock_id = a.id ",
+			"LEFT JOIN stock_board c ON c.id = b.board_id",
 			"where 1=1 ",
 			"<when test='params.name!=null and params.name!=\"\" '>" ,
 			"   and a.name like concat('%',#{params.name} ,'%') " ,
@@ -20,7 +21,7 @@ public interface StockMapper extends tk.mybatis.mapper.common.Mapper<Stock>{
 			"<when test='params.code!=null and params.code!=\"\" '>" ,
 			"   and a.code = #{params.code} " ,
 			"</when>",
-			"ORDER BY a.id desc ",
+			"GROUP BY a.id ORDER BY a.id desc ",
 			"</script>"})
 	List<Stock> findPageInfo(@Param("params")Map<String, Object> params);
 
@@ -30,6 +31,11 @@ public interface StockMapper extends tk.mybatis.mapper.common.Mapper<Stock>{
 
 	/*
 	 * 股票信息	 * */
-	@Select(value = "select a.*,b.name as board_name FROM stock a LEFT JOIN stock_board b ON a.board_id = b.id where a.id = #{id}")
+	@Select({"<script>",
+			"SELECT a.*,GROUP_CONCAT(c.id) as board_ids FROM stock a",
+			"LEFT JOIN stock_board_relate b on b.stock_id = a.id ",
+			"LEFT JOIN stock_board c ON c.id = b.board_id",
+			"where a.id = #{id}",
+			"</script>"})
     Stock selectById(@Param("id")Long id);
 }

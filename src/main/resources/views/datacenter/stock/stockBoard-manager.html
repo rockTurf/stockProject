@@ -1,8 +1,8 @@
 <div>
 	<ul id="myTab" class="nav nav-tabs">
-		<li class="active"><a href="#home" data-toggle="tab">股票列表</a>
+		<li class="active"><a href="#home" data-toggle="tab">列表</a>
 		</li>
-		<li><a href="#addUser" data-toggle="tab">新增股票</a></li>
+		<li><a href="#addUser" data-toggle="tab">新增</a></li>
 	</ul>
 
 	<div class="matter">
@@ -22,16 +22,14 @@
 							<div class="padd">
 								<div class="form quick-post">
 									<!-- Edit profile form (not working)-->
-									<form class="form-horizontal" action="${ctxPath}/stock/list"
+									<form class="form-horizontal" action="${ctxPath}/stockBoard/list"
 										method="post" id="search-form" target="list-page">
 										<!-- search -->
 										<div class="form-group">
 											<div class="col-lg-9">
 											<label class="control-label">名称：</label>
 											<input type="text" name="name" /> 
-											<label class="control-label">编码：</label>
-											<input type="text" name="code" /> 
-											<button type="button" class="btn btn-success" 
+											<button type="button" class="btn btn-success"
 											onclick="getTotalList('search-form','search-btn')"	readonly>全部</button>
 											<button type="button" class="btn btn-success" id="search-btn"
 											readonly>查询</button>
@@ -56,7 +54,7 @@
 						<div class="padd">
 							<!-- Form starts.  -->
 							<form class="form-horizontal" role="form" id="save-form"
-								action="${ctxPath!}/stock/save" method="post">
+								action="${ctxPath!}/stockBoard/save" method="post">
 								<div class="form-group">
 									<label class="col-lg-4 control-label">名 称：</label>
 									<div class="col-lg-8">
@@ -64,37 +62,6 @@
 											nullmsg="此项必填！" class="form-control">
 									</div>
 								</div>
-								<div class="form-group">
-									<label class="col-lg-4 control-label">编 码:</label>
-									<div class="col-lg-8">
-										<input type="text" name="code" datatype="*"
-											class="form-control">
-									</div>
-								</div>
-								<div class="form-group">
-									<label class="col-lg-4 control-label">细分行业:</label>
-									<div class="col-lg-8">
-										<input type="text" name="industry" datatype="*"
-											class="form-control">
-									</div>
-								</div>
-								<div class="form-group">
-									<label class="col-lg-4 control-label">地 区:</label>
-									<div class="col-lg-8">
-										<input type="text" name="area" datatype="*"
-											class="form-control">
-									</div>
-								</div>
-							<!--	<div class="form-group">
-									<label class="col-lg-4 control-label">板 块</label>
-									<div class="col-lg-8">
-										<select name="boardIds" datatype="*" class="selectpicker show-tick form-control" id="boardList" multiple>
-											@for(item in boardList){
-											<option value="${item.id}">${item.name}</option>
-											@}
-										</select>
-									</div>
-								</div>-->
 								<div>
 									<span class="btn btn-info btn-block " 
 										style="background-color:#f8ac59" id="save-btn">保 存</span>
@@ -115,8 +82,4 @@
 </div>
 <script>
 $("#search-form").getPageList({'submitBtnId':'search-btn'});
-$('#boardList').selectpicker({
-	liveSearch: true,
-	width : 200
-});
  </script>

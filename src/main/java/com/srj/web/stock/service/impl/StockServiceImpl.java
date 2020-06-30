@@ -11,6 +11,7 @@ import com.srj.web.stock.service.StockService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -35,6 +36,7 @@ public class StockServiceImpl implements StockService {
 	 * */
 	@Override
 	public Integer saveRecord(Stock record) {
+		record.setId(Long.parseLong(UUIDUtils.getRandomInteger(12)));
 		return stockMapper.insertSelective(record);
 	}
 	/*
@@ -74,6 +76,20 @@ public class StockServiceImpl implements StockService {
 		return id.toString();
 	}
 
+	//详情
+	@Override
+	public Integer editRecord(Stock record) {
+		int count = stockMapper.updateByPrimaryKey(record);
+
+		//先把逗号分隔为list
+		List<String> idList = Arrays.asList(record.getBoardIds().split(","));
+		//更新股票-板块关系表
+		stockBoardMapper.deleteStockBoardRelate(record.getId());
+		stockBoardMapper.insertStockBoardRelate(record.getId(),idList);
+
+		return count;
+	}
+
 	@Override
 	public List<StockBoard> getAllBoard() {
 		return stockBoardMapper.selectAll();
@@ -85,6 +101,7 @@ public class StockServiceImpl implements StockService {
 	public Stock getStockById(Long id) {
 		return stockMapper.selectById(id);
 	}
+
 
 
 }

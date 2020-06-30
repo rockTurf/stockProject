@@ -15,25 +15,26 @@
 				<div class="form-group">
 					<label class="col-lg-4 control-label">编 码</label>
 					<div class="col-lg-8">
-						<input type="text" name="email" value="${stock.code!}" class="form-control">
+						<input type="text" name="code" value="${stock.code!}" class="form-control">
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-lg-4 control-label">细分行业</label>
 					<div class="col-lg-8">
-						<input type="text" name="phone" value="${stock.industry!}" class="form-control">
+						<input type="text" name="industry" value="${stock.industry!}" class="form-control">
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-lg-4 control-label">地 区</label>
 					<div class="col-lg-8">
-						<input type="text" name="phone" value="${stock.area!}" class="form-control">
+						<input type="text" name="area" value="${stock.area!}" class="form-control">
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-lg-4 control-label">板 块</label>
+					<input type="hidden" name="boardIds">
 					<div class="col-lg-8">
-						<select name="boardId" class="selectpicker show-tick form-control" id="boardEdit">
+						<select class="selectpicker show-tick form-control" id="boardEdit" οnchange="getOptoions(this)" multiple>
 							@for(item in boardList){
 							<option value="${item.id}">${item.name}</option>
 							@}
@@ -52,5 +53,9 @@ $('#boardEdit').selectpicker({
    liveSearch: true,
    width : 200
 });
-$('#boardEdit').selectpicker('val', '${stock.boardId!}');
+$('#boardEdit').selectpicker('val', '${stock.boardIds!}'.split(','));
+//赋值
+$("#boardEdit").change(function(){
+	$("input[name=boardIds]").val($("#boardEdit").val())
+})
 </script>

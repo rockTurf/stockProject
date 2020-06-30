@@ -4,4 +4,6 @@ alter table `new_keyword` modify column create_time datetime NULL DEFAULT CURREN
 ALTER TABLE `table_name` ADD COLUMN  `create_time` datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间' ;
 
 
+-----------------------------2020/06/30----------------------------------------
+
 ALTER TABLE `stock` ADD COLUMN  `board_id` varchar(20) COMMENT '板块id' ;
