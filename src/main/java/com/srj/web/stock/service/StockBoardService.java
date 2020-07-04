@@ -24,4 +24,7 @@ public interface StockBoardService {
 	/*
 	 * 修改	 * */
 	Integer editRecord(StockBoard record);
+
+	//根据id查单条记录
+    StockBoard getBoardById(Long id);
 }

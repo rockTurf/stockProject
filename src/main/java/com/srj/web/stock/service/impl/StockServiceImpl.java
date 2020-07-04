@@ -3,6 +3,7 @@ package com.srj.web.stock.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.srj.common.utils.UUIDUtils;
+import com.srj.web.datacenter.model.News;
 import com.srj.web.stock.mapper.StockBoardMapper;
 import com.srj.web.stock.mapper.StockMapper;
 import com.srj.web.stock.model.Stock;
@@ -102,6 +103,11 @@ public class StockServiceImpl implements StockService {
 		return stockMapper.selectById(id);
 	}
 
+	//新闻
+	@Override
+	public List<News> findStockNews(Long id) {
+		return stockMapper.findStockNews(id);
+	}
 
 
 }

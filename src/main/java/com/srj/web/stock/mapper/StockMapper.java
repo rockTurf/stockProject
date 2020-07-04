@@ -1,6 +1,7 @@
 package com.srj.web.stock.mapper;
 
 
+import com.srj.web.datacenter.model.News;
 import com.srj.web.stock.model.Stock;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -38,4 +39,15 @@ public interface StockMapper extends tk.mybatis.mapper.common.Mapper<Stock>{
 			"where a.id = #{id}",
 			"</script>"})
     Stock selectById(@Param("id")Long id);
+	/*
+	 * 新闻列表	 * */
+	@Select({"<script>",
+			"SELECT a.id,a.title,a.source FROM news a ",
+			"LEFT JOIN new_keyword b on b.new_id = a.id ",
+			"LEFT JOIN keyword_board_relate c ON c.keyword_id = b.keyword_id ",
+			"LEFT JOIN stock_board_relate d ON d.board_id = c.board_id ",
+			"where d.stock_id = #{id} ",
+			"GROUP BY a.id ORDER BY a.id desc limit 10",
+			"</script>"})
+    List<News> findStockNews(@Param("id")Long id);
 }

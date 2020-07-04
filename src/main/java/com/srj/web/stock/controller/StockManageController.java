@@ -2,6 +2,7 @@ package com.srj.web.stock.controller;
 
 import com.github.pagehelper.PageInfo;
 import com.srj.common.utils.SysUserUtil;
+import com.srj.web.datacenter.model.News;
 import com.srj.web.stock.model.Stock;
 import com.srj.web.stock.model.StockBoard;
 import com.srj.web.stock.service.StockService;
@@ -91,5 +92,15 @@ public class StockManageController {
 				 Model model, HttpServletRequest request, HttpServletResponse response){
 		SysUser u = SysUserUtil.getSessionLoginUser(request);
 		return stockService.editRecord(record);
+	}
+
+	/**
+	 * 新闻列表
+	 */
+	@RequestMapping(value = "news")
+	public String stockNews(@RequestParam Long id,Model model){
+		List<News> list = stockService.findStockNews(id);
+		model.addAttribute("list", list);
+		return "datacenter/stock/stock-news";
 	}
 }
