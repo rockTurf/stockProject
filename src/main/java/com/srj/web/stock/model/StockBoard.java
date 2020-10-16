@@ -1,9 +1,12 @@
 package com.srj.web.stock.model;
 
 
+import lombok.Data;
+
 import javax.persistence.*;
 
 @Entity
+@Data
 public class StockBoard {
 
 	@Id
@@ -11,19 +14,6 @@ public class StockBoard {
 	private Long id;
 	private String name;//股票名称
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
+	@Transient
+	private String keywordIds;//板块id
 }

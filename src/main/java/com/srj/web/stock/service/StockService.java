@@ -3,6 +3,7 @@ package com.srj.web.stock.service;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.srj.common.utils.UUIDUtils;
+import com.srj.web.datacenter.model.News;
 import com.srj.web.stock.mapper.StockMapper;
 import com.srj.web.stock.model.Stock;
 import com.srj.web.stock.model.StockBoard;
@@ -43,4 +44,7 @@ public interface StockService {
 	/*
 	 * 修改	 * */
 	Integer editRecord(Stock record);
+	/*
+	 * 该股票新闻列表	 * */
+    List<News> findStockNews(Long id);
 }

@@ -2,6 +2,8 @@ package com.srj.web.stock.controller;
 
 import com.github.pagehelper.PageInfo;
 import com.srj.common.utils.SysUserUtil;
+import com.srj.web.datacenter.model.Keyword;
+import com.srj.web.datacenter.service.KeywordService;
 import com.srj.web.stock.model.Stock;
 import com.srj.web.stock.model.StockBoard;
 import com.srj.web.stock.service.StockBoardService;
@@ -23,6 +25,8 @@ public class StockBoardController {
 	
 	@Resource
 	private StockBoardService service;
+	@Resource
+	private KeywordService keywordService;
 	/**
 	 * 跳转到页面
 	 */
@@ -59,9 +63,12 @@ public class StockBoardController {
 	 */
 	@RequestMapping(value = "detail")
 	public String detail(Long id,Model model){
-		/*StockBoard item = service.getStockById(id);
-		model.addAttribute("stock", stock);
-		model.addAttribute("boardList", boardList);*/
+		//信息
+		StockBoard record = service.getBoardById(id);
+		//取出全部关键词
+		List<Keyword> keywordList = keywordService.getAllKeyword();
+		model.addAttribute("keywordList", keywordList);
+		model.addAttribute("record", record);
 		return "datacenter/stock/stockBoard-detail";
 	}
 
@@ -71,7 +78,7 @@ public class StockBoardController {
 	@RequestMapping(value = "delete")
 	public @ResponseBody
     Integer delete(@RequestParam Long id, Model model, HttpServletRequest request, HttpServletResponse response){
-		//删除文章
+		//删除
 		int count = service.deleteRecord(id);
 		return count;
 	}

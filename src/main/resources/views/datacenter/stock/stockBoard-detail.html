@@ -1,0 +1,44 @@
+
+<div class="widget wgreen">
+	<div class="widget-content">
+		<div class="padd">
+			<!-- Form starts.  -->
+			<form class="form-horizontal" role="form"
+				action="${ctxPath!}/stockBoard/edit" method="post" id="edit-form">
+				<input type="hidden" name="id" value="${record.id!}">
+				<div class="form-group">
+					<label class="col-lg-4 control-label">名 称</label>
+					<div class="col-lg-8">
+						<input type="text" name="name" value="${record.name!}" class="form-control">
+					</div>
+				</div>
+			
+				<div class="form-group">
+					<label class="col-lg-4 control-label">关键词</label>
+					<input type="hidden" name="keywordIds">
+					<div class="col-lg-8">
+						<select class="selectpicker show-tick form-control" id="keywordEdit" multiple>
+							@for(item in keywordList){
+							<option value="${item.id}">${item.name}</option>
+							@}
+						</select>
+					</div>
+				</div>
+				<#save  formId="edit-form"
+				config="true">
+				</#save>
+			</form>
+		</div>
+	</div>
+</div>
+<script>
+$('#keywordEdit').selectpicker({
+   liveSearch: true,
+   width : 200
+});
+$('#keywordEdit').selectpicker('val', '${record.keywordIds!}'.split(','));
+//赋值
+$("#keywordEdit").change(function(){
+	$("input[name=keywordIds]").val($("#keywordEdit").val())
+})
+</script>
