@@ -23,6 +23,10 @@ public class SpiderUtils {
     private static String IFENG_URL = "http://finance.ifeng.com/listpage/110/1/list.shtml";
     private static String CSSTOCK_URL = "http://www.cnstock.com/";
 
+    //中央采购网
+    private static String ZYCG_URL = "http://www.zycg.gov.cn/freecms/site/zygjjgzfcgzx/cggg/index.html";
+
+
 
     /**
      * 爬虫程序--获取网页新闻数据
