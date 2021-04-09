@@ -7,3 +7,23 @@ ALTER TABLE `table_name` ADD COLUMN  `create_time` datetime NULL DEFAULT CURRENT
 -----------------------------2020/06/30----------------------------------------
 
 ALTER TABLE `stock` ADD COLUMN  `board_id` varchar(20) COMMENT '板块id' ;
+
+
+---------------------------2021/04/09------------------------------
+SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for `bidding`
+-- ----------------------------
+DROP TABLE IF EXISTS `bidding`;
+CREATE TABLE `bidding` (
+  `id` bigint(25) NOT NULL AUTO_INCREMENT,
+  `code` varchar(80) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `biding_time` varchar(80) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `area` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `bidding_type` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `title` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `content` text CHARACTER SET utf8 COLLATE utf8_general_ci,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `code` (`code`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
