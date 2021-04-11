@@ -18,8 +18,9 @@ SET FOREIGN_KEY_CHECKS=0;
 DROP TABLE IF EXISTS `bidding`;
 CREATE TABLE `bidding` (
   `id` bigint(25) NOT NULL AUTO_INCREMENT,
+  `name` varchar(80) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `code` varchar(80) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `biding_time` varchar(80) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `bidding_time` varchar(80) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `area` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `bidding_type` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `title` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
@@ -27,3 +28,8 @@ CREATE TABLE `bidding` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `code` (`code`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+
+-- 新增两个招标信息记录----------------------------
+INSERT INTO `sys_resource` VALUES ('23', '云联智造', 'laptop', '0', '0', null, '0');
+INSERT INTO `sys_resource` VALUES ('24', '采购管理', null, '23', '0', 'bidding', '0');
