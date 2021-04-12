@@ -44,6 +44,6 @@ public interface SysResourceMapper extends tk.mybatis.mapper.common.Mapper<SysRe
 			"LEFT JOIN sys_role c ON c.id = b.role_id " +
 			"LEFT JOIN sys_user_role d ON d.role_id = c.id " +
 			"LEFT JOIN sys_user e ON e.id = d.user_id " +
-			"where type = #{type} and and a.del_flag = '0' and e.id = #{userId}")
+			"where type = #{type} and a.del_flag = '0' and e.id = #{userId}")
 	List<SysResource> findUserResourceByUserId(@Param("type")String type, @Param("userId")Long userId);
 }

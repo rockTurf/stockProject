@@ -62,7 +62,46 @@
 										<input type="text" name="name" id="name" datatype="*"
 											nullmsg="此项必填！" class="form-control">
 									</div>
-									<div id="result"></div>
+								</div>
+								<div class="form-group">
+									<label class="col-lg-4 control-label">编码</label>
+									<div class="col-lg-8">
+										<input type="text" name="code" id="code" datatype="*"
+											   nullmsg="此项必填！" class="form-control">
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-lg-4 control-label">招标时间</label>
+									<div class="form-group">
+										<div class="input-group date form_date col-md-5" data-link-field="dtp_input2">
+											<input class="form-control" size="16" type="text" name="bidding_time" readonly>
+											<span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+										</div>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-lg-4 control-label">区域</label>
+									<div class="col-lg-8">
+										<input type="text" name="area" id="area" class="form-control">
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-lg-4 control-label">招标类型</label>
+									<div class="col-lg-8">
+										<input type="text" name="bidding_type" id="bidding_type" class="form-control">
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-lg-4 control-label">标题</label>
+									<div class="col-lg-8">
+										<input type="text" name="title" id="title" class="form-control">
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-lg-4 control-label">内容</label>
+									<div class="col-lg-8">
+										<input type="text" name="content" id="content" class="form-control">
+									</div>
 								</div>
 								<div>
 									<span class="btn btn-info btn-block " 
@@ -84,4 +123,15 @@
 </div>
 <script>
 $("#search-form").getPageList({'submitBtnId':'search-btn'});
+
+$('.form_date').datetimepicker({
+	format: 'yyyy-mm-dd',
+	language:  'cn',
+	weekStart: 1,
+	todayBtn:  1,
+	autoclose: 1,
+	todayHighlight: 1,
+	startView: 2,
+	minView: 2
+});
  </script>

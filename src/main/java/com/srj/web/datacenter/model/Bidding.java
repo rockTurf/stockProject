@@ -17,9 +17,10 @@ public class Bidding {
 	private Long id;
 	private String name;
 	private String code;
-	private String bidding_time;
+	private String biddingTime;
+	private String area;
 	private String title;
-	private String bidding_type;
+	private String biddingType;
 	private String content;
 
 

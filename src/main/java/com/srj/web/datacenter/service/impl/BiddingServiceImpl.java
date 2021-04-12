@@ -35,6 +35,14 @@ public class BiddingServiceImpl implements BiddingService {
 	@Override
 	public int addBidding(Map<String, Object> params, SysUser u) {
 		Bidding item = new Bidding();
+		item.setName((String) params.get("name"));
+		item.setCode((String) params.get("code"));
+		item.setArea((String) params.get("area"));
+		item.setTitle((String) params.get("title"));
+		item.setContent((String) params.get("content"));
+		item.setBiddingTime((String) params.get("bidding_time"));
+		item.setBiddingType((String) params.get("bidding_type"));
+		item.setContent((String) params.get("content"));
 
 		int count = biddingMapper.insertSelective(item);
 		return count;

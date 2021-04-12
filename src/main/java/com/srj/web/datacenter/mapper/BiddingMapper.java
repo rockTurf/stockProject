@@ -14,7 +14,7 @@ import java.util.Map;
 public interface BiddingMapper extends Mapper<Bidding> {
 
 	@Select({ "<script>",
-			"SELECT id,code,name,create_name,create_time FROM Bidding ",
+			"SELECT id,code,name,bidding_time,area,bidding_type,title,content FROM bidding ",
 			"where 1=1 ",
 			"<when test='params.name!=null and params.name!=\"\" '>" ,
 			"   and name like concat('%',#{params.name} ,'%') " ,
