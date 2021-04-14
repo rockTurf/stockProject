@@ -3,6 +3,8 @@ package com.srj.web.sys.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.srj.common.base.PasswordEncoder;
+import com.srj.common.constant.Constant;
+import com.srj.web.sys.mapper.SysRoleMapper;
 import com.srj.web.sys.mapper.SysUserMapper;
 import com.srj.web.sys.model.SysUser;
 import com.srj.web.sys.service.SysUserService;
@@ -16,7 +18,8 @@ import java.util.Map;
 public class SysUserServiceImpl implements SysUserService {
 
     @Autowired
-    public SysUserMapper sysUserMapper;
+    private SysUserMapper sysUserMapper;
+
 
     @Override
     public SysUser CheckUser(String loginName) {
@@ -42,8 +45,15 @@ public class SysUserServiceImpl implements SysUserService {
     }
     //增加用户
     @Override
-    public int addUser(SysUser user) {
-        return 0;
+    public int addUser(SysUser user,String roleId) {
+        user.setDelFlag(Constant.DEL_FLAG_NORMAL);
+        //处理密码
+        String password = user.getPassword();
+        String md5Pwd = PasswordEncoder.Encoding(password,user.getUsername());
+        user.setPassword(md5Pwd);
+        sysUserMapper.insert(user);
+        //增加角色
+        return sysUserMapper.insertUserRole(user.getId(),roleId);
     }
     //根据id查找用户
     @Override

@@ -78,20 +78,20 @@
 							<div class="form-group">
 								<label class="col-lg-4 control-label">Email</label>
 								<div class="col-lg-8">
-									<input type="text" id="email" datatype="*"  nullmsg="此项必填！" class="form-control">
+									<input type="text" id="email" name="email" class="form-control">
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-lg-4 control-label">电话</label>
 								<div class="col-lg-8">
-									<input type="text" id="phone" datatype="*"  nullmsg="此项必填！" class="form-control">
+									<input type="text" id="phone" name="phone" class="form-control">
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-lg-4 control-label">选择角色</label>
 								<div class="col-lg-8">
 									@if(!isEmpty(params.roleList)){ 
-									<select id="role_id" class="form-control"> 
+									<select id="role_id" name="role_id" class="form-control">
 									@for(item in params.roleList){
 										<option value="${item.id}">${item.name}</option> 
 									@}

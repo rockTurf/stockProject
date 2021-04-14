@@ -14,7 +14,7 @@ public interface SysUserService {
 	//显示用户列表
 	PageInfo<SysUser> findPageInfo(Map<String, Object> params);
 	//增加用户
-	int addUser(SysUser user);
+	int addUser(SysUser user,String roleId);
 	//根据id查找用户
 	SysUser getUserById(Long id);
 	//修改用户

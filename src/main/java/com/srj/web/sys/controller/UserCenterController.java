@@ -69,12 +69,12 @@ public class UserCenterController {
 	 * @return
 	 */
 	@RequestMapping(value = "/userRegist")
-	public @ResponseBody Map<String, Object> userRegist(String loginName,SysUser addItem,Model model,HttpServletRequest request,HttpServletResponse response){
+	public @ResponseBody Map<String, Object> userRegist(String loginName,SysUser addItem,String role_id,Model model,HttpServletRequest request,HttpServletResponse response){
 		Map<String, Object> msg = new HashMap<String, Object>();
 		SysUser user= sysUserService.CheckUser(loginName);
 		//数据库取到对应的用户信息不为空 判断
 		if(user==null){
-			int count = sysUserService.addUser(addItem);
+			int count = sysUserService.addUser(addItem,role_id);
 			if(count>0){
 				msg.put("success", "注册成功！");
 			}else{
@@ -92,9 +92,9 @@ public class UserCenterController {
 	 * @return
 	 */
 	@RequestMapping(value = "/save")
-	public @ResponseBody Integer userSave(SysUser addItem,Model model,HttpServletRequest request,HttpServletResponse response){
+	public @ResponseBody Integer userSave(SysUser addItem,String role_id,Model model,HttpServletRequest request,HttpServletResponse response){
 		Map<String, Object> msg = new HashMap<String, Object>();
-		int count = sysUserService.addUser(addItem);
+		int count = sysUserService.addUser(addItem,role_id);
 		return count;
 	}
 	
