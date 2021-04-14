@@ -18,10 +18,8 @@ public interface BiddingService {
 	 * */
 	int addBidding(Map<String, Object> params, SysUser u);
 
-
-
-	
-	
-	
-
+	/*
+	 * 详细信息
+	 * */
+    Bidding getItemById(Long id);
 }

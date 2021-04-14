@@ -17,6 +17,7 @@
 				<th>编码</th>
 				<th>招标时间</th>
 				<th>标题</th>
+				<th>操作</th>
 			</tr>
 		</thead>
 		@for(item in page.list){
@@ -27,6 +28,13 @@
 				<td>${item.code!}</td>
 				<td>${item.biddingTime!}</td>
 				<td>${item.title!}</td>
+				<td>
+					<button class="btn btn-xs btn-warning" data-mode="page" data-title="详情"
+							data-url="${ctxPath}/bidding/detail"
+							data-data="{id:'${item.id}'}" data-height="75%" data-width="60%">
+						<i class="fa fa-pencil"></i>
+					</button>
+				</td>
 			</tr>
 			@}
 		</tbody>

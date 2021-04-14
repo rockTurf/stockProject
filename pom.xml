@@ -143,6 +143,13 @@
             <artifactId>ehcache</artifactId>
             <version>2.10.6</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/io.github.xiaoyudeguang/easy-king -->
+        <dependency>
+            <groupId>io.github.xiaoyudeguang</groupId>
+            <artifactId>easy-king</artifactId>
+            <version>3.1.31-RELEASE</version>
+        </dependency>
+
         <!-- Spring Boot 缓存支持启动器 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -167,6 +174,10 @@
                     <artifactId>junit-vintage-engine</artifactId>
                 </exclusion>
             </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
         </dependency>
     </dependencies>
 

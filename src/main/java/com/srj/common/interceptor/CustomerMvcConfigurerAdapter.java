@@ -31,6 +31,7 @@ public class CustomerMvcConfigurerAdapter implements WebMvcConfigurer {
         registration.excludePathPatterns(                         //添加不拦截路径
                 "/login",            //登录
                "/register",
+                "/hello",
                 "/userRegist");
     }
 

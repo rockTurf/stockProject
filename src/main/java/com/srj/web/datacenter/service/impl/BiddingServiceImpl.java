@@ -48,9 +48,13 @@ public class BiddingServiceImpl implements BiddingService {
 		return count;
 	}
 
+	/*
+	 * 详细信息
+	 * */
+	@Override
+	public Bidding getItemById(Long id) {
+		return biddingMapper.selectByPrimaryKey(id);
+	}
 
-	
-	
-	
 
 }

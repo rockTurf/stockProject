@@ -56,4 +56,19 @@ public class BiddingController {
         int count = biddingService.addBidding(params,u);
         return count;
     }
+
+
+    /**
+     * 跳转编辑角色页面
+     *
+     * @param params
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "detail", method = RequestMethod.POST)
+    public String showDetail(Long id, @RequestParam Map<String, Object> params, Model model){
+        Bidding item = biddingService.getItemById(id);
+        model.addAttribute("item", item);
+        return "datacenter/bidding/bidding-detail";
+    }
 }
