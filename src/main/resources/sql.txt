@@ -33,6 +33,7 @@ CREATE TABLE `bidding` (
 -- 新增两个招标信息记录----------------------------
 INSERT INTO `sys_resource` VALUES ('23', '云联智造', 'laptop', '0', '0', null, '0');
 INSERT INTO `sys_resource` VALUES ('24', '采购管理', null, '23', '0', 'bidding', '0');
+INSERT INTO `sys_resource` VALUES ('25', '论坛帖子', null, '23', '0', 'bbs', '0');
 
 
 

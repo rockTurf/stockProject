@@ -12,7 +12,7 @@ import java.util.Map;
 public interface bbsMainMapper extends Mapper<bbsMain> {
 
 	@Select({ "<script>",
-			"SELECT id,user_id,title,content,create_time,status FROM bbsMain ",
+			"SELECT id,user_id,title,content,create_time,status FROM bbs_main ",
 			"where 1=1 ",
 			"<when test='params.title!=null and params.title!=\"\" '>" ,
 			"   and title like concat('%',#{params.title} ,'%') " ,
