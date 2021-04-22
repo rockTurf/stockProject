@@ -33,3 +33,20 @@ CREATE TABLE `bidding` (
 -- 新增两个招标信息记录----------------------------
 INSERT INTO `sys_resource` VALUES ('23', '云联智造', 'laptop', '0', '0', null, '0');
 INSERT INTO `sys_resource` VALUES ('24', '采购管理', null, '23', '0', 'bidding', '0');
+
+
+
+-- ----------------------------
+-- 增加bbs消息表
+-- ----------------------------
+DROP TABLE IF EXISTS `bbs_main`;
+CREATE TABLE `bbs_main` (
+  `id` bigint(40) NOT NULL AUTO_INCREMENT,
+  `user_id` bigint(40) DEFAULT NULL,
+  `title` varchar(100) NOT NULL,
+  `content` varchar(500) DEFAULT NULL,
+  `create_time` varchar(80) NOT NULL,
+  `status` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
