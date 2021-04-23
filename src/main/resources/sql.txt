@@ -34,6 +34,7 @@ CREATE TABLE `bidding` (
 INSERT INTO `sys_resource` VALUES ('23', '云联智造', 'laptop', '0', '0', null, '0');
 INSERT INTO `sys_resource` VALUES ('24', '采购管理', null, '23', '0', 'bidding', '0');
 INSERT INTO `sys_resource` VALUES ('25', '论坛帖子', null, '23', '0', 'bbs', '0');
+INSERT INTO `sys_resource` VALUES ('26', '论坛回复', null, '23', '0', 'bbsReply', '0');
 
 
 
@@ -51,3 +52,18 @@ CREATE TABLE `bbs_main` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+
+-- ----------------------------
+-- 增加bbs回帖表
+-- ----------------------------
+DROP TABLE IF EXISTS `bbs_reply`;
+CREATE TABLE `bbs_reply` (
+  `id` bigint(40) NOT NULL AUTO_INCREMENT,
+  `user_id` varchar(40) DEFAULT NULL,
+  `main_id` varchar(30) DEFAULT NULL,
+  `floor` int(20) DEFAULT NULL,
+  `content` text,
+  `create_time` varchar(50) DEFAULT NULL,
+  `status` tinyint(1) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
