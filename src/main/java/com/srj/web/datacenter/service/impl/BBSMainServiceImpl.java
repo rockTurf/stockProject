@@ -4,7 +4,9 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.srj.common.constant.Constant;
 import com.srj.web.datacenter.mapper.bbsMainMapper;
+import com.srj.web.datacenter.mapper.bbsReplyMapper;
 import com.srj.web.datacenter.model.bbsMain;
+import com.srj.web.datacenter.model.bbsReply;
 import com.srj.web.datacenter.service.BBSMainService;
 import com.srj.web.sys.model.SysUser;
 import com.srj.web.util.DateUtils;
@@ -19,6 +21,8 @@ public class BBSMainServiceImpl implements BBSMainService {
 	
 	@Autowired
 	private bbsMainMapper bbsMainMapper;
+	@Autowired
+	private bbsReplyMapper bbsReplyMapper;
 
 	
 	/*
@@ -61,7 +65,16 @@ public class BBSMainServiceImpl implements BBSMainService {
 	 * */
 	@Override
 	public bbsMain getItemById(Long id) {
-		return bbsMainMapper.selectByPrimaryKey(id);
+		bbsMain item = new bbsMain();
+		item = bbsMainMapper.selectByPrimaryKey(id);
+		//回帖列表
+		bbsReply params = new bbsReply();
+		params.setMainId(item.getId().toString());
+		params.setStatus(Constant.DEL_FLAG_NORMAL);
+		List<bbsReply> replyList = bbsReplyMapper.select(params);
+		//塞进去
+		item.setReplyList(replyList);
+		return item;
 	}
 
 

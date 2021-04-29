@@ -3,6 +3,7 @@ package com.srj.web.datacenter.model;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Data
@@ -18,5 +19,6 @@ public class bbsMain {
 	private String createTime;
 	private String status;//状态
 
+	private List<bbsReply> replyList;
 
 }

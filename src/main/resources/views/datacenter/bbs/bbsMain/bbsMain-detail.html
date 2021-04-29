@@ -1,29 +1,56 @@
-
 <div class="widget wgreen">
-	<div class="widget-content">
-		<div class="padd">
-			<!-- Form starts.  -->
-			<div class="form-horizontal">
-				<div class="form-group">
-					<label class="col-lg-4 control-label">标题</label>
-					<div class="col-lg-8">
-						<input type="text" readonly="readonly" value="${item.title!}" class="form-control">
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-lg-4 control-label">时间</label>
-					<div class="col-lg-8">
-						<input type="text" readonly="readonly" value="${item.createTime!}" class="form-control">
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-lg-4 control-label">内容</label>
-					<div class="col-lg-8">
-						<!--<span style="font-size:15px">${item.content}</span>-->
-						<textarea class="form-control" rows="30" readonly="readonly" >${item.content}</textarea>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+    <div class="widget-content">
+        <div class="padd">
+            <!-- Form starts.  -->
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-lg-4 control-label">标题</label>
+                    <div class="col-lg-8">
+                        <input type="text" readonly="readonly" value="${item.title!}" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-4 control-label">时间</label>
+                    <div class="col-lg-8">
+                        <input type="text" readonly="readonly" value="${item.createTime!}" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-4 control-label">内容</label>
+                    <div class="col-lg-8">
+                        <textarea class="form-control" rows="3" readonly="readonly">${item.content}</textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-4 control-label">回复</label>
+                    <div class="col-lg-8">
+                        <div class="widget">
+                            <!-- Widget title -->
+                            <div class="widget-head">
+                                <div class="pull-left">Recent Comments</div>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="widget-content">
+                                <!-- Widget content -->
+                                <div class="padd">
+                                    <ul class="recent">
+                                        <li>
+                                            <div class="recent-content">
+                                                <div class="recent-meta">Posted on 25/1/2120 by Ashok</div>
+                                                <div>Vivamus diam elit diam, consectetur fermentum sed dapibus eget,
+                                                    Vivamus consectetur dapibus adipiscing elit.
+                                                </div>
+                                                <button class="btn btn-xs btn-danger pull-right">Spam</button>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
