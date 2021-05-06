@@ -12,10 +12,11 @@ import java.util.Map;
 public interface bbsMainMapper extends Mapper<bbsMain> {
 
 	@Select({ "<script>",
-			"SELECT id,user_id,title,content,create_time,status FROM bbs_main ",
+			"SELECT a.id,a.user_id,a.title,a.content,a.create_time,a.status,b.name as user_name FROM bbs_main a ",
+			"LEFT JOIN sys_user b ON b.id = a.user_id",
 			"where 1=1 ",
 			"<when test='params.title!=null and params.title!=\"\" '>" ,
-			"   and title like concat('%',#{params.title} ,'%') " ,
+			"   and a.title like concat('%',#{params.title} ,'%') " ,
 			"</when>",
 			"</script>"})
 	List<bbsMain> findPageInfo(@Param("params") Map<String, Object> params);

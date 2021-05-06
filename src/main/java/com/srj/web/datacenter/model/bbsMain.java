@@ -21,4 +21,7 @@ public class bbsMain {
 
 	private List<bbsReply> replyList;
 
+	@Transient
+	private String userName;
+
 }
