@@ -27,23 +27,24 @@
                         <div class="widget">
                             <!-- Widget title -->
                             <div class="widget-head">
-                                <div class="pull-left">Recent Comments</div>
+                                <div class="pull-left">楼层</div>
                                 <div class="clearfix"></div>
                             </div>
                             <div class="widget-content">
                                 <!-- Widget content -->
                                 <div class="padd">
                                     <ul class="recent">
+                                        @for(reply in item.replyList){
                                         <li>
                                             <div class="recent-content">
-                                                <div class="recent-meta">Posted on 25/1/2120 by Ashok</div>
-                                                <div>Vivamus diam elit diam, consectetur fermentum sed dapibus eget,
-                                                    Vivamus consectetur dapibus adipiscing elit.
+                                                <div class="recent-meta">${reply.createTime}</div>
+                                                <div>${reply.content}
                                                 </div>
                                                 <button class="btn btn-xs btn-danger pull-right">Spam</button>
                                                 <div class="clearfix"></div>
                                             </div>
                                         </li>
+                                        @}
                                     </ul>
                                 </div>
                             </div>
