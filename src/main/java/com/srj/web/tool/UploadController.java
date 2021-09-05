@@ -67,8 +67,8 @@ public class UploadController {
 		MultipartHttpServletRequest multipartRequest  =  (MultipartHttpServletRequest) request;
         MultipartFile file  =  multipartRequest.getFile("files");
         Map<String,String> map = new HashMap<String, String>();
-	    String fileName = file.getOriginalFilename();//真实文件名
-		int  startIndex =fileName.lastIndexOf(".");
+	    String fileName = file.getOriginalFilename();//真实文件名\
+		int startIndex =fileName.lastIndexOf(".");
 		String suffix =fileName.substring(startIndex);//文件类型
 	    String filePath = SysConstant.TempUrl();//文件上传路径 (后加随机文件夹)
 	    fileName = fileName.substring(0, startIndex);
@@ -85,6 +85,7 @@ public class UploadController {
             e.printStackTrace();  
         }  
         map.put(fileName, fileUrl);
+		System.out.println(JSON.toJSONString(map));
         return JSON.toJSONString(map);
 	}
 

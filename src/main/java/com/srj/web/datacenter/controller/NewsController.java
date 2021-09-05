@@ -5,6 +5,7 @@ import com.srj.common.utils.SysUserUtil;
 import com.srj.web.datacenter.model.News;
 import com.srj.web.datacenter.service.NewsService;
 import com.srj.web.sys.model.SysUser;
+import com.srj.web.tool.FileTools;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 import java.util.Map;
 
 
@@ -70,6 +72,23 @@ public class NewsController {
 		//新增
 		int count = newsService.saveArticle(record,u);
 		return count;
+	}
+
+	/**
+	 * 导入数据
+	 *
+	 * @param params
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "addNewsData", method = RequestMethod.POST)
+	public @ResponseBody String addNewsData(@RequestParam Map<String, Object> params, Model model) {
+		//取到文件名称
+		String fileData = params.get("fileData").toString();
+		//获取文件List
+		List<String> fileList = FileTools.GetFileListByMapString(fileData);
+		int count = newsService.addDataByFileList(fileList);
+		return "success";
 	}
 	
 }

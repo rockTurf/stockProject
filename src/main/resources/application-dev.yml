@@ -1,5 +1,5 @@
 server:
-  port: 8085
+  port: 8080
 
 
 
@@ -40,6 +40,6 @@ logging:
 
 #file文件路径
 filepath:
-  download: C:/tool/models/
-  upload: C:/tool/files/
-  temp: C:/tool/temp/
+  download: D:/tool/models/
+  upload: D:/tool/files/
+  temp: D:/tool/temp/

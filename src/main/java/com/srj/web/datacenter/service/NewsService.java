@@ -35,4 +35,7 @@ public interface NewsService {
 
 	//新增
 	int saveArticle(News record, SysUser u);
+
+	//导入
+    int addDataByFileList(List<String> fileList);
 }
