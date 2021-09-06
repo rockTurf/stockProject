@@ -3,6 +3,7 @@ package com.srj.web.stock.tool;
 import com.alibaba.excel.context.AnalysisContext;
 import com.alibaba.excel.event.AnalysisEventListener;
 import com.alibaba.excel.util.StringUtils;
+import com.srj.common.utils.OtherUtils;
 import com.srj.web.datacenter.mapper.NewsMapper;
 import com.srj.web.datacenter.model.News;
 
@@ -23,6 +24,7 @@ public class ExcelModelNewsListener extends AnalysisEventListener<News> {
      * 每隔5条存储数据库，实际使用中可以3000条，然后清理list ，方便内存回收
      */
     private static final int BATCH_COUNT = 50;
+    private String DATE = "";//当前期（月和日）
     List<News> list = new ArrayList<News>();
     private static int count = 1;
     @Override
@@ -31,10 +33,13 @@ public class ExcelModelNewsListener extends AnalysisEventListener<News> {
         list.add(data);
         count ++;
         if (list.size() >= BATCH_COUNT) {
+            //先拿到具体的日期
+            DATE = getDayStrByList(list);
             saveData( count );
             list.clear();
         }
     }
+
 
     @Override
     public void doAfterAllAnalysed(AnalysisContext context) {
@@ -50,10 +55,34 @@ public class ExcelModelNewsListener extends AnalysisEventListener<News> {
         for(News t:list){
             String address = t.getAddress();
             if(!StringUtils.isEmpty(address)){
+                String datetime = OtherUtils.getDateTime(DATE,t.getNewsTime());
+                t.setNewsTime(datetime);
                 mapper.insert(t);
             }
         }
         System.out.println("{ "+ count +" }条数据，开始存储数据库！" + list.size());
         System.out.println("存储数据库成功！");
+    }
+
+    /**
+     * 检索所有标题取出日期
+     */
+    private String getDayStrByList(List<News> list) {
+        if(!StringUtils.isEmpty(DATE)) {//如果DATE不为空，则直接返回DATE
+            return DATE;
+        }
+        //DATE为空，取DATE
+        for(News item:list){
+            String title = item.getTitle();
+            String temp = OtherUtils.getDateByTitle(title);
+            if(StringUtils.isEmpty(DATE)){//如果DATE为空，则取DATE
+                //如果没取到DATE，则跳过
+                if(!StringUtils.isEmpty(temp)){
+                    //取到了就替换
+                    DATE = temp;
+                }
+            }
+        }
+        return DATE;
     }
 }
