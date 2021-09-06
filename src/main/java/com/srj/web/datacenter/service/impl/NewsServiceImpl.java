@@ -10,7 +10,6 @@ import com.srj.web.datacenter.mapper.NewsMapper;
 import com.srj.web.datacenter.model.Keyword;
 import com.srj.web.datacenter.model.News;
 import com.srj.web.datacenter.service.NewsService;
-import com.srj.web.stock.model.Fund;
 import com.srj.web.stock.tool.ExcelModelNewsListener;
 import com.srj.web.sys.model.SysUser;
 import com.srj.web.util.StringUtil;

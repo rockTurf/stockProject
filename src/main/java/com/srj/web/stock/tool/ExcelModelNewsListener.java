@@ -3,6 +3,7 @@ package com.srj.web.stock.tool;
 import com.alibaba.excel.context.AnalysisContext;
 import com.alibaba.excel.event.AnalysisEventListener;
 import com.alibaba.excel.util.StringUtils;
+import com.srj.common.utils.OtherUtils;
 import com.srj.web.datacenter.mapper.NewsMapper;
 import com.srj.web.datacenter.model.News;
 
@@ -23,6 +24,7 @@ public class ExcelModelNewsListener extends AnalysisEventListener<News> {
      * 每隔5条存储数据库，实际使用中可以3000条，然后清理list ，方便内存回收
      */
     private static final int BATCH_COUNT = 50;
+    private String DATE = "";//当前期（月和日）
     List<News> list = new ArrayList<News>();
     private static int count = 1;
     @Override
@@ -31,10 +33,13 @@ public class ExcelModelNewsListener extends AnalysisEventListener<News> {
         list.add(data);
         count ++;
         if (list.size() >= BATCH_COUNT) {
+            //先拿到具体的日期
+            String dayStr = getDayStrByList(list);
             saveData( count );
             list.clear();
         }
     }
+
 
     @Override
     public void doAfterAllAnalysed(AnalysisContext context) {
@@ -55,5 +60,16 @@ public class ExcelModelNewsListener extends AnalysisEventListener<News> {
         }
         System.out.println("{ "+ count +" }条数据，开始存储数据库！" + list.size());
         System.out.println("存储数据库成功！");
+    }
+
+    /**
+     * 检索所有标题取出日期
+     */
+    private String getDayStrByList(List<News> list) {
+        for(News item:list){
+            String title = item.getTitle();
+            DATE = OtherUtils.getDateByTitle(title);
+        }
+        return DATE;
     }
 }
