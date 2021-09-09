@@ -34,7 +34,7 @@ public class ExcelModelNewsListener extends AnalysisEventListener<News> {
         count ++;
         if (list.size() >= BATCH_COUNT) {
             //先拿到具体的日期
-            String dayStr = getDayStrByList(list);
+            DATE = getDayStrByList(list);
             saveData( count );
             list.clear();
         }
@@ -55,7 +55,12 @@ public class ExcelModelNewsListener extends AnalysisEventListener<News> {
         for(News t:list){
             String address = t.getAddress();
             if(!StringUtils.isEmpty(address)){
-                mapper.insert(t);
+                String datetime = OtherUtils.getDateTime(DATE,t.getNewsTime());
+                t.setNewsTime(datetime);
+                News temp = mapper.selectOne(t);
+                if(temp==null){
+                    mapper.insert(t);
+                }
             }
         }
         System.out.println("{ "+ count +" }条数据，开始存储数据库！" + list.size());
@@ -66,9 +71,20 @@ public class ExcelModelNewsListener extends AnalysisEventListener<News> {
      * 检索所有标题取出日期
      */
     private String getDayStrByList(List<News> list) {
+        if(!StringUtils.isEmpty(DATE)) {//如果DATE不为空，则直接返回DATE
+            return DATE;
+        }
+        //DATE为空，取DATE
         for(News item:list){
             String title = item.getTitle();
-            DATE = OtherUtils.getDateByTitle(title);
+            String temp = OtherUtils.getDateByTitle(title);
+            if(StringUtils.isEmpty(DATE)){//如果DATE为空，则取DATE
+                //如果没取到DATE，则跳过
+                if(!StringUtils.isEmpty(temp)){
+                    //取到了就替换
+                    DATE = temp;
+                }
+            }
         }
         return DATE;
     }

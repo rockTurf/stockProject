@@ -1,8 +1,10 @@
 package com.srj.common.utils;
 
+import com.srj.web.util.DateUtils;
 import org.junit.Test;
 
 import java.util.Comparator;
+import java.util.Date;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -77,14 +79,33 @@ public class OtherUtils {
                 System.out.println("日："+DAY);
             }
         }
-
-
+        if(MONTH!=0&&DAY!=0){
+            String tempDateTime = DateUtils.getYear()+"-"+MONTH+"-"+DAY;
+            //为了避免12-31号的情况，应把取到的日期和今天时间对比，如果超过，则后退一年
+            return tempDateTime;
+        }
         return null;
+    }
+
+    /**
+     *
+     * @Title : getDateTime
+     * @date : 2014年3月12日 下午7:23:03
+     * @Description : 根据日期和时间拼接整体的时间字符串
+     * @return
+     */
+    public static String getDateTime(String date, String time) {
+        String datetime = date+" "+time;
+        Date d = DateUtils.parseDate(datetime);
+        String str = DateUtils.formatDateTime(d);
+        return str;
     }
 
     @Test
     public void test1(){
         String title = "生意社：8月30日兴化股份硝酸铵价格暂稳";
-        getDateByTitle(title);
+        String dt = getDateByTitle(title);
+        String time = "10:26";
+        System.out.println(getDateTime(dt,time));
     }
 }

@@ -34,13 +34,13 @@ public class NewsServiceImpl implements NewsService {
 		//返回list
 		List<News> list = new ArrayList<>();
 		if(!StringUtil.isNullOrEmpty((String)params.get("title"))){
-			//检索标题不为空，检索标题
+			/*//检索标题不为空，检索标题
 			Keyword key = keywordMapper.checkKeyword((String)params.get("title"));
 			//关键词为空，则返回空
 			if(key==null){
 				return new PageInfo<News>(list);
 			}
-			params.put("key_id",key.getId());
+			params.put("key_id",key.getId());*/
 			////检索标题不为空，检索标题
 			PageHelper.startPage(params);
 			list = newsMapper.findPageInfoByKeyWord(params);
@@ -108,6 +108,7 @@ public class NewsServiceImpl implements NewsService {
 	//导入
 	@Override
 	public int addDataByFileList(List<String> fileList) {
+		int n = 1;
 		//循环
 		for(String fileName:fileList){
 			String readPath = SysConstant.TempUrl()+fileName;
@@ -116,11 +117,10 @@ public class NewsServiceImpl implements NewsService {
 				EasyExcelFactory.readBySax(new FileInputStream(readPath),sheet,new ExcelModelNewsListener(newsMapper));
 
 			} catch (FileNotFoundException e) {
+				n=0;
 				e.printStackTrace();
 			}
 		}
-
-
-		return 0;
+		return n;
 	}
 }

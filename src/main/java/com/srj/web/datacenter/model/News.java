@@ -19,6 +19,7 @@ public class News extends BaseRowModel {
 	private String source;//来源
 	@ExcelProperty(index = 4)
 	private String author;//作者
+	@ExcelProperty(index = 1)
 	private String newsTime;//新闻时间
 	@ExcelProperty(index = 5)
 	private String address;//地址
