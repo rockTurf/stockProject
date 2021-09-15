@@ -25,7 +25,7 @@ import java.util.Map;
 
 @Component
 @Lazy(false)
-//@RequestMapping("quartz")
+@RequestMapping("quartz")
 public class QuartzController {
 
       @Autowired
@@ -38,7 +38,7 @@ public class QuartzController {
       //@RequestMapping(value = "/news")
       @ResponseBody
       public void getiFengNews(){
-            List<JSONObject> list = SpiderUtils.getifeng();
+           /* List<JSONObject> list = SpiderUtils.getifeng();
             List<News> newsList = new ArrayList<>();
             if(list.size()<=0){
             	//System.out.println("------------------什么都没爬到");
@@ -68,51 +68,22 @@ public class QuartzController {
                   
             }
             newsService.insertList(newsList);
-            System.out.println(DateUtils.getDateTime()+",凤凰网增加"+newsList.size());
+            System.out.println(DateUtils.getDateTime()+",凤凰网增加"+newsList.size());*/
       }
 
       //中国证券网新闻爬虫
-      @Scheduled(cron = "0 36 1/1 ? * *")
       //@RequestMapping(value = "/news")
+      @Scheduled(cron = "0 0 */1 * * ?")
       @ResponseBody
       public void getCsStockNews(){
-            List<JSONObject> list = SpiderUtils.getCsStock();
-            List<News> newsList = new ArrayList<>();
-            if(list.size()<=0){
-            	System.out.println("------------------什么都没爬到");
-            }
-            //取出40条凤凰网财经的记录
-            List<News> dataList = newsService.selectBySource(Constant.NEWS_SOURCE_CSSTOCK);
+            List<News> list = SpiderUtils.getTianNews();
+            newsService.insertList(list);
 
-            for(JSONObject obj:list){
-            	  boolean b = true;	
-             		
-                  News news = new News();
-                  news.setTitle(obj.getString("title"));
-                  news.setContent(obj.getString("content"));
-                  news.setNewsTime(obj.getString("newsTime"));
-                  news.setAuthor(obj.getString("author"));
-                  news.setSource(Constant.NEWS_SOURCE_CSSTOCK);
-
-                  for(News item:dataList){
-                	  if(item.getTitle().equals(obj.getString("title"))){
-                		  //System.out.println("----去除重复新闻,标题："+obj.getString("title")+","+DateUtils.formatDateTime(new Date()));
-                		  b=false;
-                	  }
-                  }
-                  
-                  if(b==true){
-                	  newsList.add(news);
-                  }
-                  
-            }
-            newsService.insertList(newsList);
-            System.out.println(DateUtils.getDateTime()+",证券网增加"+newsList.size());
       }
 
       //新闻关键词和标题关联
       //@RequestMapping(value = "/newkey")
-      @Scheduled(cron = "0 50 1/1 ? * *")
+      /*@Scheduled(cron = "0 50 1/1 ? * *")
       @ResponseBody
       public void newsTitleGetKeyword(){
             List<Keyword> keywordList = keywordService.getAllKeyword();
@@ -148,5 +119,7 @@ public class QuartzController {
                   }
             }
             //Long endTime = System.currentTimeMillis();
-      }
+      }*/
+
+      
 }

@@ -1,6 +1,10 @@
 package com.srj.web.util;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.srj.common.utils.HttpRequestUtil;
+import com.srj.web.datacenter.model.News;
 import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -20,193 +24,46 @@ public class SpiderUtils {
 
     protected static final Logger logger = LoggerFactory.getLogger(SpiderUtils.class);
 
-    private static String IFENG_URL = "http://finance.ifeng.com/listpage/110/1/list.shtml";
-    private static String CSSTOCK_URL = "http://www.cnstock.com/";
-
-    //中央采购网
-    private static String ZYCG_URL = "http://www.zycg.gov.cn/freecms/site/zygjjgzfcgzx/cggg/index.html";
-
+    //天行app
+    private static String TIAN_API = "http://api.tianapi.com/caijing/index";
+    private static String TIAN_KEY = "f1bb52f045df3bd96468932ca5353305";
+    private static Integer TIAN_NUMBER = 50;
 
 
-    /**
-     * 爬虫程序--获取网页新闻数据
-     *
-     * @param url       爬虫访问地址
-     * @param encodeing 网站编码
-     * @return
-     */
-    public static String getSourceFormHtml(String url, String encodeing) {
-        URL ur = null;
-        InputStreamReader reader = null;
-        StringBuffer sb = null;
-        try {
-            ur = new URL(url);
-
-            URLConnection coon = ur.openConnection();
-
-            coon.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36");
-
-            reader = new InputStreamReader(coon.getInputStream(), encodeing);
-
-            BufferedReader read = new BufferedReader(reader);
-
-            sb = new StringBuffer();
-            String temp;
-            while ((temp = read.readLine()) != null) {
-                sb.append(temp).append("\n");
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            logger.error("一条新闻未读取成功");
-            return null;
-        } finally {
-            if (reader != null) {
-                try {
-                    reader.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        return sb.toString();
-    }
-
-    public static String getAcSourceFormHtml(String url, String encodeing) {
-        URL ur = null;
-        InputStreamReader reader = null;
-        StringBuffer sb = null;
-        try {
-            ur = new URL(url);
-
-            URLConnection coon = ur.openConnection();
-            coon.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36");
-            coon.setRequestProperty("Referer", "Referer:https://www.aicoin.net.cn/");
-            reader = new InputStreamReader(coon.getInputStream(), encodeing);
-
-            BufferedReader read = new BufferedReader(reader);
-
-            sb = new StringBuffer();
-            String temp;
-            while ((temp = read.readLine()) != null) {
-                sb.append(temp).append("\n");
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if (reader != null) {
-                try {
-                    reader.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        return sb.toString();
-    }
-
-    /**
-     * 获取凤凰网的股票新闻JSON
-     *
-     */
-    public static List<JSONObject> getifeng() {
-        //返回值
-        List<JSONObject> list = new ArrayList<>();
-
-        String url = IFENG_URL;
-        //开爬
-        String string = getSourceFormHtml(url, "UTF-8");
-        if (StringUtils.isNotBlank(string)) {
-            Document doc = Jsoup.parse(string);
-            if (doc != null) {
-                Elements elements = doc.select("span[class=txt01]");
-                for(Element el:elements){
-                    String title = el.text();
-                    String link = el.select("a").attr("href").toString();
-                    //文章链接
-                    String string_article = getSourceFormHtml(link, "UTF-8");
-                    Document doc2 = Jsoup.parse(string_article);
-                    String content = "";
-                    String newsTime = "";
-                    if (doc2 != null) {
-                        Element element = doc2.getElementById("main_content-LcrEruCc");
-                        //判断一下，不为空并长度大于0
-                        if(doc2.select("span[class=time-hm3v7ddj]")!=null){
-                        	if(doc2.select("span[class=time-hm3v7ddj]").size()>0){
-                        		newsTime = doc2.select("span[class=time-hm3v7ddj]").get(0).text();
-                        	}
-                        }
-                        if(element!=null){
-                        	content = element.text();
-                        	JSONObject obj = new JSONObject();
-                            obj.put("title",title);
-                            obj.put("content",content);
-                            obj.put("newsTime",newsTime);
-                            list.add(obj);
-                        }
-                    }
-                }
-            }
-        }
-        return list;
-    }
-
-    
     /**
      * 获取中国证券网的股票新闻JSON
      *
      */
-    public static List<JSONObject> getCsStock() {
-        //返回值
-        List<JSONObject> list = new ArrayList<>();
-        String url = CSSTOCK_URL;
-        //开爬
-        String string = getSourceFormHtml(url, "UTF-8");
-        if (StringUtils.isNotBlank(string)) {
-        	Document doc = Jsoup.parse(string);
-            if (doc != null) {
-            	Elements elements = doc.select("li[class=newslist]");
-                for(Element el:elements){
-                	String title = el.select("a").attr("title").toString();
-                	String link = el.select("a").attr("href").toString();
-                	/*System.out.println("title="+title+",link="+link);*/
-                	//文章链接
-                    String string_article = getSourceFormHtml(link, "GBK");
-                    Document doc2 = Jsoup.parse(string_article);
-                    String content = "";
-                    String newsTime = "";
-                    String author = "";
-                    if (doc2 != null) {
-                        Element element = doc2.getElementById("qmt_content_div");
-                        Elements elScripts = doc.getElementsByTag("script");
-                        //判断一下，不为空并长度大于0
-                        if(doc2.select("span[class=timer]")!=null){
-                        	if(doc2.select("span[class=timer]").size()>0){
-                        		newsTime = doc2.select("span[class=timer]").get(0).text();
-                        	}
-                        	
-                        }
-                        
-                        //判断一下，不为空并长度大于0
-                        if(doc2.select("span[class=author]")!=null){
-                        	if(doc2.select("span[class=author]").size()>0){
-                        		author = doc2.select("span[class=author]").get(0).text();
-                        	}
-                        }
-                        if(element!=null){
-                        	content = element.text();
-                        	JSONObject obj = new JSONObject();
-                            obj.put("title",title);
-                            obj.put("content",content);
-                            obj.put("newsTime",newsTime);
-                            obj.put("author",author);
-                            list.add(obj);
-                        }
-                    }
-                    //System.out.println(obj);
-                }
+    public static List<News> getTianNews() {
+        List<News> list = new ArrayList<>();
+
+        Map<String,Object> map = new HashMap<>();
+        map.put("key",TIAN_KEY);
+        map.put("num",TIAN_NUMBER);
+        String str = HttpRequestUtil.sendPost(TIAN_API,map,"UTF-8");
+        //解析JSON
+        JSONObject json = JSON.parseObject(str);
+        if(200==json.getInteger("code")){
+            JSONArray jsonArray = json.getJSONArray("newslist");
+            for(int i=0;i<jsonArray.size();i++) {
+                JSONObject obj = jsonArray.getJSONObject(i);
+                String news_time = obj.getString("ctime");
+                String title = obj.getString("title");
+                String source = obj.getString("source");
+                String picUrl = obj.getString("picUrl");
+                String address = obj.getString("url");
+                String create_time = DateUtils.getDateTime();
+
+                News item = new News();
+                item.setSource(source);
+                item.setTitle(title);
+                item.setAddress(address);
+                item.setNewsTime(news_time);
+                item.setPicUrl(picUrl);
+                item.setCreateTime(create_time);
+                list.add(item);
             }
+
         }
         return list;
     }

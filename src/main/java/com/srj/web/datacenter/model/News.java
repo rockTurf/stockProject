@@ -23,6 +23,7 @@ public class News extends BaseRowModel {
 	private String newsTime;//新闻时间
 	@ExcelProperty(index = 5)
 	private String address;//地址
+	private String picUrl;//图片地址
 	@Transient
 	private String createTime;//创建时间
 

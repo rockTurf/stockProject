@@ -207,16 +207,14 @@ public class HttpRequestUtil {
                 osw.flush();  
             }  
             // 定义BufferedReader输入流来读取URL的响应  
-            resultBuffer = new StringBuffer();  
-            int contentLength = Integer.parseInt(con.getHeaderField("Content-Length"));  
-            if (contentLength > 0) {  
-                br = new BufferedReader(new InputStreamReader(con.getInputStream(), charset));  
-                String temp;  
-                while ((temp = br.readLine()) != null) {  
-                    resultBuffer.append(temp);  
-                }  
-            }  
-        } catch (Exception e) {  
+            resultBuffer = new StringBuffer();
+
+            br = new BufferedReader(new InputStreamReader(con.getInputStream(), charset));
+            String temp;
+            while ((temp = br.readLine()) != null) {
+                resultBuffer.append(temp);
+            }
+        } catch (Exception e) {
             throw new RuntimeException(e);  
         } finally {  
             if (osw != null) {  
