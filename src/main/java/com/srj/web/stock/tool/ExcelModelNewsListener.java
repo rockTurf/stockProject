@@ -57,7 +57,10 @@ public class ExcelModelNewsListener extends AnalysisEventListener<News> {
             if(!StringUtils.isEmpty(address)){
                 String datetime = OtherUtils.getDateTime(DATE,t.getNewsTime());
                 t.setNewsTime(datetime);
-                mapper.insert(t);
+                News temp = mapper.selectOne(t);
+                if(temp==null){
+                    mapper.insert(t);
+                }
             }
         }
         System.out.println("{ "+ count +" }条数据，开始存储数据库！" + list.size());

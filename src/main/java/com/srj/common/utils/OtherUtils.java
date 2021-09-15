@@ -81,7 +81,7 @@ public class OtherUtils {
         }
         if(MONTH!=0&&DAY!=0){
             String tempDateTime = DateUtils.getYear()+"-"+MONTH+"-"+DAY;
-            System.out.println("日期："+tempDateTime);
+            //为了避免12-31号的情况，应把取到的日期和今天时间对比，如果超过，则后退一年
             return tempDateTime;
         }
         return null;

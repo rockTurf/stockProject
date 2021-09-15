@@ -82,13 +82,13 @@ public class NewsController {
 	 * @return
 	 */
 	@RequestMapping(value = "addNewsData", method = RequestMethod.POST)
-	public @ResponseBody String addNewsData(@RequestParam Map<String, Object> params, Model model) {
+	public @ResponseBody Integer addNewsData(@RequestParam Map<String, Object> params, Model model) {
 		//取到文件名称
 		String fileData = params.get("fileData").toString();
 		//获取文件List
 		List<String> fileList = FileTools.GetFileListByMapString(fileData);
 		int count = newsService.addDataByFileList(fileList);
-		return "success";
+		return count;
 	}
 	
 }

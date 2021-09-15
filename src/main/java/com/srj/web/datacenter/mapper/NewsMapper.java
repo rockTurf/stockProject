@@ -14,11 +14,11 @@ public interface NewsMapper extends Mapper<News> {
 
 	@Select(value = "SELECT * from news ORDER BY news_time DESC")
 	List<News> findPageInfo(@Param("params")Map<String, Object> params);
-	@Select({"<script>",
+	/*@Select({"<script>",
 			"SELECT a.* FROM news a LEFT JOIN new_keyword b ON a.id = b.new_id",
 			"   where b.keyword_id = #{params.key_id} ORDER BY a.news_time DESC" ,
 			"</script>"})
-	List<News> findPageInfoByKeyWord(@Param("params")Map<String, Object> params);
+	List<News> findPageInfoByKeyWord(@Param("params")Map<String, Object> params);*/
 
 	@Insert({"<script>",
 			"insert IGNORE into new_keyword (new_id,keyword_id) values ",
@@ -39,5 +39,9 @@ public interface NewsMapper extends Mapper<News> {
 	@Select(value = "SELECT * from news where source = #{source} ORDER BY news_time DESC limit 40")
 	List<News> selectBySource(@Param("source")String source);
 
+	@Select(value = "select *, MATCH (title) AGAINST (#{params.title}) as score " +
+			"from news where MATCH (title) AGAINST (#{params.title} IN NATURAL LANGUAGE MODE) " +
+			"ORDER BY news_time DESC")
+	List<News> findPageInfoByKeyWord(@Param("params")Map<String, Object> params);
 
 }
