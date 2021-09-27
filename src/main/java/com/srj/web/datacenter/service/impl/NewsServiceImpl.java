@@ -12,6 +12,7 @@ import com.srj.web.datacenter.model.News;
 import com.srj.web.datacenter.service.NewsService;
 import com.srj.web.stock.tool.ExcelModelNewsListener;
 import com.srj.web.sys.model.SysUser;
+import com.srj.web.util.DateUtils;
 import com.srj.web.util.StringUtil;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +28,9 @@ public class NewsServiceImpl implements NewsService {
 	private NewsMapper newsMapper;
 	@Resource
 	private KeywordMapper keywordMapper;
+
+	//清理30天新闻到旧表
+	public static final int CLEAR_NEWS_DATE = 30;
 	/*
 	 * 分页显示列表
 	 * */
@@ -126,5 +130,19 @@ public class NewsServiceImpl implements NewsService {
 			}
 		}
 		return n;
+	}
+
+	@Override
+	public void clearNewsToOld() {
+		//搜索超过30天的新闻条目
+		List<News> oldList = newsMapper.selectByDate(CLEAR_NEWS_DATE);
+		//将新闻存入旧新闻表,再从新表删除
+		for(News item : oldList){
+			int count = newsMapper.insertIntoHistory(item);
+			newsMapper.delete(item);
+
+		}
+		String nowTime = DateUtils.getDateTime();
+		System.out.println(nowTime+",共有"+oldList.size()+"条新闻被挪到旧库");
 	}
 }

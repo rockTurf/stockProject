@@ -38,4 +38,7 @@ public interface NewsService {
 
 	//导入
     int addDataByFileList(List<String> fileList);
+
+    //将旧新闻转入旧表
+    void clearNewsToOld();
 }

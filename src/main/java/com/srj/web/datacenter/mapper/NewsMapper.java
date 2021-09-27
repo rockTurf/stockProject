@@ -44,4 +44,12 @@ public interface NewsMapper extends Mapper<News> {
 			"ORDER BY news_time DESC")
 	List<News> findPageInfoByKeyWord(@Param("params")Map<String, Object> params);
 
+	@Select(value = "SELECT * FROM news where DATE_SUB(CURDATE(), INTERVAL #{day_num} DAY) >= date(news_time)")
+	List<News> selectByDate(@Param("day_num")int day_num);
+	@Insert({"<script>",
+			"insert IGNORE into news_history (title,content,source,author,create_time,news_time,pic_url,address) values ",
+			"(#{news.title},#{news.content},#{news.source},#{news.author},#{news.createTime},#{news.newsTime}" +
+			",#{news.picUrl},#{news.address})",
+			"</script>"})
+	int insertIntoHistory(@Param("news")News news);
 }

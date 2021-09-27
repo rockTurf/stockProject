@@ -33,45 +33,7 @@ public class QuartzController {
       @Autowired
       KeywordService keywordService;
 
-      //凤凰网新闻爬虫
-      @Scheduled(cron = "0 0 1/1 ? * *")
-      //@RequestMapping(value = "/news")
-      @ResponseBody
-      public void getiFengNews(){
-           /* List<JSONObject> list = SpiderUtils.getifeng();
-            List<News> newsList = new ArrayList<>();
-            if(list.size()<=0){
-            	//System.out.println("------------------什么都没爬到");
-            }
-            //取出40条凤凰网财经的记录
-            List<News> dataList = newsService.selectBySource(Constant.NEWS_SOURCE_IFENG);
-
-            for(JSONObject obj:list){
-            	  boolean b = true;	
-             		
-                  News news = new News();
-                  news.setTitle(obj.getString("title"));
-                  news.setContent(obj.getString("content"));
-                  news.setNewsTime(obj.getString("newsTime"));
-                  news.setSource(Constant.NEWS_SOURCE_IFENG);
-
-                  for(News item:dataList){
-                	  if(item.getTitle().equals(obj.getString("title"))){
-                		  //System.out.println("----去除重复新闻,标题："+obj.getString("title")+","+DateUtils.formatDateTime(new Date()));
-                		  b=false;
-                	  }
-                  }
-                  
-                  if(b==true){
-                	  newsList.add(news);
-                  }
-                  
-            }
-            newsService.insertList(newsList);
-            System.out.println(DateUtils.getDateTime()+",凤凰网增加"+newsList.size());*/
-      }
-
-      //中国证券网新闻爬虫
+      //天行新闻接口
       //@RequestMapping(value = "/news")
       @Scheduled(cron = "0 0 */1 * * ?")
       @ResponseBody
@@ -81,45 +43,14 @@ public class QuartzController {
 
       }
 
-      //新闻关键词和标题关联
-      //@RequestMapping(value = "/newkey")
-      /*@Scheduled(cron = "0 50 1/1 ? * *")
+      //新闻接口转入旧表30 2 0 * * ? *
       @ResponseBody
-      public void newsTitleGetKeyword(){
-            List<Keyword> keywordList = keywordService.getAllKeyword();
-            //计时器开始
-            Long startTime = System.currentTimeMillis();
-            int size = 1000;//循环取出新闻数据，1000条为一单位
-            //1.先查看新闻总条数
-            int totalNews = newsService.getTotalNewsNumber();
-            //2.最高循环次数
-            int count = (totalNews  +  size  - 1) / size;
-            //3.开始循环，1000条一取
-            for(int i=0;i<count;i++){
-                  Map<String,Object> map = new HashMap<>();
-                  map.put("start",i*size);
-                  map.put("size",size);
-                  List<News> newsList = newsService.getPageNewsOneK(i*size,size);
-                  int total = 0;//统计插入的数量
-                  for(News news:newsList){
-                        //取到之后，用新闻标题循环比对关键词，插库
-                        for(Keyword key:keywordList){
-                              int n = newsService.getInNewsKeyword(news,key);
-                              if(n>0){
-                                    total = total+1;
-                              }
-                        }
-                  }
-                  //Long currentTime = System.currentTimeMillis();
-                  //阶段性结束的时间,超过执行20分钟就结束
-                  Long endTime = System.currentTimeMillis();
-                  if((endTime-startTime)>2000*60*10){
-                	  System.out.println("-----------新闻关键词和标题关联执行超过10分钟，共执行："+(i+1)+"千条");
-                	  return;
-                  }
-            }
-            //Long endTime = System.currentTimeMillis();
-      }*/
+      @Scheduled(cron = "30 3 0 * * ?")
+      //@RequestMapping(value = "/clear")
+      public void clearNewsToOld(){
+            newsService.clearNewsToOld();
+      }
+
 
       
 }
