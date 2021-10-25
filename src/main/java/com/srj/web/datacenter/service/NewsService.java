@@ -13,6 +13,8 @@ public interface NewsService {
 	 * */
 	PageInfo<News> findPageInfo(Map<String, Object> params);
 
+	PageInfo<News> findUnusualPageInfo(Map<String, Object> params);
+
     void insertList(List<News> newsList);
 
     //增加

@@ -4,6 +4,7 @@ import com.alibaba.excel.EasyExcelFactory;
 import com.alibaba.excel.metadata.Sheet;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.srj.common.constant.Constant;
 import com.srj.common.utils.SysConstant;
 import com.srj.web.datacenter.mapper.KeywordMapper;
 import com.srj.web.datacenter.mapper.NewsMapper;
@@ -55,6 +56,16 @@ public class NewsServiceImpl implements NewsService {
 			list = newsMapper.findPageInfo(params);
 			return new PageInfo<News>(list);
 		}
+	}
+
+	@Override
+	public PageInfo<News> findUnusualPageInfo(Map<String, Object> params) {
+		PageHelper.startPage(params);
+		//返回list
+		//先定义异常参数
+		params.put("type", Constant.UNUSUAL_NEWS_TYPE);
+		List<News> list = newsMapper.findPageUnusual(params);
+		return new PageInfo<News>(list);
 	}
 
 	//条件增加

@@ -25,8 +25,8 @@ public class QuartzController {
 
       //天行新闻接口
       //@RequestMapping(value = "/news")
-      @Scheduled(cron = "20 5 /1 * * ?")
       @ResponseBody
+      @Scheduled(cron = "20 3 * * * ?")
       public void getCsStockNews(){
             List<News> list = SpiderUtils.getTianNews();
             newsService.insertList(list);
@@ -40,6 +40,9 @@ public class QuartzController {
       public void clearNewsToOld(){
             newsService.clearNewsToOld();
       }
+
+      //搜索新闻表，将包含关键词的新闻存入中间表
+
 
 
       

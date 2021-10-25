@@ -14,11 +14,13 @@ public interface NewsMapper extends Mapper<News> {
 
 	@Select(value = "SELECT * from news ORDER BY news_time DESC")
 	List<News> findPageInfo(@Param("params")Map<String, Object> params);
-	/*@Select({"<script>",
-			"SELECT a.* FROM news a LEFT JOIN new_keyword b ON a.id = b.new_id",
-			"   where b.keyword_id = #{params.key_id} ORDER BY a.news_time DESC" ,
+
+	@Select({"<script>",
+			"SELECT a.* FROM news a LEFT JOIN new_keyword b ON a.id = b.new_id ",
+			"left join keyword c ON b.keyword_id = c.id ",
+			" where c.type = #{params.type} ORDER BY a.news_time DESC" ,
 			"</script>"})
-	List<News> findPageInfoByKeyWord(@Param("params")Map<String, Object> params);*/
+	List<News> findPageUnusual(@Param("params")Map<String, Object> params);
 
 	@Insert({"<script>",
 			"insert IGNORE into new_keyword (new_id,keyword_id) values ",
