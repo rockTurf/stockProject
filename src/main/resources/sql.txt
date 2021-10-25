@@ -1,3 +1,7 @@
+-- --------------------------2021/10/25----------------------------------------
+ALTER TABLE `keyword` ADD COLUMN  `type` tinyint(1) DEFAULT '0' COMMENT '关键词类型' ;
+
+
 alter table `new_keyword` modify column create_time datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间' ;
 
 
