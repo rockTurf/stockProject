@@ -26,7 +26,7 @@ public class JisuData {
     public static final String APPKEY = "31f26a8211f8a589";// 你的appkey
     public static final String URL = "https://api.jisuapi.com/news/get";
     public static final String channel = "财经";// utf8  新闻频道(头条,财经,体育,娱乐,军事,教育,科技,NBA,股票,星座,女性,健康,育儿)
-    public static final int num = 30;// 数量 默认10，最大40
+    public static final int num = 40;// 数量 默认10，最大40
     public static final int start = 0;//起始
 
 
@@ -38,15 +38,22 @@ public class JisuData {
         List<News> newsList = new ArrayList<>();
 
         String result = null;
-        String url = URL + "?channel=" + URLEncoder.encode(channel, "utf-8") + "&start="+ start + "&num=" + num + "&appkey=" + APPKEY;
+        Map<String,Object> map = new HashMap<>();
+        map.put("channel",URLEncoder.encode(channel, "utf-8"));
+        map.put("start",start);
+        map.put("num",num);
+        map.put("appkey",APPKEY);
+
 
         try {
-            result = HttpRequestUtil.sendGet(url, null);
-            JSONObject json = JSONObject.parseObject(result);
+            result = HttpRequestUtil.sendPost(URL, map,"utf-8");
+            logger.info(result);
+            //System.out.println(result);
+            JSONObject json = JSON.parseObject(result);
             if (json.getInteger("status") != 0) {
                 System.out.println(json.getString("msg"));
             } else {
-                JSONObject resultarr = (JSONObject) json.get("result");
+                JSONObject resultarr = json.getJSONObject("result");
                 String channel = resultarr.getString("channel");
                 String num = resultarr.getString("num");
                 System.out.println(channel + " " + num);

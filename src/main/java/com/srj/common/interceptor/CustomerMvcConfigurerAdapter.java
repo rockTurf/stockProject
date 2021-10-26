@@ -32,6 +32,7 @@ public class CustomerMvcConfigurerAdapter implements WebMvcConfigurer {
                 "/login",            //登录
                "/register",
                 "/hello",
+                "/quartz/news",
                 "/userRegist");
     }
 

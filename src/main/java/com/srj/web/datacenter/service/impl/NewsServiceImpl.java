@@ -81,8 +81,10 @@ public class NewsServiceImpl implements NewsService {
 
 	//条件增加
       public void insertList(List<News> newsList) {
+		News temp = new News();
 		for(News news:newsList){
-			News item = newsMapper.selectOne(news);
+			temp.setTitle(news.getTitle());
+			News item = newsMapper.selectOne(temp);
 			if(item==null){
 				newsMapper.insert(news);
 			}
