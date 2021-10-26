@@ -38,9 +38,9 @@ public class QuartzController {
         }
 
         //急速新闻接口
-        @RequestMapping(value = "/news")
+        //@RequestMapping(value = "/news")
         @ResponseBody
-        //@Scheduled(cron = "20 4 * * * ?")
+        @Scheduled(cron = "20 4 * * * ?")
         public void getJisuApiNews() throws UnsupportedEncodingException {
             List<News> list = JisuData.getJisuNews();
             newsService.insertList(list);
