@@ -25,8 +25,8 @@
 				<td>${item.title!}</td>
 				<td>${item.source!}</td>
 				<td>${item.newsTime!}</td>
-				<td>
-				<button class="btn btn-xs btn-warning" data-mode="page" data-title="详情"
+				<td><a target="_blank" href="${item.address}">详情</a>
+				<button class="btn btn-xs btn-warning" data-mode="detail" data-title="详情"
 							data-url="${ctxPath}/news/detail"
 							data-data="{id:'${item.id}'}" data-height="90%" data-width="90%">
 				<i class="fa fa-pencil"></i>

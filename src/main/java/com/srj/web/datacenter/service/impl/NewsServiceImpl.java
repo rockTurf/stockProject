@@ -17,6 +17,7 @@ import com.srj.web.stock.tool.ExcelModelNewsListener;
 import com.srj.web.sys.model.SysUser;
 import com.srj.web.util.DateUtils;
 import com.srj.web.util.StringUtil;
+import com.srj.web.util.TxtUtil;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -98,7 +99,11 @@ public class NewsServiceImpl implements NewsService {
 
 	//查找
 	public News getById(Long id) {
-		return newsMapper.selectByPrimaryKey(id);
+		News news = newsMapper.selectByPrimaryKey(id);
+		String content = news.getContent();
+		content = TxtUtil.delHtmlTags(content);
+		news.setContent(content);
+		return news;
 	}
 
 	//取出某网站最新一条记录

@@ -55,7 +55,7 @@ public class NewsController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "detail", method = RequestMethod.POST)
+	@RequestMapping(value = "detail")
 	public String showDetail(Long id, @RequestParam Map<String, Object> params, Model model){
 		News news = newsService.getById(id);
 		model.addAttribute("news", news);
