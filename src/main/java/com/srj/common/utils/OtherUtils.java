@@ -3,10 +3,7 @@ package com.srj.common.utils;
 import com.srj.web.util.DateUtils;
 import org.junit.Test;
 
-import java.util.Comparator;
-import java.util.Date;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 
 public class OtherUtils {
 
@@ -101,11 +98,22 @@ public class OtherUtils {
         return str;
     }
 
-    @Test
-    public void test1(){
-        String title = "生意社：8月30日兴化股份硝酸铵价格暂稳";
-        String dt = getDateByTitle(title);
-        String time = "10:26";
-        System.out.println(getDateTime(dt,time));
+    /**
+     *
+     * @date : 2021年10月26日
+     * @Description : 关键词标红
+     * @return
+     */
+    public static String setRed(String title, List<String> strList) {
+        if(strList.size()<=0){
+            return title;
+        }
+        for(String str : strList){
+            if(title.indexOf(str)!=-1){
+                title = title.replaceAll(str,"<font color='red'>"+str+"</font>");
+                return title;
+            }
+        }
+        return title;
     }
 }

@@ -53,9 +53,9 @@ public class Constant {
 	public static final String SHOW = "1";
 	public static final String HIDE = "0";
 
-	// 显示/隐藏
-	public static final String UNUSUAL_NEWS_TYPE = "1";
-	public static final String NORMAL_NEWS_TYPE = "0";
+	// 是否 异常词
+	public static final String UNUSUAL_NEWS_TYPE = "1"; //是
+	public static final String NORMAL_NEWS_TYPE = "0"; //否
 
 	// 是/否
 	public static final String YES = "1";

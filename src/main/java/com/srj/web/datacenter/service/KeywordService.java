@@ -26,6 +26,9 @@ public interface KeywordService {
 	//获取全部keyword
 	List<Keyword> getAllKeyword();
 
+	//获取全部异常词
+	List<Keyword> getAllUnusualKeyword();
+
 	
 	
 	

@@ -1,28 +1,21 @@
-package com.srj.web.util;
+package com.srj.web.util.data;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.srj.common.utils.HttpRequestUtil;
 import com.srj.web.datacenter.model.News;
-import org.apache.commons.lang3.StringUtils;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
+import com.srj.web.util.DateUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.*;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.*;
 
 
-public class SpiderUtils {
+public class TianXingData {
 
 
-    protected static final Logger logger = LoggerFactory.getLogger(SpiderUtils.class);
+    protected static final Logger logger = LoggerFactory.getLogger(TianXingData.class);
 
     //天行app
     private static String TIAN_API = "http://api.tianapi.com/caijing/index";
@@ -31,7 +24,7 @@ public class SpiderUtils {
 
 
     /**
-     * 获取中国证券网的股票新闻JSON
+     * 获取天行
      *
      */
     public static List<News> getTianNews() {

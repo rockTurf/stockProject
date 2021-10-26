@@ -1,12 +1,13 @@
 package com.srj.web.datacenter.service;
 
 import com.github.pagehelper.PageInfo;
+import com.srj.common.base.BaseService;
 import com.srj.web.datacenter.model.Keyword;
 import com.srj.web.datacenter.model.News;
 import com.srj.web.sys.model.SysUser;
 import java.util.*;
 
-public interface NewsService {
+public interface NewsService{
 
 	/*
 	 * 分页显示列表
@@ -35,12 +36,12 @@ public interface NewsService {
 	//新闻和关键词进行匹配，插库
 	Integer getInNewsKeyword(News news, Keyword key);
 
-	//新增
-	int saveArticle(News record, SysUser u);
-
 	//导入
     int addDataByFileList(List<String> fileList);
 
     //将旧新闻转入旧表
     void clearNewsToOld();
+
+    //差全部
+	List<News> getAll();
 }

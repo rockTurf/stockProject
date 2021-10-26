@@ -1,5 +1,7 @@
 package com.srj.common.utils;
-import java.io.BufferedReader;  
+import com.srj.web.util.StringUtil;
+
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;  
 import java.io.InputStreamReader;  
@@ -125,7 +127,12 @@ public class HttpRequestUtil {
         String result = "";
         BufferedReader in = null;
         try {
-            String urlNameString = url + "?" + param;
+            String urlNameString = "";
+            if(StringUtil.isEmpty(param)){
+                urlNameString = url;
+            }else{
+                urlNameString = url + "?" + param;
+            }
             URL realUrl = new URL(urlNameString);
             // 打开和URL之间的连接
             URLConnection connection = realUrl.openConnection();

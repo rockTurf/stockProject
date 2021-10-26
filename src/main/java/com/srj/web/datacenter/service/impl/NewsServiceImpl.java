@@ -5,11 +5,13 @@ import com.alibaba.excel.metadata.Sheet;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.srj.common.constant.Constant;
+import com.srj.common.utils.OtherUtils;
 import com.srj.common.utils.SysConstant;
 import com.srj.web.datacenter.mapper.KeywordMapper;
 import com.srj.web.datacenter.mapper.NewsMapper;
 import com.srj.web.datacenter.model.Keyword;
 import com.srj.web.datacenter.model.News;
+import com.srj.web.datacenter.service.KeywordService;
 import com.srj.web.datacenter.service.NewsService;
 import com.srj.web.stock.tool.ExcelModelNewsListener;
 import com.srj.web.sys.model.SysUser;
@@ -28,7 +30,7 @@ public class NewsServiceImpl implements NewsService {
 	@Resource
 	private NewsMapper newsMapper;
 	@Resource
-	private KeywordMapper keywordMapper;
+	private KeywordService keywordService;
 
 	//清理30天新闻到旧表
 	public static final int CLEAR_NEWS_DATE = 30;
@@ -39,19 +41,12 @@ public class NewsServiceImpl implements NewsService {
 		//返回list
 		List<News> list = new ArrayList<>();
 		if(!StringUtil.isNullOrEmpty((String)params.get("title"))){
-			/*//检索标题不为空，检索标题
-			Keyword key = keywordMapper.checkKeyword((String)params.get("title"));
-			//关键词为空，则返回空
-			if(key==null){
-				return new PageInfo<News>(list);
-			}
-			params.put("key_id",key.getId());*/
 			////检索标题不为空，检索标题
 			PageHelper.startPage(params);
 			list = newsMapper.findPageInfoByKeyWord(params);
 			return new PageInfo<News>(list);
 		}else{
-			////检索标题不为空，检索标题
+			////检索标题为空
 			PageHelper.startPage(params);
 			list = newsMapper.findPageInfo(params);
 			return new PageInfo<News>(list);
@@ -65,6 +60,22 @@ public class NewsServiceImpl implements NewsService {
 		//先定义异常参数
 		params.put("type", Constant.UNUSUAL_NEWS_TYPE);
 		List<News> list = newsMapper.findPageUnusual(params);
+		//取出所有异常关键词列表
+		List<Keyword> keywordList = keywordService.getAllUnusualKeyword();
+		//将词语取出，存入List<String>
+		List<String> strList = new ArrayList<>();
+		for(Keyword key : keywordList){
+			strList.add(key.getName());
+		}
+
+		//标红
+		for(int i=0;i<list.size();i++){
+			News item = list.get(i);
+			String title = item.getTitle();
+			title = OtherUtils.setRed(title,strList);
+			item.setTitle(title);
+			list.set(i,item);
+		}
 		return new PageInfo<News>(list);
 	}
 
@@ -117,13 +128,6 @@ public class NewsServiceImpl implements NewsService {
 		return 0;
 	}
 
-	//新增
-	public int saveArticle(News record, SysUser u) {
-		//来源
-		record.setSource(u.getName()+"-手动添加");
-		return newsMapper.insertSelective(record);
-	}
-
 	//导入
 	@Override
 	public int addDataByFileList(List<String> fileList) {
@@ -155,5 +159,11 @@ public class NewsServiceImpl implements NewsService {
 		}
 		String nowTime = DateUtils.getDateTime();
 		System.out.println(nowTime+",共有"+oldList.size()+"条新闻被挪到旧库");
+	}
+
+	//全部
+	@Override
+	public List<News> getAll() {
+		return newsMapper.selectAll();
 	}
 }

@@ -2,18 +2,7 @@ package com.srj.common.utils;
 
 import static java.lang.System.err;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.DecimalFormat;
@@ -962,5 +951,38 @@ public class FileUtil extends org.apache.commons.io.FileUtils {
 				e.printStackTrace();
 			}
 		}
+	}
+
+	/**
+	 * 以行为单位读取文件，常用于读面向行的格式化文件
+	 */
+	public static String readFileByLines(String fileName) {
+		File file = new File(fileName);
+		BufferedReader reader = null;
+		StringBuffer buffer = new StringBuffer();
+		try {
+			System.out.println("以行为单位读取文件内容，一次读一整行：");
+			reader = new BufferedReader(new FileReader(file));
+			String tempString = null;
+			int line = 1;
+			// 一次读入一行，直到读入null为文件结束
+			while ((tempString = reader.readLine()) != null) {
+				// 显示行号
+				//System.out.println("line " + line + ": " + tempString);
+				buffer.append(tempString);
+				line++;
+			}
+			reader.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			if (reader != null) {
+				try {
+					reader.close();
+				} catch (IOException e1) {
+				}
+			}
+		}
+		return buffer.toString();
 	}
 }

@@ -62,17 +62,6 @@ public class NewsController {
 		return "datacenter/news/news-detail";
 	}
 	
-	/**
-	 * 新增
-	 */
-	@RequestMapping(value = "save")
-	public @ResponseBody
-    Integer save(@ModelAttribute News record, @RequestParam Map<String, Object> params, Model model, HttpServletRequest request, HttpServletResponse response){
-		SysUser u = SysUserUtil.getSessionLoginUser(request);
-		//新增
-		int count = newsService.saveArticle(record,u);
-		return count;
-	}
 
 	/**
 	 * 导入数据

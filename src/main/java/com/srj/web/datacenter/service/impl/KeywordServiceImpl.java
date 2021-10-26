@@ -2,6 +2,7 @@ package com.srj.web.datacenter.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.srj.common.constant.Constant;
 import com.srj.web.datacenter.mapper.KeywordMapper;
 import com.srj.web.datacenter.model.Keyword;
 import com.srj.web.datacenter.service.KeywordService;
@@ -17,8 +18,6 @@ public class KeywordServiceImpl implements KeywordService {
 	
 	@Autowired
 	private KeywordMapper keyMapper;
-
-	
 	/*
 	 * 分页显示关键词
 	 * */
@@ -28,7 +27,6 @@ public class KeywordServiceImpl implements KeywordService {
 		List<Keyword> list = keyMapper.findPageInfo(params);
 		return new PageInfo<Keyword>(list);
 	}
-
 	/*
 	 * 保存关键字
 	 * */
@@ -52,16 +50,19 @@ public class KeywordServiceImpl implements KeywordService {
 		}
 		return b;
 	}
-
 	//获取全部keyword
 	@Override
 	public List<Keyword> getAllKeyword() {
 		List<Keyword> list = keyMapper.getAllKeyword();
 		return list;
 	}
+	//取出所有异常keyword
+	@Override
+	public List<Keyword> getAllUnusualKeyword() {
+		Keyword keyword = new Keyword();
+		keyword.setType(Constant.UNUSUAL_NEWS_TYPE);
+		return keyMapper.select(keyword);
+	}
 
-	
-	
-	
 
 }
