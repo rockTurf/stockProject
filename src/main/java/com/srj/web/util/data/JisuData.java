@@ -6,6 +6,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.srj.common.utils.HttpRequestUtil;
 import com.srj.web.datacenter.model.News;
 import com.srj.web.util.DateUtils;
+import com.srj.web.util.TxtUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -68,6 +69,9 @@ public class JisuData {
                     String content = obj.getString("content");
                     String address = obj.getString("url");
                     String weburl = obj.getString("weburl");
+
+                    //清洗一下内容字段
+                    content = TxtUtil.delHtmlTags(content);
 
                     News item = new News();
                     item.setSource(src);
