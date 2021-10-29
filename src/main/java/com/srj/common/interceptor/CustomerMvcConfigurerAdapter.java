@@ -30,6 +30,7 @@ public class CustomerMvcConfigurerAdapter implements WebMvcConfigurer {
         registration.addPathPatterns("/**");                      //所有路径都被拦截
         registration.excludePathPatterns(                         //添加不拦截路径
                 "/login",            //登录
+                "/loginCheck",
                "/register",
                 "/hello",
                 "/quartz/news",
