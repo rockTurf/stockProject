@@ -34,7 +34,8 @@ public class CustomerMvcConfigurerAdapter implements WebMvcConfigurer {
                "/register",
                 "/hello",
                 "/quartz/news",
-                "/userRegist");
+                "/userRegist",
+                "/static/**");
     }
 
 }
