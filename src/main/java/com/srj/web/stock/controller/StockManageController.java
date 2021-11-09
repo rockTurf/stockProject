@@ -7,6 +7,7 @@ import com.srj.web.stock.model.Stock;
 import com.srj.web.stock.model.StockBoard;
 import com.srj.web.stock.service.StockService;
 import com.srj.web.sys.model.SysUser;
+import com.srj.web.tool.FileTools;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -102,5 +103,22 @@ public class StockManageController {
 		List<News> list = stockService.findStockNews(id);
 		model.addAttribute("list", list);
 		return "datacenter/stock/stock-news";
+	}
+
+	/**
+	 * 导入数据
+	 *
+	 * @param params
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "addNewsData", method = RequestMethod.POST)
+	public @ResponseBody Integer addNewsData(@RequestParam Map<String, Object> params, Model model) {
+		//取到文件名称
+		String fileData = params.get("fileData").toString();
+		//获取文件List
+		List<String> fileList = FileTools.GetFileListByMapString(fileData);
+		int count = stockService.addDataByFileList(fileList);
+		return count;
 	}
 }

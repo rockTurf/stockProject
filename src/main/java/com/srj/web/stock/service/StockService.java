@@ -47,4 +47,7 @@ public interface StockService {
 	/*
 	 * 该股票新闻列表	 * */
     List<News> findStockNews(Long id);
+	/*
+	 * 导入数据	 * */
+	int addDataByFileList(List<String> fileList);
 }

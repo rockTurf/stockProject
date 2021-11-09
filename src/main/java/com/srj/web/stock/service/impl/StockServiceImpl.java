@@ -1,7 +1,10 @@
 package com.srj.web.stock.service.impl;
 
+import com.alibaba.excel.EasyExcelFactory;
+import com.alibaba.excel.metadata.Sheet;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.srj.common.utils.SysConstant;
 import com.srj.common.utils.UUIDUtils;
 import com.srj.web.datacenter.model.News;
 import com.srj.web.stock.mapper.StockBoardMapper;
@@ -9,9 +12,13 @@ import com.srj.web.stock.mapper.StockMapper;
 import com.srj.web.stock.model.Stock;
 import com.srj.web.stock.model.StockBoard;
 import com.srj.web.stock.service.StockService;
+import com.srj.web.stock.tool.ExcelModelNewsListener;
+import com.srj.web.stock.tool.ExcelModelStockListener;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -107,6 +114,26 @@ public class StockServiceImpl implements StockService {
 	@Override
 	public List<News> findStockNews(Long id) {
 		return stockMapper.findStockNews(id);
+	}
+
+	/*
+	 *导入数据	 * */
+	@Override
+	public int addDataByFileList(List<String> fileList) {
+		int n = 1;
+		//循环
+		for(String fileName:fileList){
+			String readPath = SysConstant.TempUrl()+fileName;
+			try {
+				Sheet sheet = new Sheet(1,1, Stock.class);
+				EasyExcelFactory.readBySax(new FileInputStream(readPath),sheet,new ExcelModelStockListener(stockMapper));
+
+			} catch (FileNotFoundException e) {
+				n=0;
+				e.printStackTrace();
+			}
+		}
+		return n;
 	}
 
 

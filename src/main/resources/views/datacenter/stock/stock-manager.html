@@ -1,8 +1,42 @@
+<script type="text/javascript">
+	var fileMap = new Map();
+	$('#upload_file').uploadifive({
+		'auto' : true,
+		'uploadScript' : '${ctxPath}/upload/uploadTemp',
+		'fileObjName' : 'files',
+		'buttonText' : '上传附件',
+		'queueID' : 'tip-queue',
+		'fileTypeExts' : '.xlsx',//'image/*',
+		'multi' : true,
+		'fileSizeLimit'   : 5242880,
+		'onUploadComplete' : function(file, data) {
+			fileMap.put(data);//添加到附件map
+			$("#fileData").val(fileMap);
+		},
+		onCancel : function(file) {
+			$data    = $(this).data('uploadifive'),
+					settings = $data.settings;
+			settings.uploadLimit++;
+			/* $.ajax({
+              type: "POST",
+              url:"upload/deleteFile",
+              dataType: 'JSON',
+              data:"filename="+fileMap.get(file.name),
+             });  */
+			fileMap.remove(file.name);//删除附件map
+			$("#fileData").val(fileMap);
+		},
+		onFallback : function() {
+			alert("该浏览器无法使用!");
+			location.reload();
+		},
+	});
+</script>
 <div>
 	<ul id="myTab" class="nav nav-tabs">
 		<li class="active"><a href="#home" data-toggle="tab">股票列表</a>
 		</li>
-		<li><a href="#addUser" data-toggle="tab">新增股票</a></li>
+		<li><a href="#addData" data-toggle="tab">导入</a></li>
 	</ul>
 
 	<div class="matter">
@@ -46,7 +80,7 @@
 					<div id="list-page"></div>
 				</div>
 			</div>
-			<div class="tab-pane fade" id="addUser">
+			<div class="tab-pane fade" id="addData">
 				<div class="widget wgreen">
 					<div class="widget-head">
 						<div class="pull-left">新增</div>
@@ -54,54 +88,28 @@
 					</div>
 					<div class="widget-content">
 						<div class="padd">
-							<!-- Form starts.  -->
 							<form class="form-horizontal" role="form" id="save-form"
-								action="${ctxPath!}/stock/save" method="post">
-								<div class="form-group">
-									<label class="col-lg-4 control-label">名 称：</label>
-									<div class="col-lg-8">
-										<input type="text" name="name" datatype="*"
-											nullmsg="此项必填！" class="form-control">
-									</div>
-								</div>
-								<div class="form-group">
-									<label class="col-lg-4 control-label">编 码:</label>
-									<div class="col-lg-8">
-										<input type="text" name="code" datatype="*"
-											class="form-control">
-									</div>
-								</div>
-								<div class="form-group">
-									<label class="col-lg-4 control-label">细分行业:</label>
-									<div class="col-lg-8">
-										<input type="text" name="industry" datatype="*"
-											class="form-control">
-									</div>
-								</div>
-								<div class="form-group">
-									<label class="col-lg-4 control-label">地 区:</label>
-									<div class="col-lg-8">
-										<input type="text" name="area" datatype="*"
-											class="form-control">
-									</div>
-								</div>
-							<!--	<div class="form-group">
-									<label class="col-lg-4 control-label">板 块</label>
-									<div class="col-lg-8">
-										<select name="boardIds" datatype="*" class="selectpicker show-tick form-control" id="boardList" multiple>
-											@for(item in boardList){
-											<option value="${item.id}">${item.name}</option>
-											@}
-										</select>
-									</div>
-								</div>-->
+								  action="${ctxPath!}/stock/addNewsData" method="post">
+								<table class="table table-bordered">
+									<tr>
+										<td style="width: 80%">
+											<input id="upload_file" type="file">
+											<input type="hidden" name="filepath" id="filepath">
+											<div id="tip-queue"></div>
+											<input type="hidden" name="fileData" id="fileData">
+										</td>
+										<td>例：每日资讯.xlsx</td>
+										<!-- <td style="width: 20%;text-align: center;padding-top: 26px;">
+                                        <span class="glyphicon glyphicon-download-alt btn btn-success" onclick="downloadModel()">下载模板</span> -->
+									</tr>
+								</table>
 								<div>
-									<span class="btn btn-info btn-block " 
-										style="background-color:#f8ac59" id="save-btn">保 存</span>
+									<span class="btn btn-info btn-block "
+										  style="background-color:#f8ac59" id="save-btn">保 存</span>
 								</div>
 								<#save isHide="yes" subBtnId="save-btn" formId="save-form"
-									 config="true">
-								</#save>
+								config="true">
+							</#save>
 							</form>
 						</div>
 					</div>
