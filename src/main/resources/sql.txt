@@ -1,3 +1,42 @@
+-- ------------------------2021/11/10------------------------------
+
+SET FOREIGN_KEY_CHECKS=0;
+
+DROP TABLE IF EXISTS `news_reorg`;
+CREATE TABLE `news_reorg` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `news_id` bigint DEFAULT NULL,
+  `reorg_id` bigint DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `unique` (`news_id`,`reorg_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb3;
+
+
+DROP TABLE IF EXISTS `reorganization`;
+CREATE TABLE `reorganization` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `step` varchar(20) DEFAULT NULL COMMENT '步骤',
+  `name` varchar(150) DEFAULT NULL COMMENT '步骤名称',
+  `weight` double(20,0) DEFAULT NULL COMMENT '权重',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb3;
+
+INSERT INTO `reorganization` VALUES ('1', '一', '公司面临破产：停业、资金枯竭、到期债务违约、无力偿还', '0');
+INSERT INTO `reorganization` VALUES ('2', '二', '债权人向法院提出破产，法院还未判决破产之前：破产', '0');
+INSERT INTO `reorganization` VALUES ('3', '三', '三方， 债务人、债权人向法院提出重整：提交重整', '0');
+INSERT INTO `reorganization` VALUES ('4', '四', '法院受理案件： 30日内 、 公告、 符合条件\n5、法院召集协商： 计划草案', '0');
+INSERT INTO `reorganization` VALUES ('5', '五', '法院召集协商： 计划草案', '0');
+INSERT INTO `reorganization` VALUES ('6', '六', '提交草案 ： 9个月内', '0');
+INSERT INTO `reorganization` VALUES ('7', '七', '债权人表决 ： 30日', '0');
+INSERT INTO `reorganization` VALUES ('8', '八', '法院裁决 ：10日内', '0');
+INSERT INTO `reorganization` VALUES ('9', '八-1', '裁决成功', '0');
+INSERT INTO `reorganization` VALUES ('10', '八-2', '裁决失败', '0');
+INSERT INTO `reorganization` VALUES ('11', '九', '结束', '0');
+INSERT INTO `reorganization` VALUES ('12', '', '无效信息', '0');
+
+
+
+
 -- --------------------------2021/10/25----------------------------------------
 ALTER TABLE `keyword` ADD COLUMN  `type` tinyint(1) DEFAULT '0' COMMENT '关键词类型' ;
 update keyword set type = '1' where name='重整';
