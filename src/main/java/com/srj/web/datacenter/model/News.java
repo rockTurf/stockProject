@@ -27,4 +27,7 @@ public class News extends BaseRowModel {
 	@Transient
 	private String createTime;//创建时间
 
+	@Transient
+	private String reorgName;//重整步骤
+
 }
