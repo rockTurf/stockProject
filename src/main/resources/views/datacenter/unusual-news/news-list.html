@@ -25,12 +25,17 @@
 				<td>${item.title!}</td>
 				<td>${item.source!}</td>
 				<td>${item.newsTime!}</td>
-				<td><a target="_blank" href="${item.address}">详情</a>
+				<td><a target="_blank" href="${item.address}">链接</a>
 				<button class="btn btn-xs btn-warning" data-mode="detail" data-title="详情"
 						data-url="${ctxPath}/news/detail"
 						data-data="{id:'${item.id}'}" data-height="90%" data-width="90%">
 					<i class="fa fa-pencil"></i>
 				</button>
+					<button class="btn btn-xs btn-primary" data-mode="page" data-title="详情"
+							data-url="${ctxPath}/unusualNews/reorg"
+							data-data="{id:'${item.id}'}" data-height="90%" data-width="90%">
+						<i class="fa fa-plus"></i>
+					</button>
 				</td>
 			</tr>
 		</tbody>
