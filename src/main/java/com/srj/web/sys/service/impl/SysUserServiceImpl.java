@@ -8,6 +8,7 @@ import com.srj.web.sys.mapper.SysRoleMapper;
 import com.srj.web.sys.mapper.SysUserMapper;
 import com.srj.web.sys.model.SysUser;
 import com.srj.web.sys.service.SysUserService;
+import com.srj.web.tool.SysUserTool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -41,6 +42,8 @@ public class SysUserServiceImpl implements SysUserService {
     public PageInfo<SysUser> findPageInfo(Map<String, Object> params) {
         PageHelper.startPage(params);
         List<SysUser> list = sysUserMapper.findPageInfo(params);
+        //解密手机号
+        list = SysUserTool.DecryptPhoneList(list);
         return new PageInfo<SysUser>(list);
     }
     //增加用户
@@ -51,6 +54,8 @@ public class SysUserServiceImpl implements SysUserService {
         String password = user.getPassword();
         String md5Pwd = PasswordEncoder.Encoding(password,user.getUsername());
         user.setPassword(md5Pwd);
+        //加密手机号
+        user = SysUserTool.EncryptPhone(user);
         sysUserMapper.insert(user);
         //增加角色
         return sysUserMapper.insertUserRole(user.getId(),roleId);
@@ -58,17 +63,33 @@ public class SysUserServiceImpl implements SysUserService {
     //根据id查找用户
     @Override
     public SysUser getUserById(Long id) {
-        return sysUserMapper.getUserById(id);
+        SysUser user = sysUserMapper.getUserById(id);
+        user = SysUserTool.DecryptPhone(user);
+        return user;
     }
     //修改用户
     @Override
     public int editUser(SysUser record) {
+        record = SysUserTool.EncryptPhone(record);
         int count = sysUserMapper.updateRecord(record);
         //删除用户-角色
         sysUserMapper.deleteUserRole(record.getId());
         //增加角色
         sysUserMapper.insertUserRole(record.getId(),record.getRoleId());
         return count;
+    }
+
+    //查全部，并把手机号加密存回去
+    @Override
+    public List<SysUser> changeAll() {
+        List<SysUser> list = sysUserMapper.selectAll();
+        list = SysUserTool.DecryptPhoneList(list);
+        for(SysUser item : list){
+            item = SysUserTool.EncryptPhone(item);
+            sysUserMapper.updateRecord(item);
+        }
+
+        return null;
     }
 
 }

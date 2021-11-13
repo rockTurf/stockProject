@@ -199,6 +199,13 @@
             <artifactId>hanlp</artifactId>
             <version>portable-1.8.2</version>
         </dependency>
+        <!-- hutool -->
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>5.6.5</version>
+        </dependency>
+
 
 
     </dependencies>

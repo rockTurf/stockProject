@@ -3,6 +3,7 @@ package com.srj.web.sys.service;
 import com.github.pagehelper.PageInfo;
 import com.srj.web.sys.model.SysUser;
 
+import java.util.List;
 import java.util.Map;
 
 
@@ -19,4 +20,7 @@ public interface SysUserService {
 	SysUser getUserById(Long id);
 	//修改用户
     int editUser(SysUser record);
+
+    //全部用户
+    List<SysUser> changeAll();
 }

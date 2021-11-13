@@ -1,3 +1,7 @@
+
+-- ----------------------2021/11/13 phone AES---------------------
+alter table sys_user MODIFY column phone varchar(80);
+
 -- ------------------------2021/11/10------------------------------
 
 SET FOREIGN_KEY_CHECKS=0;

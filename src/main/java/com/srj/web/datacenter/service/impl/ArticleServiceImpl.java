@@ -22,7 +22,7 @@ public class ArticleServiceImpl implements ArticleService {
 	
 	@Autowired
 	private ArticleMapper articleMapper;
-	@Resource
+	@Autowired
 	private SysFileService sysFileService;
 	
 	/*

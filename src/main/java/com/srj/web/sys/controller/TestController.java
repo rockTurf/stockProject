@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
+
 @Controller
 public class TestController {
 
@@ -15,8 +17,11 @@ public class TestController {
 
     @RequestMapping("/hello")
     public @ResponseBody String hello(){
-        SysUser user = sysUserService.CheckUser("admin");
-        return user.getName();
+        List<SysUser> list = sysUserService.changeAll();
+
+
+
+        return "hello";
     }
     @RequestMapping("/test")
     public String test(){

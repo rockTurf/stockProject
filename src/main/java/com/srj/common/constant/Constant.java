@@ -1,5 +1,6 @@
 package com.srj.common.constant;
 
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Properties;
 
@@ -80,5 +81,10 @@ public class Constant {
 	 */
 	public static final String NEWS_SOURCE_IFENG = "凤凰网财经";
 	public static final String NEWS_SOURCE_CSSTOCK = "中国证券网";
+
+	/**
+	 * 加密数据KEY（严禁修改！！）
+	 */
+	public static final byte[] AES_KEYS = "VEcKMo1Dbbhooc0gnEFIzskE8pbu4qMa".getBytes(StandardCharsets.UTF_8);
 	
 }

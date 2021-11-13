@@ -1,6 +1,5 @@
 package com.srj.web.sys.mapper;
 
-import com.srj.common.mybatis.mapper.BaseMapper;
 import com.srj.web.sys.model.SysUser;
 import org.apache.ibatis.annotations.*;
 
@@ -32,7 +31,7 @@ public interface SysUserMapper extends tk.mybatis.mapper.common.Mapper<SysUser> 
 	SysUser getUserById(@Param("id")Long id);
 
 	//修改基本信息
-	@Update({ "update sys_user set username = #{username},name = #{name},email = #{email} where id = #{id}" })
+	@Update({ "update sys_user set username = #{username},name = #{name},email = #{email},phone = #{phone} where id = #{id}" })
 	int updateRecord(SysUser record);
 
 	//删除角色
