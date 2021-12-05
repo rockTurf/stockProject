@@ -6,6 +6,7 @@ import com.srj.web.datacenter.service.KeywordService;
 import com.srj.web.datacenter.service.NewsService;
 import com.srj.web.util.data.JisuData;
 import com.srj.web.util.data.TianXingData;
+import com.srj.web.util.data.WanXiangData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -43,6 +44,18 @@ public class QuartzController {
         @Scheduled(cron = "20 10 * * * ?")
         public void getJisuApiNews() throws UnsupportedEncodingException {
             List<News> list = JisuData.getJisuNews();
+            newsService.insertList(list);
+            //清洗异常数据
+            clearUnusualNews(list);
+
+        }
+
+        //万象新闻接口
+        //@RequestMapping(value = "/news")
+        @ResponseBody
+        @Scheduled(cron = "30 11 * * * ?")
+        public void getWanXiangNews() throws UnsupportedEncodingException {
+            List<News> list = WanXiangData.getNews();
             newsService.insertList(list);
             //清洗异常数据
             clearUnusualNews(list);
