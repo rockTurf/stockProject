@@ -2,16 +2,17 @@ package com.srj;
 
 import com.srj.common.spring.utils.SpringContextHolder;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.SpringBootConfiguration;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.context.request.RequestContextListener;
 import org.springframework.web.filter.CharacterEncodingFilter;
+
+import java.util.Arrays;
 
 
 @SpringBootApplication
@@ -23,7 +24,7 @@ public class StockProjectApplication {
     public static void main(String[] args) {
         SpringApplication.run(StockProjectApplication.class, args);
         //此为打印所有bean的方法
-        /*ApplicationContext context = SpringApplication.run(StockProjectApplication.class, args);
+       /* ApplicationContext context = SpringApplication.run(StockProjectApplication.class, args);
         Arrays.stream(context.getBeanDefinitionNames()).forEach(System.out::println);*/
     }
 

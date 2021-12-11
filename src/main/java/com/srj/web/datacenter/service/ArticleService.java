@@ -16,7 +16,7 @@ public interface ArticleService {
 	/*
 	 * 新增文章
 	 * */
-	int saveArticle(Article record, SysUser u);
+	int saveArticle(Map<String, Object> params,Article record, SysUser u);
 	/*
 	 * 删除文章
 	 * */

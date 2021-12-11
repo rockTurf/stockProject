@@ -63,15 +63,15 @@ public class QuartzController {
         }
 
 
-        //新闻接口转入旧表30 2 0 * * ? *
+       /* //新闻接口转入旧表30 2 0 * * ? *
         @ResponseBody
         @Scheduled(cron = "30 3 0 * * ?")
         //@RequestMapping(value = "/clear")
         public void clearNewsToOld() {
             newsService.clearNewsToOld();
-        }
+        }*/
 
-        //搜索新闻表，将包含关键词的新闻存入中间表
+       /* //搜索新闻表，将包含关键词的新闻存入中间表
         @ResponseBody
         //@Scheduled(cron = "30 3 0 * * ?")
         @RequestMapping(value = "/clear")
@@ -80,7 +80,7 @@ public class QuartzController {
             List<News> newsList = newsService.getAll();
             //清洗异常数据
             clearUnusualNews(newsList);
-        }
+        }*/
 
 
         //私有方法，清洗异常数据

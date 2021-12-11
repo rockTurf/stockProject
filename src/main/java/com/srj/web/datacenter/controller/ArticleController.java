@@ -66,9 +66,7 @@ public class ArticleController {
     Integer save(@ModelAttribute Article record, @RequestParam Map<String, Object> params, Model model, HttpServletRequest request, HttpServletResponse response){
 		SysUser u = SysUserUtil.getSessionLoginUser(request);
 		//新增文章
-		int count = articleService.saveArticle(record,u);
-		//存入附件
-		sysFileService.saveFile(Constant.FILE_FLAG_ARTICLE, record.getId(), (String) params.get("filepath"), u);
+		int count = articleService.saveArticle(params,record,u);
 		return count;
 	}
 	

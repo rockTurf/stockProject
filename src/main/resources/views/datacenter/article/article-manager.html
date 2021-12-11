@@ -2,7 +2,7 @@
 	<ul id="myTab" class="nav nav-tabs">
 		<li class="active"><a href="#home" data-toggle="tab">文档列表</a>
 		</li>
-		<li><a href="#addUser" data-toggle="tab">新增文档</a></li>
+		<li><a href="#addItem" data-toggle="tab">新增文档</a></li>
 	</ul>
 
 	<div class="matter">
@@ -31,9 +31,7 @@
 											<input type="text" name="title" /> 
 											<label class="control-label">关键词：</label>
 											<input type="text" name="keyword" /> 
-											<label class="control-label">摘要：</label>
-											<input type="text" name="introduction" /> 
-											<button type="button" class="btn btn-success" 
+											<button type="button" class="btn btn-success"
 											onclick="getTotalList('search-form','search-btn')"	readonly>全部</button>
 											<button type="button" class="btn btn-success" id="search-btn"
 											readonly>查询</button>
@@ -48,7 +46,7 @@
 					<div id="list-page"></div>
 				</div>
 			</div>
-			<div class="tab-pane fade" id="addUser">
+			<div class="tab-pane fade" id="addItem">
 				<div class="widget wgreen">
 					<div class="widget-head">
 						<div class="pull-left">新增文档</div>
@@ -59,30 +57,6 @@
 							<!-- Form starts.  -->
 							<form class="form-horizontal" role="form" id="save-form"
 								action="${ctxPath!}/article/save" method="post">
-								<div class="form-group">
-									<label class="col-lg-4 control-label">标 题</label>
-									<div class="col-lg-8">
-										<input type="text" name="title" id="name" datatype="*"
-											nullmsg="此项必填！" class="form-control">
-									</div>
-								</div>
-								<div class="form-group">
-									<label class="col-lg-4 control-label">摘 要</label>
-									<div class="col-lg-8">
-										<input type="text" name="introduction" datatype="*" nullmsg="此项必填！"
-											class="form-control">
-									</div>
-								</div>
-								<div class="form-group">
-									<label class="col-lg-4 control-label">关键词</label>
-									<div class="col-lg-8">
-									<select name="kids" datatype="*" class="selectpicker show-tick form-control" multiple="mutiple" id="keylist">
-										@for(item in params.klist){
-									      <option value="${item.id}">${item.name}</option>
-										@}
-									</select>
-									</div>
-								</div>
 								<div class="form-group" style="width: 100%;">
 									<label class="col-lg-4 control-label">上传附件</label>
 									 <input id="upload_file" type="file">
@@ -124,7 +98,7 @@ $('#upload_file').uploadifive({
        'buttonText' : '上传附件',
        'queueID' : 'tip-queue',
        'fileType' : '*',//'image/*',
-       'multi' : false,
+       'multi' : true,
        'fileSizeLimit'   : 5242880,
        'uploadLimit' : 10,
        'queueSizeLimit'  : 10,   

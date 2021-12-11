@@ -3,6 +3,7 @@ package com.srj.web.datacenter.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.srj.common.constant.Constant;
+import com.srj.common.tools.SnowflakeSequence;
 import com.srj.web.datacenter.mapper.ArticleMapper;
 import com.srj.web.datacenter.model.Article;
 import com.srj.web.datacenter.service.ArticleService;
@@ -10,6 +11,8 @@ import com.srj.web.sys.model.SysFile;
 import com.srj.web.sys.model.SysUser;
 import com.srj.web.sys.service.SysFileService;
 import com.srj.web.util.DateUtils;
+import com.srj.web.util.StringUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -41,14 +44,29 @@ public class ArticleServiceImpl implements ArticleService {
 	/*
 	 * 新增文章
 	 * */
-	public int saveArticle(Article record, SysUser u) {
-		//先把文章添加到文章表
-		record.setCreateName(u.getName());
-		int count = articleMapper.insertSelective(record);
-		//再把文章id,关键词id存入中间表
-		if(count>0){
-			count = articleMapper.insertArticleKeyword(record);
+	public int saveArticle(Map<String, Object> params,Article record, SysUser u) {
+		if (StringUtils.isEmpty((String)params.get("filepath"))){
+			return 0;
 		}
+		int count = 0;
+		//分解附件表
+		List<String> fileMap = StringUtil.String2List((String) params.get("filepath"));
+		SnowflakeSequence idWorker = new SnowflakeSequence();
+		//遍历附件表
+		for(String one:fileMap){
+			//生成id
+			long record_id = idWorker.nextId();
+			String[] array = one.split("=");
+			record.setId(record_id);
+			record.setTitle(array[0]);
+			//先把文章添加到文章表
+			record.setCreateName(u.getName());
+			record.setCreateTime(DateUtils.getDateTime());
+			count = articleMapper.insertSelective(record);
+			//存入附件
+			sysFileService.saveFile(Constant.FILE_FLAG_ARTICLE, record_id, one, u);
+		}
+
 		return count;
 	}
 	/*
@@ -58,7 +76,7 @@ public class ArticleServiceImpl implements ArticleService {
 		int count = articleMapper.deleteByPrimaryKey(id);
 		if(count>0){
 			//删除article_keyword中间表
-			articleMapper.deleteArticleKeyword(id);
+			//articleMapper.deleteArticleKeyword(id);
 			//删除附件表数据
 			sysFileService.deleteFile(Constant.FILE_FLAG_ARTICLE,id);
 		}
