@@ -24,7 +24,7 @@ public class AdminInterceptor implements HandlerInterceptor {
      */
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
-        System.out.println("执行了TestInterceptor的preHandle方法"+request.getRequestURL());
+        //System.out.println("执行了TestInterceptor的preHandle方法"+request.getRequestURL());
         try {
             //统一拦截（查询当前session是否存在user）(这里user会在每次登陆成功后，写入session)
             SysUser user=(SysUser)request.getSession().getAttribute(Constant.SESSION_LOGIN_USER);

@@ -28,6 +28,7 @@ mapper:
 logging:
   level:
     com.srj.web.sys.mapper: DEBUG
+    com.srj.web.datacenter.mapper: DEBUG
     org:
       springframework:
         web:

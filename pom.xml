@@ -15,6 +15,13 @@
     <packaging>jar</packaging>
     <description>Demo project for Spring Boot</description>
 
+    <repositories>
+        <repository>
+            <id>com.e-iceblue</id>
+            <url>https://repo.e-iceblue.cn/repository/maven-public/</url>
+        </repository>
+    </repositories>
+
     <properties>
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -205,7 +212,11 @@
             <artifactId>hutool-all</artifactId>
             <version>5.6.5</version>
         </dependency>
-
+        <dependency>
+            <groupId> e-iceblue </groupId>
+            <artifactId>spire.pdf</artifactId>
+            <version>3.11.6</version>
+        </dependency>
     </dependencies>
 
     <build>

@@ -3,7 +3,9 @@ package com.srj.web.datacenter.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.srj.common.constant.Constant;
+import com.srj.common.tools.Pdf2TextTool;
 import com.srj.common.tools.SnowflakeSequence;
+import com.srj.common.utils.SysConstant;
 import com.srj.web.datacenter.mapper.ArticleMapper;
 import com.srj.web.datacenter.model.Article;
 import com.srj.web.datacenter.service.ArticleService;
@@ -12,6 +14,7 @@ import com.srj.web.sys.model.SysUser;
 import com.srj.web.sys.service.SysFileService;
 import com.srj.web.util.DateUtils;
 import com.srj.web.util.StringUtil;
+import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,7 +36,14 @@ public class ArticleServiceImpl implements ArticleService {
 	 * */
 	public PageInfo<Article> findPageInfo(Map<String, Object> params) {
 		PageHelper.startPage(params);
+		//拆分关键词
+		if(ObjectUtils.isNotEmpty(params.get("keyword"))){
+			String keywords = (String)params.get("keyword");
+			String[] array = keywords.split(" ");
+			params.put("array",array);
+		}
 		List<Article> list = articleMapper.findPageInfo(params);
+		//存入附件
 		for(Article a:list){
 			List<SysFile> fileList = sysFileService.selectByParams(Constant.FILE_FLAG_ARTICLE,a.getId());
 			a.setFileList(fileList);
@@ -62,6 +72,11 @@ public class ArticleServiceImpl implements ArticleService {
 			//先把文章添加到文章表
 			record.setCreateName(u.getName());
 			record.setCreateTime(DateUtils.getDateTime());
+			//文件路径
+			String fileUrl = SysConstant.UploadUrl()+array[1];
+			//文章内容
+			String content = Pdf2TextTool.PDF2String(fileUrl);
+			record.setContent(content);
 			count = articleMapper.insertSelective(record);
 			//存入附件
 			sysFileService.saveFile(Constant.FILE_FLAG_ARTICLE, record_id, one, u);
@@ -104,4 +119,13 @@ public class ArticleServiceImpl implements ArticleService {
 		}
 		return null;
     }
+
+    /**
+	 * 根据文章ID搜索
+	 * */
+	@Override
+	public Article getById(Long id) {
+		Article article = articleMapper.selectByPrimaryKey(id);
+		return article;
+	}
 }

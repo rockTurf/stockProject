@@ -5,6 +5,7 @@ import com.srj.common.constant.Constant;
 import com.srj.common.utils.SysUserUtil;
 import com.srj.web.datacenter.model.Article;
 import com.srj.web.datacenter.model.Keyword;
+import com.srj.web.datacenter.model.News;
 import com.srj.web.datacenter.service.ArticleService;
 import com.srj.web.datacenter.service.KeywordService;
 import com.srj.web.sys.model.SysUser;
@@ -79,6 +80,19 @@ public class ArticleController {
 		//删除文章
 		int count = articleService.deleteArticle(id);
 		return count;
+	}
+
+	/**
+	 * 跳转编辑角色页面
+	 *
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "detail")
+	public String showDetail(@RequestParam Long id, Model model){
+		Article item = articleService.getById(id);
+		model.addAttribute("item", item);
+		return "datacenter/article/article-detail";
 	}
 
 	/**

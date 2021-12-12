@@ -29,4 +29,9 @@ public interface ArticleService {
 	 * 查看最新文章
 	 * */
     Article checkArticle(Long userId);
+
+    /**
+	 * 根据文章ID搜索
+	 * */
+	Article getById(Long id);
 }
