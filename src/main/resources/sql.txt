@@ -1,7 +1,7 @@
 -----------------------------2021/12/12----------------------------------------
 
 ALTER TABLE `article` ADD COLUMN  `content` text COMMENT '文章内容' ;
-
+ALTER TABLE `sys_file` ADD COLUMN  `md5` varchar(50) COMMENT '文件md5' ;
 
 
 -- ----------------------2021/11/13 phone AES---------------------

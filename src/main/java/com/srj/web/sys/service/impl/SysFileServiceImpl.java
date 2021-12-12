@@ -1,14 +1,18 @@
 package com.srj.web.sys.service.impl;
 
+import com.srj.common.utils.Md5CaculateUtil;
+import com.srj.common.utils.SysConstant;
 import com.srj.web.sys.mapper.SysFileMapper;
 import com.srj.web.sys.model.SysFile;
 import com.srj.web.sys.model.SysUser;
 import com.srj.web.sys.service.SysFileService;
+import com.srj.web.util.DateUtils;
 import com.srj.web.util.StringUtil;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -35,10 +39,14 @@ public class SysFileServiceImpl implements SysFileService {
 					record.setTableId(table_id);
 					record.setFlag(flag);
 					record.setCreateName(u.getName());
-					//record.setCreateTime(DateUtils.formatDateTime(new Date()));
+					record.setCreateTime(DateUtils.formatDateTime(new Date()));
+					//计算md5
+					String md5 = Md5CaculateUtil.getMD5(SysConstant.UploadUrl()+array[1]);
+					record.setMd5(md5);
 					listrecord.add(record);
+					count = sysFileMapper.insertSelective(record);
 				}
-				count = sysFileMapper.saveFileList(listrecord);
+				//count = sysFileMapper.saveFileList(listrecord);
 			}
 		return count;
 	}
