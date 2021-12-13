@@ -15,7 +15,7 @@ public class HanlpDateTool {
     /**
      * 处理日期工具
      * */
-    public static String handleDateTime(String text){
+    public static void handleDateTime(String text){
         //具体详见公司于 2020年3月28日披露的《关于债权人申请公司重整的提示性公告》（公告编号：2020-032）
         List<Term> list = HanLP.segment(text);
         //先去除掉所有的空元素
@@ -42,9 +42,20 @@ public class HanlpDateTool {
                                 //如果跟的是月份，判断是否为月份单位
                                 boolean isMonth = judgeMonth(monthM.word);
                                 if(isMonth==true){
-                                    System.out.println("true="+monthM.word);
-                                }else{
-                                    System.out.println("false="+monthM.word);
+                                    //再往下就看看有没有“日”单位了
+                                    if(i>=list.size()-4){
+                                        break;
+                                    }
+                                    Term dayM = list.get(i+3);
+                                    Term dayN = list.get(i+4);
+                                    if("m".equals(dayM.nature.toString())) {
+                                        if ("日".equals(dayN.word)) {
+                                            //如果连日都有，那就是完整的x年x月x日的日期格式(暂时不考虑时分秒)
+                                            String dateStr = lastT.word+"年"+monthM.word+"月"+dayM.word+"日";
+                                            CustomDictionary.add(dateStr,"t");
+                                            //System.out.println(dateStr);
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -52,7 +63,6 @@ public class HanlpDateTool {
                 }
             }
         }
-        return null;
     }
 
     /**
