@@ -58,7 +58,7 @@ public class ArticleServiceImpl implements ArticleService {
 		if (StringUtils.isEmpty((String)params.get("filepath"))){
 			return 0;
 		}
-		int count = 0;
+		int count = 1;
 		//分解附件表
 		List<String> fileMap = StringUtil.String2List((String) params.get("filepath"));
 		SnowflakeSequence idWorker = new SnowflakeSequence();
@@ -76,13 +76,26 @@ public class ArticleServiceImpl implements ArticleService {
 			String fileUrl = SysConstant.UploadUrl()+array[1];
 			//文章内容
 			String content = Pdf2TextTool.PDF2String(fileUrl);
-			record.setContent(content);
-			count = articleMapper.insertSelective(record);
-			//存入附件
-			sysFileService.saveFile(Constant.FILE_FLAG_ARTICLE, record_id, one, u);
+			//用文章标题判断文章是否存在
+			boolean isExist = isArticleExist(record);
+			if(isExist==false){
+				record.setContent(content);
+				count = articleMapper.insertSelective(record);
+				//存入附件
+				sysFileService.saveFile(Constant.FILE_FLAG_ARTICLE, record_id, one, u);
+			}
 		}
 
 		return count;
+	}
+
+	/**
+	 * 根据文章ID搜索
+	 * */
+	@Override
+	public Article getById(Long id) {
+		Article article = articleMapper.selectByPrimaryKey(id);
+		return article;
 	}
 	/*
 	 * 删除文章
@@ -120,12 +133,20 @@ public class ArticleServiceImpl implements ArticleService {
 		return null;
     }
 
+
+
+
     /**
-	 * 根据文章ID搜索
+	 * 内部方法 判断文章是否存在
 	 * */
-	@Override
-	public Article getById(Long id) {
-		Article article = articleMapper.selectByPrimaryKey(id);
-		return article;
+	private boolean isArticleExist(Article record) {
+		Article temp = new Article();
+		temp.setTitle(record.getTitle());
+		List<Article> list = articleMapper.select(temp);
+		if(list.size()>=1){
+			return true;
+		}else{
+			return false;
+		}
 	}
 }

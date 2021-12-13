@@ -42,7 +42,7 @@ var ${validId} = $("#${formId}").Validform({
 							$curmenu.trigger('click'); 
 						}
 					}
-					
+					location.reload();
 				});
 			}else{
 				layer.msg('操作失败', 3, 1);
