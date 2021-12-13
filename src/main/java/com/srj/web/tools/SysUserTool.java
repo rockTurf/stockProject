@@ -1,4 +1,4 @@
-package com.srj.web.tool;
+package com.srj.web.tools;
 
 import com.srj.common.utils.AESUtil;
 import com.srj.web.sys.model.SysUser;

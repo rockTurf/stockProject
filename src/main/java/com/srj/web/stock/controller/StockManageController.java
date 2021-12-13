@@ -7,7 +7,7 @@ import com.srj.web.stock.model.Stock;
 import com.srj.web.stock.model.StockBoard;
 import com.srj.web.stock.service.StockService;
 import com.srj.web.sys.model.SysUser;
-import com.srj.web.tool.FileTools;
+import com.srj.web.tools.FileTools;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 

@@ -4,11 +4,10 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.srj.common.base.PasswordEncoder;
 import com.srj.common.constant.Constant;
-import com.srj.web.sys.mapper.SysRoleMapper;
 import com.srj.web.sys.mapper.SysUserMapper;
 import com.srj.web.sys.model.SysUser;
 import com.srj.web.sys.service.SysUserService;
-import com.srj.web.tool.SysUserTool;
+import com.srj.web.tools.SysUserTool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

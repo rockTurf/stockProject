@@ -1,4 +1,4 @@
-package com.srj.web.tool;
+package com.srj.web.tools;
 
 import java.util.LinkedList;
 import java.util.List;

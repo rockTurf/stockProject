@@ -1,18 +1,14 @@
 package com.srj.web.datacenter.controller;
 
 import com.github.pagehelper.PageInfo;
-import com.srj.common.utils.SysUserUtil;
 import com.srj.web.datacenter.model.News;
 import com.srj.web.datacenter.service.NewsService;
-import com.srj.web.sys.model.SysUser;
-import com.srj.web.tool.FileTools;
+import com.srj.web.tools.FileTools;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Map;
 

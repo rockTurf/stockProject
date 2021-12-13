@@ -1,4 +1,4 @@
-package com.srj.web.tool;
+package com.srj.web.tools;
 
 import com.alibaba.fastjson.JSON;
 import com.srj.common.utils.FileUtil;
