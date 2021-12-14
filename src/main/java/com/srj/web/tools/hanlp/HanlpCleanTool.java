@@ -3,8 +3,7 @@ package com.srj.web.tools.hanlp;
 import com.hankcs.hanlp.seg.common.Term;
 import org.apache.commons.lang3.StringUtils;
 
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 /**
  * HANLP 清洗词库的工具包
@@ -30,5 +29,73 @@ public class HanlpCleanTool {
             }
         }
         return list;
+    }
+
+    /**
+     * 处理换行符</br>
+     * */
+    public static String clearLine(String text){
+        //这个是返回值
+        StringBuffer buffer = new StringBuffer();
+        String[] array = text.split("<br/>");
+        int lineCount = getLineCount(array);
+        //分解这些句子，看看哪些是换行的
+        for(int i=0;i<array.length;i++){
+            String str = array[i];
+            buffer.append(str);
+            //判断是否需要换行
+            if(checkChangeLine(str,lineCount)==true){
+                buffer.append("\n");
+            }
+        }
+        return buffer.toString();
+    }
+    /**
+     * 判断单行是否需要换行
+     * */
+    private static boolean checkChangeLine(String str,Integer lineCount) {
+        //关于xxx公告
+        if(str.length()>4){
+            String start = str.substring(0,2);
+            String end = str.substring(str.length()-2,str.length());
+            if("关于".equals(start)&&"公告".equals(end)){
+                return true;
+            }
+        }
+        //最后一位为句号
+        String endStrOne = str.substring(str.length()-1,str.length());
+        if("。".equals(endStrOne)){
+            return true;
+        }
+        //句长不超过行宽个字且最后一位不是句号
+        //System.out.println(str+"-----"+"长度="+str.length());
+        if(str.length()<=lineCount){
+           return true;
+        }
+        return false;
+    }
+
+    /**
+     * 根据句子，计算出一行的长度
+     * */
+    private static int getLineCount(String[] array) {
+        //根据各个句子长度，计算出一行是多少个字
+        TreeSet<Integer> set = new TreeSet<>();
+        for(int i=0;i<array.length;i++){
+            set.add(array[i].length());
+        }
+
+        //倒序 从大到小排列
+        TreeSet<Integer> intsReverse = (TreeSet<Integer>)set.descendingSet();
+        //转List
+        List <Integer> list = new ArrayList<Integer>(intsReverse);
+        //取前四个，算平均值
+        int top1 = list.get(0);
+        int top2 = list.get(1);
+        int top3 = list.get(2);
+        int top4 = list.get(3);
+        int ave = top1/2;
+        //System.out.println("行宽="+ave);
+        return ave;
     }
 }
