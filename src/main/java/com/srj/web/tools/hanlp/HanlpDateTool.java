@@ -3,6 +3,7 @@ package com.srj.web.tools.hanlp;
 import com.hankcs.hanlp.HanLP;
 import com.hankcs.hanlp.dictionary.CustomDictionary;
 import com.hankcs.hanlp.seg.common.Term;
+import com.srj.web.util.DateUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
@@ -12,10 +13,15 @@ import java.util.List;
  * */
 public class HanlpDateTool {
 
+    public static final String[] YEAR_NATURE = {"年"};
+    public static final String[] MONTH_NATURE = {"月"};
+    public static final String[] DAY_NATURE = {"日","号"};
+
     /**
      * 处理日期工具
      * */
-    public static void handleDateTime(String text){
+    public static String handleDateTime(String text){
+        text = text.replaceAll(" ","");
         //具体详见公司于 2020年3月28日披露的《关于债权人申请公司重整的提示性公告》（公告编号：2020-032）
         List<Term> list = HanLP.segment(text);
         //先去除掉所有的空元素
@@ -23,7 +29,7 @@ public class HanlpDateTool {
         //循环，先找到【年】的位置
         for(int i=0;i<list.size();i++){
             Term t = list.get(i);
-            if("年".equals(t.word)){
+            if(isPortContain(YEAR_NATURE,t.word)){
                 //去找它的上一个，是不是m（数字）
                 Term lastT = list.get(i-1);
                 if("m".equals(lastT.nature.toString())){
@@ -37,25 +43,30 @@ public class HanlpDateTool {
                         Term monthM = list.get(i+1);
                         Term monthN = list.get(i+2);
                         //如果下一位是数字，再下一位是“月”这个字，就继续判断
-                        if("m".equals(monthM.nature.toString())){
-                            if("月".equals(monthN.word)){
-                                //如果跟的是月份，判断是否为月份单位
-                                boolean isMonth = judgeMonth(monthM.word);
-                                if(isMonth==true){
-                                    //再往下就看看有没有“日”单位了
-                                    if(i>=list.size()-4){
-                                        break;
-                                    }
-                                    Term dayM = list.get(i+3);
-                                    Term dayN = list.get(i+4);
-                                    if("m".equals(dayM.nature.toString())) {
-                                        if ("日".equals(dayN.word)) {
-                                            //如果连日都有，那就是完整的x年x月x日的日期格式(暂时不考虑时分秒)
-                                            String dateStr = lastT.word+"年"+monthM.word+"月"+dayM.word+"日";
-                                            CustomDictionary.add(dateStr,"t");
-                                            //System.out.println(dateStr);
-                                        }
-                                    }
+                        if("m".equals(monthM.nature.toString())&& isPortContain(MONTH_NATURE,monthN.word)){
+                            //如果跟的是月份，判断是否为月份单位
+                            boolean isMonth = judgeMonth(monthM.word);
+                            if(isMonth==true){
+                                //再往下就看看有没有“日”单位了
+                                if(i>=list.size()-4){
+                                    break;
+                                }
+                                Term dayM = list.get(i+3);
+                                Term dayN = list.get(i+4);
+                                if("m".equals(dayM.nature.toString())&& isPortContain(DAY_NATURE,dayN.word)) {
+                                    //如果连日都有，那就是完整的x年x月x日的日期格式(暂时不考虑时分秒)
+                                    String dateStr = lastT.word+"年"+monthM.word+"月"+dayM.word+"日";
+                                    //将日期格式化后替掉原来的文字
+                                    String replaceStr = lastT.word+"/"+monthM.word+"/"+dayM.word;
+                                    text = text.replaceAll(dateStr,replaceStr);
+                                    CustomDictionary.add(replaceStr,"t 1");
+                                }else{
+                                    //没有“日”，那就是 【x年x月】的日期格式
+                                    String dateStr = lastT.word+"年"+monthM.word+"月";
+                                    //将日期格式化后替掉原来的文字
+                                    String replaceStr = lastT.word+"/"+monthM.word;
+                                    text = text.replaceAll(dateStr,replaceStr);
+                                    CustomDictionary.add(replaceStr,"t 1");
                                 }
                             }
                         }
@@ -63,6 +74,7 @@ public class HanlpDateTool {
                 }
             }
         }
+        return text;
     }
 
     /**
@@ -99,6 +111,19 @@ public class HanlpDateTool {
                         return true;
                     }
                 }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 词语 只要部分匹配数组中的元素就算
+     * */
+    public static boolean isPortContain(String[] array,String word){
+        for(String str : array){
+            //str 是 【日】【号】 word是【日前】 这种算匹配
+            if(word.indexOf(str)==0){
+                return true;
             }
         }
         return false;
