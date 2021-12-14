@@ -4,8 +4,10 @@ import com.hankcs.hanlp.HanLP;
 import com.hankcs.hanlp.dictionary.CustomDictionary;
 import com.hankcs.hanlp.seg.common.Term;
 import com.srj.web.util.DateUtils;
+import com.srj.web.util.StringUtil;
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -59,13 +61,14 @@ public class HanlpDateTool {
                                     String dateStr = lastT.word+"年"+monthM.word+"月"+dayM.word+"日";
                                     //将日期格式化后替掉原来的文字
                                     String replaceStr = lastT.word+"/"+monthM.word+"/"+dayM.word;
-                                    text = text.replaceAll(dateStr,replaceStr);
-                                    CustomDictionary.add(replaceStr,"t 1");
+                                    String resultStr = formatHanlpDate(replaceStr);
+                                    text = text.replaceAll(dateStr,resultStr);
+                                    CustomDictionary.add(resultStr,"t 1");
                                 }else{
                                     //没有“日”，那就是 【x年x月】的日期格式
                                     String dateStr = lastT.word+"年"+monthM.word+"月";
                                     //将日期格式化后替掉原来的文字
-                                    String replaceStr = lastT.word+"/"+monthM.word;
+                                    String replaceStr = lastT.word+"-"+monthM.word;
                                     text = text.replaceAll(dateStr,replaceStr);
                                     CustomDictionary.add(replaceStr,"t 1");
                                 }
@@ -128,5 +131,16 @@ public class HanlpDateTool {
             }
         }
         return false;
+    }
+    /**
+     * 清洗日期格式
+     * 把日期格式变为 yyyy-MM-dd 或yyyy-MM
+     * */
+    public static String formatHanlpDate(String text){
+        Date datetime = DateUtils.parseDate(text);
+        if(StringUtil.getStringCount(text,"-")==1){
+            return DateUtils.formatDate(datetime,"yyyy-MM");
+        }
+        return DateUtils.formatDate(datetime,"yyyy-MM-dd");
     }
 }

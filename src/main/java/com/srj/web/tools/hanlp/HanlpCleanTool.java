@@ -37,6 +37,11 @@ public class HanlpCleanTool {
     public static String clearLine(String text){
         //这个是返回值
         StringBuffer buffer = new StringBuffer();
+        //如果最后一位是【/】，给补一位【>】
+        String lastStr = text.substring(text.length()-1);
+        if("/".equals(lastStr)){
+            text = text + ">";
+        }
         String[] array = text.split("<br/>");
         int lineCount = getLineCount(array);
         //分解这些句子，看看哪些是换行的

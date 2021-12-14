@@ -303,7 +303,22 @@ public class StringUtil {
     	nt.setMinimumFractionDigits(n);//不保留小数
     	return nt.format(num);
     }
-    
+
+    /**
+	 * 判断字符串有几个指定字符
+	 * */
+	public static int getStringCount(String str, String key) {
+		if (str == null || key == null || "".equals(str.trim()) || "".equals(key.trim())) {
+			return 0;
+		}
+		int count = 0;
+		int index = 0;
+		while ((index = str.indexOf(key, index)) != -1) {
+			index = index + key.length();
+			count++;
+		}
+		return count;
+	}
 }
 	
 

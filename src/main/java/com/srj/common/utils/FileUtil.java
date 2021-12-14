@@ -621,8 +621,28 @@ public class FileUtil extends org.apache.commons.io.FileUtils {
 
 		return filePath.substring(index + dirPaths.length());
 	}
-	
 
+	/**
+	 * 获取文件夹下所有文件名路径
+	 * */
+	public static List<String> getFileList(String strPath) {
+		List<String> fileList = new ArrayList<>();
+		File dir = new File(strPath);
+		File[] files = dir.listFiles(); // 该文件目录下文件全部放入数组
+		if (files != null) {
+			for (int i = 0; i < files.length; i++) {
+				String fileName = files[i].getName();
+				System.out.println("---" + fileName);
+				if (files[i].isDirectory()) { // 判断是文件还是文件夹
+					getFileList(files[i].getAbsolutePath()); // 获取文件绝对路径
+				} else {
+					fileList.add(fileName);
+				}
+			}
+
+		}
+		return fileList;
+	}
 	
 	/**
 	 * 将内容写入文件
@@ -644,63 +664,6 @@ public class FileUtil extends org.apache.commons.io.FileUtils {
 			e.printStackTrace();
 		}
 	}
-	
-	/*public static void downloadFile(HttpServletResponse response,
-			String filePath, String fileName,boolean inline) throws Exception {
-		File file = new File(filePath);
-		downloadFile(response, file, fileName, inline);
-	}
-	
-	public static void downloadFile(HttpServletResponse response,
-			String filePath, String fileName) throws Exception {
-		File file = new File(filePath);
-		downloadFile(response, file, fileName, false);
-	}
-	
-	public static void downloadFile(HttpServletResponse response,
-			File file, String fileName) throws Exception {
-		downloadFile(response, file, fileName, false);
-	}
-	
-	*//**
-	 * 下载
-	* @param filePath 文件路径
-	* @param fileName 下载的文件名
-	* @param inline   是否在线浏览
-	* @throws Exception
-	 *//*
-	public static void downloadFile(HttpServletResponse response,
-			File file, String fileName,boolean inline) throws Exception {
-		
-		
-		OutputStream outp = null;
-		FileInputStream br = null;
-		int len = 0;
-		try {
-			br = new FileInputStream(file);
-			response.reset();
-			outp = response.getOutputStream();
-			outp.flush();
-			response.setContentType("application/octet-stream");
-			response.setContentLength((int) file.length());
-			String header = (inline ? "inline" : "attachment") + ";filename="
-					+ new String(fileName.getBytes(), "ISO8859-1");
-			response.addHeader("Content-Disposition", header);
-			byte[] buf = new byte[1024];
-			while ((len = br.read(buf)) != -1) {
-				outp.write(buf, 0, len);
-			}
-			outp.flush();
-			outp.close();
-		} finally {
-			if (br != null) {
-				if (0 == br.available()) {
-					br.close();
-				}
-			}
-		}
-		
-	}*/
 
 	/**
 	 * 下载(流的方式)
@@ -848,9 +811,9 @@ public class FileUtil extends org.apache.commons.io.FileUtils {
 	/**
 	 * 将文件打包到指定输入流
 	 * 
-	 * @param files
+	 * @param file
 	 *            被打包的文件
-	 * @param out
+	 * @param response
 	 *            被指定输出流
 	 * @throws IOException
 	 * @throws Exception
@@ -912,44 +875,6 @@ public class FileUtil extends org.apache.commons.io.FileUtils {
 			fr.close();
 		} catch (IOException e) {
 			//Logger.getLogger(FileUtils.class).warn("文件打包时异常:", e);
-		}
-	}
-	
-	/**
-	 * 下载(流的方式)
-	* @param response
-	* @param is 输入流
-	* @param realName 下载的文件名字
-	 */
-	public static void downloadFile(HttpServletResponse response, InputStream is, String realName) {
-		BufferedInputStream bis = null;
-		BufferedOutputStream bos = null;
-		try {
-			response.setContentType("text/html;charset=UTF-8");
-			//request.setCharacterEncoding("UTF-8");
-			long fileLength = is.available();
-
-			response.setContentType("application/octet-stream");
-			realName = new String(realName.getBytes("UTF-8"), "ISO8859-1");
-			response.setHeader("Content-disposition", "attachment; filename="
-					+ realName);
-			response.setHeader("Content-Length", String.valueOf(fileLength));
-			bis = new BufferedInputStream(is);
-			bos = new BufferedOutputStream(response.getOutputStream());
-			byte[] buff = new byte[2048];
-			int bytesRead;
-			while (-1 != (bytesRead = bis.read(buff, 0, buff.length))) {
-				bos.write(buff, 0, bytesRead);
-			}
-		} catch (Exception e) {
-			// e.printStackTrace();//如果取消下载，这里会捕捉到异常
-		} finally {
-			try {
-				bos.close();
-				bis.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
 		}
 	}
 
