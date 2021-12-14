@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.alibaba.fastjson.JSONException;
+import org.apache.poi.ss.formula.functions.T;
 
 
 public class StringUtil {
@@ -318,6 +319,16 @@ public class StringUtil {
 			count++;
 		}
 		return count;
+	}
+	/**
+	 * 数组转list
+	 * */
+	public static <T> List<T> Array2List(T[] array){
+		List<T> list = new ArrayList<>();
+		for(T t : array){
+			list.add(t);
+		}
+		return list;
 	}
 }
 	
