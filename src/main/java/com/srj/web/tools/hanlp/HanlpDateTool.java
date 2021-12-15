@@ -23,7 +23,12 @@ public class HanlpDateTool {
      * 处理日期工具
      * */
     public static String handleDateTime(String text){
-        text = text.replaceAll(" ","");
+        if(StringUtils.isEmpty(text)){
+            return text;
+        }
+        //先补正解析文档可能出现的情况
+        text = HanlpCleanTool.clearAfterPdf(text);
+        //清理行
         text = HanlpCleanTool.clearLine(text);
         //具体详见公司于 2020年3月28日披露的《关于债权人申请公司重整的提示性公告》（公告编号：2020-032）
         List<Term> list = HanLP.segment(text);

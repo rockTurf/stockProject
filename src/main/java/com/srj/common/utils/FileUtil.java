@@ -293,14 +293,14 @@ public class FileUtil extends org.apache.commons.io.FileUtils {
 		File file = new File(fileName);
 		if (file.exists() && file.isFile()) {
 			if (file.delete()) {
-				log.debug("删除单个文件 " + fileName + " 成功!");
+				//log.debug("删除单个文件 " + fileName + " 成功!");
 				return true;
 			} else {
-				log.debug("删除单个文件 " + fileName + " 失败!");
+				//log.debug("删除单个文件 " + fileName + " 失败!");
 				return false;
 			}
 		} else {
-			log.debug(fileName + " 文件不存在!");
+			//log.debug(fileName + " 文件不存在!");
 			return true;
 		}
 	}
@@ -648,9 +648,13 @@ public class FileUtil extends org.apache.commons.io.FileUtils {
 	 * 将内容写入文件
 	 * @param content
 	 * @param filePath
+	 * @param flag 是否覆盖文件
 	 */
-	public static void writeFile(String content, String filePath) {
+	public static void writeFile(String content, String filePath,boolean flag) {
 		try {
+			if(flag==true){
+				deleteFile(filePath);
+			}
 			if (FileUtil.createFile(filePath)){
 				FileWriter fileWriter = new FileWriter(filePath, true);
 				BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
