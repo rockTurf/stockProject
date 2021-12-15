@@ -21,21 +21,9 @@ public class TestClass {
         for(String pdfFile:pdfList){
             String str = Pdf2TextTool.PDF2String(filePath+"/"+pdfFile);
             str = HanlpDateTool.handleDateTime(str);
-            FileUtil.writeFile(str,filePath+"/"+pdfFile+".txt");
+            String txtFileName = pdfFile.substring(0,pdfFile.length()-4);
+            FileUtil.writeFile(str,filePath+"/"+txtFileName+".txt",true);
         }
 
-       /* CustomDictionary.add("*ST华讯","nts 1");
-        CustomDictionary.add("ST华讯","nts 1");*/
-       //String str = "具体详见公司于 2020 年 3 月 28 日披露的《关于债权人申请公司重整的提示性公告》（公告编号：2020-032）";
-        //CustomDictionary.add("2020年3月28日","t 10");
-        /*List<Term> list = HanLP.segment(str);
-        for(Term t: list){
-            System.out.println(t.word+"   "+t.nature);
-        }*/
-
-        //List<Term> list = HanLP.segment(str);
-        /*for(Term t: list){
-            System.out.println(t.word+","+t.nature);
-        }*/
     }
 }

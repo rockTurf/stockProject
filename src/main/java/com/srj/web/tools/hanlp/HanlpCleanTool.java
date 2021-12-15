@@ -32,21 +32,40 @@ public class HanlpCleanTool {
     }
 
     /**
-     * 处理换行符</br>
+     * 补正文档解析后的情况
      * */
-    public static String clearLine(String text){
-        //这个是返回值
-        StringBuffer buffer = new StringBuffer();
+    public static String clearAfterPdf(String text){
+        if(StringUtils.isEmpty(text)){
+            return text;
+        }
+        text = text.replaceAll(" ","");
         //如果最后一位是【/】，给补一位【>】
         String lastStr = text.substring(text.length()-1);
         if("/".equals(lastStr)){
             text = text + ">";
         }
+        return text;
+    }
+
+    /**
+     * 处理换行符</br>
+     * */
+    public static String clearLine(String text){
+        if(StringUtils.isEmpty(text)){
+            return text;
+        }
+        //这个是返回值
+        StringBuffer buffer = new StringBuffer();
+        //这个是原始文件每个空格行输出的结果
         String[] array = text.split("<br/>");
+        //清理行
+        array = HanlpLineTool.cleanLineMethod(array);
+        //获取一般行宽
         int lineCount = getLineCount(array);
         //分解这些句子，看看哪些是换行的
         for(int i=0;i<array.length;i++){
             String str = array[i];
+            System.out.println(str);
             buffer.append(str);
             //判断是否需要换行
             if(checkChangeLine(str,lineCount)==true){

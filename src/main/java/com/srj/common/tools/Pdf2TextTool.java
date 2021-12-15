@@ -2,11 +2,16 @@ package com.srj.common.tools;
 
 import com.spire.pdf.PdfDocument;
 import com.spire.pdf.PdfPageBase;
+import com.srj.common.utils.FileUtil;
+
 public class Pdf2TextTool {
     /**
      * 读取PDF转String
      * */
     public static String PDF2String(String pdfFile){
+        if(!"pdf".equals(FileUtil.getFileSuffix(pdfFile))){
+            return null;
+        }
         //加载测试文档
         PdfDocument pdf = new PdfDocument(pdfFile);
         //实例化StringBuilder类
