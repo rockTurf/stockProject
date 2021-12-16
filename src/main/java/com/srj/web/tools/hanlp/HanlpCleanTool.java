@@ -65,7 +65,6 @@ public class HanlpCleanTool {
         //分解这些句子，看看哪些是换行的
         for(int i=0;i<array.length;i++){
             String str = array[i];
-            System.out.println(str);
             buffer.append(str);
             //判断是否需要换行
             if(checkChangeLine(str,lineCount)==true){
