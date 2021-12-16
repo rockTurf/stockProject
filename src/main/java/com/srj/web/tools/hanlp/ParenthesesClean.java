@@ -13,12 +13,6 @@ public class ParenthesesClean {
     public static String cleanMethod(String text){
         text = clearBracket(text, '（', '）');
         text = clearBracket(text, '(', ')');
-        String[] array = text.split("\\r?\\n");
-        for(String str:array){
-            if(str.indexOf("详见")!=-1){
-                System.out.println(str);
-            }
-        }
         return text;
     }
     /**

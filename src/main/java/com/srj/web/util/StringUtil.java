@@ -128,59 +128,6 @@ public class StringUtil {
 			return "".equals(str.trim());
 		}
 	}
-	
-	public static String firstCharToUpper(String str){
-		StringBuffer sb = new StringBuffer(str);
-		sb.setCharAt(0, Character.toUpperCase(sb.charAt(0)));
-		return sb.toString(); 
-	}
-	
-	public static String firstCharToLower(String str){
-		StringBuffer sb = new StringBuffer(str);
-		sb.setCharAt(0, Character.toLowerCase(sb.charAt(0)));
-		return sb.toString(); 
-	}
-	
-	public static Long Object2Long(Object obj){
-		return Long.valueOf(String.valueOf(obj)).longValue();
-	}
-	
-	public static Integer Object2Integer(Object obj){
-		return Integer.valueOf(String.valueOf(obj)).intValue();
-	}
-	public static Double Object2Double(Object obj){
-		return Double.parseDouble(obj.toString());
-	}
-	
-	public static Boolean Object2Boolean(Object obj){
-		if("true".equals(String.valueOf(obj))){
-			return true;
-		}else{
-			return false;
-		}
-	}
-	
-	public static String[] Object2StringArray(Object obj){
-		String str=String.valueOf(obj);
-		String [] result = str.split(",");
-		return result;
-	}
-	public static String[] String2StringArray(String str){
-		String [] result = str.split(",");
-		return result;
-	}
-	public static String Array2String(String[] array){
-		StringBuffer sb = new StringBuffer();
-		String s=null;
-		if(array.length!=0){
-			for(int i = 0; i < array.length; i++){
-		    	 sb.append(array[i]+",");
-		    	}
-		    	s = sb.toString();
-		    	s = s.substring(0, s.length()-1);
-		}
-    	return s;
-	}
 	public static List<String> String2List(String str){
 		if(str==null){
 			return null;
@@ -195,41 +142,6 @@ public class StringUtil {
 		}
 	}
 	
-	public static Long[] Object2LongArray(Object obj){
-		if(obj!=null){
-			String str=String.valueOf(obj);
-			String [] result = str.split(",");
-			Long[] array=new Long[result.length];
-	        for(int i=0;i<result.length;i++){
-	        	array[i]=Long.valueOf(result[i]);
-	        }
-	        return array;
-		}else{
-			return null;
-		}
-	}
-	/**
-	 * Object型Array转换Long型Array
-	 */
-
-	public static Long[] ObjectArray2LongArray(Object obj) throws JSONException {
-		//JSONArray array = new JSONArray(obj);
-		if(obj!=null){
-			String str=String.valueOf(obj);
-			str = str.substring(1, str.length()-1);
-			String [] result = str.split(",");
-			for(int i=0;i<result.length;i++){
-				result[i]=result[i].substring(1, result[i].length()-1);
-			}
-			Long[] array=new Long[result.length];
-	        for(int i=0;i<result.length;i++){
-	        	array[i]=Long.valueOf(result[i]);
-	        }
-	        return array;
-		}else{
-			return null;
-		}
-	}
 	//字符串转数组
 	public static Long[] String2LongArray(String str){
 		if(str!=null){
@@ -273,18 +185,7 @@ public class StringUtil {
             }
         }
 	}
-	/**
-	 * 方法名称:transStringToMap
-	 * 传入参数:mapString 形如 "aaa":"bbb"
-	 * 返回值:Map
-	*/
-	public static Map String2Map(String mapString){
-		  Map<String,String> map = new HashMap<String, String>();
-		  String[] array = mapString.split("=");
-		  map.put(array[0], array[1]);
-		  return map;
-	}
-	
+
 	//判断是否是数字
 	public static boolean isNumeric(String str) {
 		for (int i = str.length(); --i >= 0;) {
@@ -320,16 +221,19 @@ public class StringUtil {
 		}
 		return count;
 	}
+
 	/**
-	 * 数组转list
+	 * 判断字符串是否包含数组元素中的任意一个
 	 * */
-	public static <T> List<T> Array2List(T[] array){
-		List<T> list = new ArrayList<>();
-		for(T t : array){
-			list.add(t);
+	public static boolean isIncludeArray(String text, String array[]) {
+		for(String str:array){
+			if(text.indexOf(str)!=-1){
+				return true;
+			}
 		}
-		return list;
+		return false;
 	}
+
 }
 	
 
