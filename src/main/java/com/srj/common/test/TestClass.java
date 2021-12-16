@@ -7,6 +7,7 @@ import com.hankcs.hanlp.seg.common.Term;
 import com.srj.common.tools.Pdf2TextTool;
 import com.srj.common.utils.FileUtil;
 import com.srj.web.tools.hanlp.HanlpDateTool;
+import com.srj.web.tools.hanlp.ParenthesesClean;
 import org.junit.Test;
 
 import java.io.File;
@@ -21,6 +22,8 @@ public class TestClass {
         for(String pdfFile:pdfList){
             String str = Pdf2TextTool.PDF2String(filePath+"/"+pdfFile);
             str = HanlpDateTool.handleDateTime(str);
+            //继续清洗括号
+            str = ParenthesesClean.cleanMethod(str);
             String txtFileName = pdfFile.substring(0,pdfFile.length()-4);
             FileUtil.writeFile(str,filePath+"/"+txtFileName+".txt",true);
         }
