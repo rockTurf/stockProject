@@ -386,10 +386,10 @@ public class FileUtil extends org.apache.commons.io.FileUtils {
 		// 创建文件
 		try {
 			if (file.createNewFile()) {
-				log.debug(descFileName + " 文件创建成功!");
+				//log.debug(descFileName + " 文件创建成功!");
 				return true;
 			} else {
-				log.debug(descFileName + " 文件创建失败!");
+				//log.debug(descFileName + " 文件创建失败!");
 				return false;
 			}
 		} catch (Exception e) {
@@ -632,7 +632,7 @@ public class FileUtil extends org.apache.commons.io.FileUtils {
 		if (files != null) {
 			for (int i = 0; i < files.length; i++) {
 				String fileName = files[i].getName();
-				System.out.println("---" + fileName);
+				//System.out.println("---" + fileName);
 				if (files[i].isDirectory()) { // 判断是文件还是文件夹
 					getFileList(files[i].getAbsolutePath()); // 获取文件绝对路径
 				} else {

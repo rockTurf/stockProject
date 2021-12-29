@@ -1,5 +1,6 @@
 package com.srj.web.tools.hanlp;
 
+import com.srj.web.tools.hanlp.step.SingleStep2;
 import org.apache.commons.lang3.ArrayUtils;
 
 import java.util.*;

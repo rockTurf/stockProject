@@ -84,7 +84,9 @@ public class Pdf2TextTool {
                 resultSB.append(dealSpace4OneLine(line)).append("<br/>");
             }
         }
-        resultSB.deleteCharAt(resultSB.length() - 1);
+        if(resultSB.length()>=1){
+            resultSB.deleteCharAt(resultSB.length() - 1);
+        }
         return resultSB.toString();
     }
 
