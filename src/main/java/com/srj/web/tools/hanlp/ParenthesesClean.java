@@ -11,11 +11,6 @@ import java.util.List;
  * */
 public class ParenthesesClean {
 
-    //左括号
-    private static final String BRACKETS_FLAG_L = "BRACKETS_FLAG_LEFT_L_142857";
-    //右括号
-    private static final String BRACKETS_FLAG_R = "BRACKETS_FLAG_LEFT_R_142857";
-
     /**
      * 去除括号内的内容
      * */
@@ -23,48 +18,16 @@ public class ParenthesesClean {
         //把所有括号都转译为中文括号
         text = text.replaceAll("\\(","（");
         text = text.replaceAll("\\)","）");
-        //再将所有括号都转为标识码（处理后再转回来）
-        text = text.replaceAll("（",BRACKETS_FLAG_L);
-        text = text.replaceAll("）",BRACKETS_FLAG_R);
-        text = clearBracket(text, '（', '）');
-        return text;
-    }
-    /**
-     * 去除两符号间内容
-     * @param context
-     * @param left
-     * @param right
-     * @return
-     */
-    public static String clearBracket(String context, char left, char right) {
-        int head = context.indexOf(left);
-        if (head == -1) {
-            return context;
-        } else {
-            int next = head + 1;
-            int count = 1;
-            do {
-                if (context.charAt(next) == left) {
-                    count++;
-                } else if (context.charAt(next) == right) {
-                    count--;
-                }
-                next++;
-                if (count == 0) {
-                    String temp = context.substring(head, next);
-                    System.out.println(temp);
-                    //如果其不为序号，则去除
-                    boolean b = ArrayUtils.contains(HanlpConstant.NUMBER_TAG,temp);
-                    if(b==false){
-                        context = context.replace(temp, "");
-                        head = context.indexOf(left);
-                        next = head + 1;
-                        count = 1;
-                    }
-                }
-            } while (head != -1);
+        //取出括号的内容
+        List<String> list = extractMessage(text);
+        for(String str:list){
+            //判断是否为不需要清除的内容
+            boolean b = ArrayUtils.contains(HanlpConstant.PAGE_TAG,str);
+            if(b==false){
+                text = text.replaceAll("（"+str+"）","");
+            }
         }
-        return context;
+        return text;
     }
 
     /**
@@ -93,7 +56,6 @@ public class ParenthesesClean {
         }
         return list;
     }
-
 
     @Test
     public void test(){

@@ -17,8 +17,9 @@ public class SingleStep2 {
         String[] array = text.split("\\r?\\n");
         String[] array2 = methodOne(array);
         String[] array3 = methodTwo(array2);
+        String[] array4 = methodThree(array3);
         //组合句子
-        String[] finalArr = array3;
+        String[] finalArr = array4;
         StringBuffer buffer = new StringBuffer();
         for(int i=0;i<finalArr.length;i++){
             String str = finalArr[i];
@@ -54,6 +55,21 @@ public class SingleStep2 {
         for(int i=0;i<list.size();i++){
             String text = list.get(i);
             text = ParenthesesClean.cleanMethod(text);
+            list.set(i,text);
+        }
+        //转数组
+        String[] returnArr = list.toArray(new String[list.size()]);
+        return  returnArr;
+    }
+
+    //去除详见
+    public static String[] methodThree(String[] array){
+        //数组先转LIST
+        List<String> list = new LinkedList<>();
+        Collections.addAll(list,array);
+        for(int i=0;i<list.size();i++){
+            String text = list.get(i);
+            text = CleanDataStepOne.cleanMethod(text);
             list.set(i,text);
         }
         //转数组
