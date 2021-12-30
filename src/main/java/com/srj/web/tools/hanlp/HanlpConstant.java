@@ -15,8 +15,8 @@ public class HanlpConstant {
     /**
      * 序号标识
      */
-    public static final String[] NUMBER_TAG = {"（一）","（二）","（三）","（四）","（五）","（六）",
-            "（七）","（八）","（九）"};
+    public static final String[] NUMBER_TAG = {"一","二","三","四","五","六",
+            "七","八","九"};
 
 
     /**

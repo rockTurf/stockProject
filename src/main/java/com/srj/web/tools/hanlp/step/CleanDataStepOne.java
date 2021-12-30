@@ -17,21 +17,16 @@ public class CleanDataStepOne {
      * 首先将【详见】等关键词后的句子统一清掉
      * */
     public static String cleanMethod(String text){
-        //按行分隔
-        String[] array = text.split("\\r?\\n");
-        for(String str:array){
-            //按句号分隔
-            String[] longSentenceArray = str.split("。");
-            //循环短句，找到无用关键词
-            for(String sentence:longSentenceArray){
-                String[] shortSentenceArray = sentence.split("，");
-                for(String shortSentence : shortSentenceArray) {
-                    //如果有【无用关键词】，就删除
-                    if (StringUtil.isIncludeArray(shortSentence, HanlpConstant.USELESS_WORD)) {
-                        //System.out.println(shortSentence);
-                        CustomDictionary.add(shortSentence,"del 1");
-                        text = text.replaceAll(shortSentence, "");
-                    }
+        //按句号分隔
+        String[] longSentenceArray = text.split("。");
+        //循环短句，找到无用关键词
+        for(String sentence:longSentenceArray){
+            String[] shortSentenceArray = sentence.split("，");
+            for(String shortSentence : shortSentenceArray) {
+                //如果有【无用关键词】，就删除
+                if (StringUtil.isIncludeArray(shortSentence, HanlpConstant.USELESS_WORD)) {
+                    //System.out.println(shortSentence);
+                    text = text.replaceAll(shortSentence, "");
                 }
             }
         }
