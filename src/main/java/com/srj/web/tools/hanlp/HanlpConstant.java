@@ -22,5 +22,8 @@ public class HanlpConstant {
     /**
      * 如果包含如下关键词，逗号或句号分隔的短句会被删掉
      * */
-    public static final String[] USELESS_WORD = {"详见"};
+    //这个是逗号分割的短句
+    public static final String[] USELESS_WORD_SHORT = {"详见"};
+    //这个是句号分割的长句
+    public static final String[] USELESS_WORD_LONG = {"不同于一般意义上为了分红"};
 }

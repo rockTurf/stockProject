@@ -20,6 +20,9 @@ public class SingleStep2 {
         String[] array4 = methodThree(array3);
         //组合句子
         String[] finalArr = array4;
+        for(String str:finalArr){
+
+        }
         StringBuffer buffer = new StringBuffer();
         for(int i=0;i<finalArr.length;i++){
             String str = finalArr[i];

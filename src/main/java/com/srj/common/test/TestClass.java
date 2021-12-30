@@ -20,7 +20,6 @@ public class TestClass {
         String filePath = "F:\\work\\pdf";
         List<String> pdfList = FileUtil.getFileList(filePath);
         for(String pdfFile:pdfList){
-            System.out.println("fileName="+pdfFile);
             if(pdfFile.indexOf("pdf")==-1){
                 continue;
             }
@@ -42,7 +41,7 @@ public class TestClass {
 
     @Test
     public void test2(){
-        String str = "本公司董事会及全体董事保证本公告内容不存在任何虚假记载、误导性陈述或者重大遗漏，并对其内容的真实性、准确性和完整性承担个别及连带责任。 ";
+        String str = "由于本次资本公积金转增股本系重整程序中出资人权益调整的一部分，不同于一般意义上为了分红而单纯增发股票的行为，公司根据《上海证券交易所交易规则》第4.3.2条的规定，调整除权参考价格计算公式。本次资本公积金转增股本后，公司A股股票除权除息参考价格为公司A股股票2021-12-03收盘价格。 ";
         List<Term> list = HanLP.segment(str);
         for(Term t:list){
             System.out.print(t.word+"|"+t.nature+"  ");
