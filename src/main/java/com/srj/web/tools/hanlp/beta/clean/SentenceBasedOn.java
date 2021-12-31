@@ -1,10 +1,12 @@
 package com.srj.web.tools.hanlp.beta.clean;
 
 import com.hankcs.hanlp.HanLP;
+import com.hankcs.hanlp.dictionary.CustomDictionary;
 import com.hankcs.hanlp.seg.common.Term;
 import com.srj.web.tools.hanlp.HanlpBaseTool;
 import com.srj.web.tools.hanlp.HanlpConstant;
 import com.srj.web.util.StringUtil;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.HashSet;
 import java.util.List;
@@ -58,12 +60,13 @@ public class SentenceBasedOn {
             return text;
         }
         //包含了数字的话,去掉序号1、（一）等
-        String shortSentenceSort = cleanShortSentenceSort(shortSentence);
+        //String shortSentenceSort = cleanShortSentenceSort(shortSentence);
         //去掉主语
-        String shortSentenceN = cleanShortSentenceN(shortSentenceSort);
-        text = text.replaceAll(shortSentenceSort+"，","");
+        String shortSentenceN = cleanShortSentenceN(shortSentence);
+        System.out.println(text);
+        text = text.replaceAll(shortSentenceN+"，","");
 
-        System.out.println(shortSentenceSort);
+        System.out.println(text);
 
         return text;
     }
@@ -80,7 +83,7 @@ public class SentenceBasedOn {
         Term t2 = list.get(1);
         Term t3 = list.get(2);
         //1、
-        if("m".equals(t1.nature.toString())&&"、".equals(t2.word)){
+        if("m".equals(t1.nature.toString())&&"w".equals(t2.nature.toString())){
             String sort = t1.word+t2.word;
             text = text.replaceAll(sort,"");
             return text;
@@ -100,7 +103,20 @@ public class SentenceBasedOn {
      * 返回：根据《深圳证券交易所创业板股票上市规则》第10.4.1条第七项的规定
      * */
     private static String cleanShortSentenceN(String text) {
+        for(String str:HanlpConstant.USELESS_WORD_BASE_ON){
+            CustomDictionary.add(str,"base 1");
+        }
+        //这是主语和副词
+        StringBuffer buffer = new StringBuffer();
         List<Term> list = HanLP.segment(text);
+        for(Term t:list){
+            if("base".equals(t.nature.toString())){
+                break;
+            }
+            buffer.append(t.word);
+        }
+        String ntp = buffer.toString();
+        text = text.replaceAll(ntp,"");
         return text;
 
     }
