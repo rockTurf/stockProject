@@ -1,6 +1,7 @@
-package com.srj.web.tools.hanlp.step;
+package com.srj.web.tools.hanlp;
 
-import com.srj.web.tools.hanlp.ParenthesesClean;
+import com.srj.web.tools.hanlp.beta.CleanDataStep;
+import com.srj.web.tools.hanlp.type.ParenthesesClean;
 
 import java.util.Collections;
 import java.util.Iterator;
@@ -8,9 +9,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * 第二步处理
+ * 得到文字内容后，第二步处理数据
  * */
-public class SingleStep2 {
+public class SingleStepBeta {
 
     //按行拆分
     public static String cleanLineMethod(String text){
@@ -20,9 +21,6 @@ public class SingleStep2 {
         String[] array4 = methodThree(array3);
         //组合句子
         String[] finalArr = array4;
-        for(String str:finalArr){
-
-        }
         StringBuffer buffer = new StringBuffer();
         for(int i=0;i<finalArr.length;i++){
             String str = finalArr[i];
@@ -65,14 +63,14 @@ public class SingleStep2 {
         return  returnArr;
     }
 
-    //去除详见
+    //整句内部，按照逗号分割，去除不重要的内容
     public static String[] methodThree(String[] array){
         //数组先转LIST
         List<String> list = new LinkedList<>();
         Collections.addAll(list,array);
         for(int i=0;i<list.size();i++){
             String text = list.get(i);
-            text = CleanDataStepOne.cleanMethod(text);
+            text = CleanDataStep.cleanSentenceMethod(text);
             list.set(i,text);
         }
         //转数组

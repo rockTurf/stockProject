@@ -1,5 +1,6 @@
-package com.srj.web.tools.hanlp;
+package com.srj.web.tools.hanlp.type;
 
+import com.srj.web.tools.hanlp.HanlpConstant;
 import org.apache.commons.lang3.ArrayUtils;
 import org.junit.Test;
 

@@ -3,6 +3,7 @@ package com.srj.web.tools.hanlp;
 import com.hankcs.hanlp.HanLP;
 import com.hankcs.hanlp.dictionary.CustomDictionary;
 import com.hankcs.hanlp.seg.common.Term;
+import com.srj.web.tools.hanlp.type.HanlpCleanTool;
 import com.srj.web.util.DateUtils;
 import com.srj.web.util.StringUtil;
 import org.apache.commons.lang3.StringUtils;
@@ -13,7 +14,7 @@ import java.util.List;
 /**
  * Hanlp的语句处理工具 日期时间部分
  * */
-public class HanlpDateTool {
+public class SingleStepAlpha {
 
     public static final String[] YEAR_NATURE = {"年"};
     public static final String[] MONTH_NATURE = {"月"};

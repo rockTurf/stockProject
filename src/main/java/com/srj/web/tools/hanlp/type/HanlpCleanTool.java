@@ -1,4 +1,4 @@
-package com.srj.web.tools.hanlp;
+package com.srj.web.tools.hanlp.type;
 
 import com.hankcs.hanlp.seg.common.Term;
 import org.apache.commons.lang3.StringUtils;
