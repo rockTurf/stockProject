@@ -63,10 +63,8 @@ public class SentenceBasedOn {
         //String shortSentenceSort = cleanShortSentenceSort(shortSentence);
         //去掉主语
         String shortSentenceN = cleanShortSentenceN(shortSentence);
-        System.out.println(text);
         text = text.replaceAll(shortSentenceN+"，","");
 
-        System.out.println(text);
 
         return text;
     }
