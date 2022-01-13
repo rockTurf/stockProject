@@ -1,8 +1,6 @@
 server:
   port: 8080
 
-
-
 spring:
   datasource:
     username: root
@@ -14,6 +12,10 @@ spring:
       force: true
       charset: utf-8
       enabled: true
+  servlet:
+    multipart:
+      max-file-size: 2000MB
+      max-request-size: 2000MB
 mybatis:
   mapper-locations: classpath:mapping/*Mapper.xml
   type-aliases-package: com.srj.web.stock
