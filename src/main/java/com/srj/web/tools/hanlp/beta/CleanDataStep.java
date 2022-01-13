@@ -6,6 +6,7 @@ import com.hankcs.hanlp.seg.common.Term;
 import com.srj.web.tools.hanlp.HanlpConstant;
 import com.srj.web.tools.hanlp.beta.clean.SentenceBasedOn;
 import com.srj.web.tools.hanlp.beta.clean.SentenceDetail;
+import com.srj.web.tools.hanlp.beta.clean.SentenceIF;
 import com.srj.web.util.StringUtil;
 
 import java.util.List;
@@ -21,8 +22,10 @@ public class CleanDataStep {
         String str = SentenceDetail.method(text);
         //清除【依据】【根据】等法律条文
         String str2 = SentenceBasedOn.method(str);
+        //清除【如】【若】等不确定的词汇
+        String str3 = SentenceIF.method(str2);
 
-        String finalStr = str2;
+        String finalStr = str3;
         return finalStr;
     }
 

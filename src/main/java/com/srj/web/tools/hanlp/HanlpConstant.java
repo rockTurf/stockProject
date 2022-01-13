@@ -23,8 +23,10 @@ public class HanlpConstant {
     /**
      * 如果包含如下关键词，逗号或句号分隔的短句会被删掉
      * */
-    //这个是逗号分割的短句
+    //这个是详见关键词
     public static final String[] USELESS_WORD_DETAIL = {"详见"};
-    //这个是句号分割的长句
+    //这个是根据关键词
     public static final String[] USELESS_WORD_BASE_ON = {"根据","依据"};
+    //这个是如果关键词
+    public static final String[] USELESS_WORD_IF = {"若","如"};
 }

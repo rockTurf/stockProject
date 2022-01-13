@@ -1,6 +1,8 @@
 package com.srj.web.tools.hanlp.type;
 
 import com.hankcs.hanlp.seg.common.Term;
+import com.srj.web.tools.hanlp.HanlpConstant;
+import com.srj.web.util.StringUtil;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.*;
@@ -9,6 +11,11 @@ import java.util.*;
  * HANLP 清洗词库的工具包
  * */
 public class HanlpCleanTool {
+
+    /**
+     * 末位符号换行
+     */
+    private static final String[] LAST_FLAG_TAG = {"。","：",":"};
 
     /**
      * 清洗掉空值的元素
@@ -85,13 +92,12 @@ public class HanlpCleanTool {
                 return true;
             }
         }
-        //最后一位为句号
+        //最后一位为句号或者冒号
         String endStrOne = str.substring(str.length()-1,str.length());
-        if("。".equals(endStrOne)){
+        if(StringUtil.isIncludeArray(endStrOne, LAST_FLAG_TAG)){
             return true;
         }
         //句长不超过行宽个字且最后一位不是句号
-        //System.out.println(str+"-----"+"长度="+str.length());
         if(str.length()<=lineCount){
            return true;
         }
@@ -117,7 +123,7 @@ public class HanlpCleanTool {
         int top2 = list.get(1);
         int top3 = list.get(2);
         int top4 = list.get(3);
-        int ave = top1/2;
+        int ave = top1*2/3;
         //System.out.println("行宽="+ave);
         return ave;
     }
